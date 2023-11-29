@@ -17,3 +17,8 @@
     gap: 28px;
     margin-right: 10px;
 }
+
+.header-tabela {
+    background: var(--cor-1);
+    padding: 24px 0 24px 0;
+}
