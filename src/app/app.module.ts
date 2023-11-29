@@ -3,10 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PaginaAntecipacaoComponent } from './components/pagina-antecipacao/pagina-antecipacao.component';
+import { BotaoTemaComponent } from './components/botao-tema/botao-tema.component';
+import { BotaoHomeComponent } from './components/botao-home/botao-home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PaginaAntecipacaoComponent,
+    BotaoTemaComponent,
+    BotaoHomeComponent
   ],
   imports: [
     BrowserModule,
