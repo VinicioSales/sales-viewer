@@ -45,18 +45,44 @@
     width: 20%
 }
 
-.header-tabela {
+.header-tabela,
+.linha-tabela {
     display: grid;
     background: var(--cor-1);
-    padding: 30px 79px 30px 79px;
+    padding: 30px 23px 30px 23px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:    "col-1 col-2 col-3 col-4 col-5";
 }
 
 .header-tabela {
     color: var(--cor-cinza);
+    margin-top: 11px;
+}
+
+.menu-header-tabela,
+.menu-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
 }
 
 .checkbox {
     color: var(--cor-2);
+    transform: scale(0.9);
 }
+
+
+.linha-tabela {
+    margin-top: 5px;
+}
+
+.numero-pedido,
+.data-inclusao,
+.previsao-faturamento,
+.valor-venda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

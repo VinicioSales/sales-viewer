@@ -14,7 +14,7 @@ export class PaginaAntecipacaoComponent {
       dataInclusao: "04/12/2023",
       previsaoFaturamento: "04/12/2023",
       valor: 500.00,
-      mostrarProdutos: true,
+      mostrarProdutos: false,
       produtos: [
         {
           descricaoProduto: "Lorem ipsum dolor sit amet",

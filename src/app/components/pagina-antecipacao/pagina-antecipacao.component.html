@@ -25,17 +25,20 @@
         </div>
     </div>
     <div class="header-tabela">
-        <mat-checkbox class="checkbox"></mat-checkbox>
+        <div class="menu-header-tabela">
+            <div class="blank"></div>
+            <mat-checkbox class="checkbox"></mat-checkbox>
+        </div>
         <div class="numero-pedido">NUMERO PEDIDO</div>
         <div class="data-inclusao">DATA INCLUSÃO</div>
         <div class="previsao-faturamento">PREVISÃO FATURAMENTO</div>
-        <div class="valor">VALOR</div>
+        <div class="valor-venda">VALOR</div>
     </div>
     <ng-container *ngFor="let venda of vendas">
         <div class="linha-tabela">
             <div class="menu-linha">
                 <app-botao-dropdown></app-botao-dropdown>
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox class="checkbox"></mat-checkbox>
             </div>
             <div class="numero-pedido">{{ venda.numeroPedido }}</div>
             <div class="data-inclusao">{{ venda.dataInclusao }}</div>
