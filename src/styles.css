@@ -49,6 +49,7 @@ body{
     --botao-vermelho: #DB4242;
     --cor-botao-hover: #561111;
     --botao-verde-hover: #21512d;
+    --font-light: 'Blinker-Light;'
     font-family: "Blinker-Regular";
     --botao-vermelho-hover: #c73131;
     --font-semiBold: 'Blinker-Semibold';

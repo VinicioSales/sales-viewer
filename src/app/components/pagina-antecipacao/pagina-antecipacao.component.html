@@ -46,12 +46,12 @@
             <div class="valor-venda">{{ venda.valorVenda }}</div>
         </div>
         <ng-container *ngIf="venda.mostrarProdutos">
+            <div class="header-dropdown-produtos">
+                <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>
+                <div class="valor-produto">VALOR</div>
+                <div class="unidade-medida">UNIDADE MEDIDA</div>
+            </div>
             <div class="dropdown-produtos" *ngFor="let produto of venda.produtos">
-                <div class="header-dropdown-produtos">
-                    <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>
-                    <div class="valor-produto">VALOR</div>
-                    <div class="unidade-medida">UNIDADE MEDIDA</div>
-                </div>
                 <div class="linha-dropdown-produtos">
                     <div class="descricao-produto">{{ produto.descricaoProduto }}</div>
                     <div class="valor-produto">{{ produto.valorProduto }}</div>
