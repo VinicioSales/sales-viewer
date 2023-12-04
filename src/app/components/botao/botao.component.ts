@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./botao.component.css']
 })
 export class BotaoComponent {
-  @Input() width: string = "292px"
+  @Input() width: string = "100%"
   @Input() height: string = "39px"
   @Input() texto: string = "botao"
   @Input() backgroundHover: string = '';

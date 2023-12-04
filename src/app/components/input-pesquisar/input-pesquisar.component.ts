@@ -10,7 +10,7 @@ import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angu
   styleUrls: ['./input-pesquisar.component.css']
 })
 export class InputPesquisarComponent implements OnInit, OnDestroy{
-  @Input() width: string = '293px';
+  @Input() width: string = '100%';
   @Input() height: string = '50px';
   @Input() placeholder: string = 'input';
 

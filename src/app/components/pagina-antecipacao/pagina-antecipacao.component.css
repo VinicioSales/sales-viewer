@@ -1,5 +1,6 @@
+
 .header {
-    padding: 0 50px 0 50px;
+    padding: 11px 50px 11px 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -15,10 +16,42 @@
 .menu-header {
     display: flex;
     gap: 28px;
+    right: 0;
     margin-right: 10px;
 }
 
-.header-tabela {
+.pagina {
+    display: flex;
+    padding: 0 51px 0 51px;
+    flex-direction: column;
+}
+
+.contianer-pesquisa {
+    margin-top: 16px;
+    padding: 36px 17px 36px 17px;
+    display: flex;
     background: var(--cor-1);
-    padding: 24px 0 24px 0;
+    gap: 26px;
+}
+
+.pesquisa-produto {
+    width: 40%;
+}
+
+.pesquisa-numero-pedido,
+.pesquisa-data-inclusao,
+.pesquisa-valor,
+.mais-produtos {
+    width: 20%
+}
+
+.pesquisa-numero-pedido {
+}
+
+.pesquisa-data-inclusao {
+}
+
+.pesquisa-valor {
+}
+.mais-produtos {
 }
