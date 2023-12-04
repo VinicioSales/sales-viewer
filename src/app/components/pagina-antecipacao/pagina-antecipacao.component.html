@@ -1,13 +1,60 @@
 <div class="header">
-    <div class="titulo">Antecipação De Vendas</div>
+    <div class="titulo">Adiantamento De Vendas</div>
     <nav class="menu-header">
         <app-botao-tema></app-botao-tema>
         <app-botao-home (click)="home()"></app-botao-home>
     </nav>
 </div>
-<div class="header-tabela">
-    <div class="numero-pedido">
-        <div class="texto-titulo">NÚMERO PEDIDO</div>
-        <app-input-dropdown  height="19px"></app-input-dropdown>
+<div class="contianer-pesquisa">
+    <div class="pesquisa-produto">
+        <app-input-pesquisar></app-input-pesquisar>
     </div>
+    <div class="pesquisa-numero-pedido">
+        <app-input-pesquisar></app-input-pesquisar>
+    </div>
+    <div class="pesquisa-data-inclusao">
+        <app-input-pesquisar></app-input-pesquisar>
+    </div>
+    <div class="pesquisa-valor">
+        <app-input-pesquisar></app-input-pesquisar>
+    </div>
+    <div class="mais-produtos">
+        <app-botao texto="Mais filtros"></app-botao>
+    </div>
+</div>
+<div class="header-tabela">
+    <mat-checkbox></mat-checkbox>
+    <div class="numero-pedido">NUMERO PEDIDO</div>
+    <div class="data-inclusao">DATA INCLUSÃO</div>
+    <div class="previsao-faturamento">PREVISÃO FATURAMENTO</div>
+    <div class="valor">VALOR</div>
+</div>
+<ng-container *ngFor="let venda of vendas">
+    <div class="linha-tabela">
+        <div class="menu-linha">
+            <app-botao-dropdown></app-botao-dropdown>
+            <mat-checkbox></mat-checkbox>
+        </div>
+        <div class="numero-pedido">{{ venda.numeroPedido }}</div>
+        <div class="data-inclusao">{{ venda.dataInclusao }}</div>
+        <div class="previsao-faturamento">{{ venda.previsaoFaturamento }}</div>
+        <div class="valor-venda">{{ venda.valorVenda }}</div>
+        <ng-container *ngIf="venda.mostrarProdutos">
+            <div class="dropdown-produtos" *ngFor="let produto of venda.produtos">
+                <div class="header-dropdown-produtos">
+                    <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>
+                    <div class="valor-produto">VALOR</div>
+                    <div class="unidade-medida">UNIDADE MEDIDA</div>
+                </div>
+                <div class="linha-dropdown-produtos">
+                    <div class="descricao-produto">{{ produto.descricaoProduto }}</div>
+                    <div class="valor-produto">{{ produto.valorProduto }}</div>
+                    <div class="unidade-medida">{{ produto.unidadeMedidaProduto }}</div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-container>
+<div class="footer">
+    <app-botao texto="Adiantar"></app-botao>
 </div>
