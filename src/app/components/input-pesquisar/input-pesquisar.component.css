@@ -4,6 +4,7 @@
     border-radius: 8px;
     box-shadow: 0px 0px 8px 0px rgba(25, 40, 71, 0.08);
     font-size: 0.8rem;
+    background: var(--cor-3);
 }
 
 .container-input-pesquisar:focus {

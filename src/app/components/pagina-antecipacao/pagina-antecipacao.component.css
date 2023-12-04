@@ -45,13 +45,18 @@
     width: 20%
 }
 
-.pesquisa-numero-pedido {
+.header-tabela {
+    display: grid;
+    background: var(--cor-1);
+    padding: 30px 79px 30px 79px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:    "col-1 col-2 col-3 col-4 col-5";
 }
 
-.pesquisa-data-inclusao {
+.header-tabela {
+    color: var(--cor-cinza);
 }
 
-.pesquisa-valor {
-}
-.mais-produtos {
+.checkbox {
+    color: var(--cor-2);
 }

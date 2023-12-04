@@ -41,16 +41,17 @@
 body{
     margin: 0;
     height: 100%;
-    font-family: "Blinker-Regular";
+    --cor-cinza: #878787;
+    --cor-cinza: #878787;
     --cor-botao: #141414;
-    --cor-botao-hover: #561111;
     --cor-texto-botao: #FFF;
     --botao-verde: #366731;
-    --botao-verde-hover: #21512d;
     --botao-vermelho: #DB4242;
+    --cor-botao-hover: #561111;
+    --botao-verde-hover: #21512d;
+    font-family: "Blinker-Regular";
     --botao-vermelho-hover: #c73131;
-    --cor-cinza: #878787;
-    --font-semiBold: 'Blinker-Semibold'
+    --font-semiBold: 'Blinker-Semibold';
 }
 
 button{
@@ -58,15 +59,17 @@ button{
     cursor: pointer;
 }
 :root{
-    --background: #F0F0F0;
+    --cor-3: #FFF;
     --cor-1: #F9F9F9;
     --cor-2: #141414;
+    --background: #F0F0F0;
 }
 
 :root .dark-theme{
-    --background: #141414;
-    --cor-1: #262626;
     --cor-2: #FFF;
+    --cor-1: #262626;
+    --cor-3: #141414;
+    --background: #141414;
 }
 
 html, body { height: 100%; font-size: 14px;}
