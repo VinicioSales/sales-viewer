@@ -46,7 +46,8 @@
 }
 
 .header-tabela,
-.linha-tabela {
+.linha-tabela,
+.header-dropdown-produtos {
     display: grid;
     background: var(--cor-1);
     padding: 30px 23px 30px 23px;
@@ -84,5 +85,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.dropdown-produtos {
+    margin-top: 2px;
+
+}
+
+.header-dropdown-produtos {
+    padding: 7px 0 7px 0;
+    gap: 2px;
+}
+
+.descricao-produto,
+.valor-produto,
+.unidade-medida {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--cor-cinza);
+}
+
+.descricao-produto {
+    grid-area: col-2;
+}
+
+.valor-produto {
+    grid-area: col-3;
+}
+
+.unidade-medida {
+    grid-area: col-4;
 }
 

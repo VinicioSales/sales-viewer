@@ -44,21 +44,21 @@
             <div class="data-inclusao">{{ venda.dataInclusao }}</div>
             <div class="previsao-faturamento">{{ venda.previsaoFaturamento }}</div>
             <div class="valor-venda">{{ venda.valorVenda }}</div>
-            <ng-container *ngIf="venda.mostrarProdutos">
-                <div class="dropdown-produtos" *ngFor="let produto of venda.produtos">
-                    <div class="header-dropdown-produtos">
-                        <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>
-                        <div class="valor-produto">VALOR</div>
-                        <div class="unidade-medida">UNIDADE MEDIDA</div>
-                    </div>
-                    <div class="linha-dropdown-produtos">
-                        <div class="descricao-produto">{{ produto.descricaoProduto }}</div>
-                        <div class="valor-produto">{{ produto.valorProduto }}</div>
-                        <div class="unidade-medida">{{ produto.unidadeMedidaProduto }}</div>
-                    </div>
-                </div>
-            </ng-container>
         </div>
+        <ng-container *ngIf="venda.mostrarProdutos">
+            <div class="dropdown-produtos" *ngFor="let produto of venda.produtos">
+                <div class="header-dropdown-produtos">
+                    <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>
+                    <div class="valor-produto">VALOR</div>
+                    <div class="unidade-medida">UNIDADE MEDIDA</div>
+                </div>
+                <div class="linha-dropdown-produtos">
+                    <div class="descricao-produto">{{ produto.descricaoProduto }}</div>
+                    <div class="valor-produto">{{ produto.valorProduto }}</div>
+                    <div class="unidade-medida">{{ produto.unidadeMedidaProduto }}</div>
+                </div>
+            </div>
+        </ng-container>
     </ng-container>
     <div class="footer">
         <app-botao texto="Adiantar"></app-botao>
