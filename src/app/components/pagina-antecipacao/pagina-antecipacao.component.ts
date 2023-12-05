@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
+import { MockService } from 'src/app/mock/mock.service'
 
 
 @Component({
@@ -209,6 +210,7 @@ export class PaginaAntecipacaoComponent {
   //NOTE - constructor
   constructor(
     private router: Router,
+    private mockService: MockService,
   ) {}
 
   //NOTE - home

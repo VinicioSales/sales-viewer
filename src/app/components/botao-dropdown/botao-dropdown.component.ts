@@ -11,6 +11,8 @@ export class BotaoDropdownComponent {
   public imgSrc?: string;
   private imgTemaClaro: string = 'assets/img/botao-dropdown-light-mode.png';
   private imgTemaEscuro: string = 'assets/img/botao-dropdown-dark-mode.png';
+
+  dropdownAtivo: boolean = false;
   
   @Output() botaoClicado = new EventEmitter<void>();
   
