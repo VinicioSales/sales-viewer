@@ -34,33 +34,39 @@
         <div class="previsao-faturamento">PREVISÃO FATURAMENTO</div>
         <div class="valor-venda">VALOR</div>
     </div>
-    <ng-container *ngFor="let venda of vendas">
-        <div class="linha-tabela">
-            <div class="menu-linha">
-                <app-botao-dropdown></app-botao-dropdown>
-                <mat-checkbox class="checkbox"></mat-checkbox>
-            </div>
-            <div class="numero-pedido">{{ venda.numeroPedido }}</div>
-            <div class="data-inclusao">{{ venda.dataInclusao }}</div>
-            <div class="previsao-faturamento">{{ venda.previsaoFaturamento }}</div>
-            <div class="valor-venda">{{ venda.valorVenda }}</div>
-        </div>
-        <ng-container *ngIf="venda.mostrarProdutos">
-            <div class="header-dropdown-produtos">
-                <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>
-                <div class="valor-produto">VALOR</div>
-                <div class="unidade-medida">UNIDADE MEDIDA</div>
-            </div>
-            <div class="dropdown-produtos" *ngFor="let produto of venda.produtos">
-                <div class="linha-dropdown-produtos">
-                    <div class="descricao-produto">{{ produto.descricaoProduto }}</div>
-                    <div class="valor-produto">{{ produto.valorProduto }}</div>
-                    <div class="unidade-medida">{{ produto.unidadeMedidaProduto }}</div>
+    <div class="tabela">
+        <ng-container *ngFor="let venda of vendas">
+            <div class="linha-tabela">
+                <div class="menu-linha">
+                    <app-botao-dropdown></app-botao-dropdown>
+                    <mat-checkbox class="checkbox"></mat-checkbox>
                 </div>
+                <div class="numero-pedido">{{ venda.numeroPedido }}</div>
+                <div class="data-inclusao">{{ venda.dataInclusao }}</div>
+                <div class="previsao-faturamento">{{ venda.previsaoFaturamento }}</div>
+                <div class="valor-venda">{{ venda.valorVenda }}</div>
             </div>
+            <ng-container *ngIf="venda.mostrarProdutos">
+                <div class="container-header-dropdown-protudos">
+                    <div class="header-dropdown-produtos">
+                        <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>
+                        <div class="valor-produto">VALOR</div>
+                        <div class="unidade-medida">UNIDADE MEDIDA</div>
+                    </div>
+                </div>
+                <div class="dropdown-produtos" *ngFor="let produto of venda.produtos">
+                    <div class="linha-dropdown-produtos">
+                        <div class="descricao-produto">{{ produto.descricaoProduto }}</div>
+                        <div class="valor-produto">{{ produto.valorProduto }}</div>
+                        <div class="unidade-medida">{{ produto.unidadeMedidaProduto }}</div>
+                    </div>
+                </div>
+            </ng-container>
         </ng-container>
-    </ng-container>
+    </div>
     <div class="footer">
-        <app-botao texto="Adiantar"></app-botao>
+        <div class="botao-adiantar">
+            <app-botao [background]="corBotaoAdicionar" [backgroundHover]="corBotaoAdicionarHover" texto="Adiantar"></app-botao>
+        </div>
     </div>
 </div>
