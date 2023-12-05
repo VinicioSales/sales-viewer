@@ -5,7 +5,8 @@ Todas as mudanças do projeto serão documentados neste arquivo.
 Added
 - Finalizado codigo tela de adiantamento (vinicio)
 - Iniciado script tela de adiantamento (vinicio)
-- 
+- Código tela de registro (victor)
+- Criado componente logo parceiro (victor)
 
 [0.0] - 04-12-2023
 Added
