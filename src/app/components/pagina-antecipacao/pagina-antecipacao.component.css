@@ -1,6 +1,6 @@
 
 .header {
-    padding: 11px 50px 11px 50px;
+    padding: 8px 50px 8px 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -24,10 +24,11 @@
     display: flex;
     padding: 0 51px 0 51px;
     flex-direction: column;
+    
 }
 
 .contianer-pesquisa {
-    margin-top: 16px;
+    margin-top: 12px;
     padding: 36px 17px 36px 17px;
     display: flex;
     background: var(--cor-1);
@@ -153,7 +154,7 @@
 
 .footer {
     margin: 10px 0 10px 0;
-    padding: 23px 24px 23px 24px;
+    padding: 18px 24px 18px 24px;
     background: var(--cor-1);
     display: flex;
     justify-content: end;
