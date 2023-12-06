@@ -1,7 +1,9 @@
+import { catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Venda } from 'src/app/interfaces/venda'
 import { Component, OnInit } from '@angular/core';
 import { MockService } from 'src/app/mock/mock.service'
+import { LogService } from 'src/app/services/log/log.service';
 
 
 @Component({
@@ -23,13 +25,20 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - constructor
   constructor(
     private router: Router,
+    private logService: LogService,
     private mockService: MockService,
   ) {}
 
   //NOTE - ngOnInit
   ngOnInit(): void {
     //FIXME - TROCAR MOCK
-    this.mockService.getVendas().subscribe((data: Venda[]) => {
+    this.mockService.getVendas().pipe(
+      catchError((error) => {
+        console.error(`Erro ao buscar vendas: ${error}`)
+        this.logService.error(`PaginaAntecipacaoComponent - ngOnInit: ${error}`)
+        return of([]);
+      })
+    ).subscribe((data: Venda[]) => {
       this.listaVendas = data;
       this.listaProdutosDescricao = this.listaVendas.flatMap(venda => venda.produtos.map(produto => produto.descricaoProduto))
       this.listaNumeroPedido = this.listaVendas.flatMap(venda => venda.numeroPedido)
