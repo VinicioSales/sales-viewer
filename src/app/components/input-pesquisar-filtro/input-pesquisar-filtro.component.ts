@@ -129,7 +129,6 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
     } else {
       const textoPesquisadoMinusculo = this.textoPesquisado.toLowerCase();
       this.itensFiltrados = this.itens.filter(item => {
-        // Se o item for um número, convertê-lo em string
         const itemStr = typeof item === 'number' ? item.toString() : item.toLowerCase();
         return itemStr.includes(textoPesquisadoMinusculo);
       });

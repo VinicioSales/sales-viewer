@@ -77,7 +77,7 @@
 }
 
 .checkbox {
-    color: var(--cor-2);
+    color: red;
     transform: scale(0.9);
 }
 
