@@ -28,6 +28,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - ngOnInit
   ngOnInit(): void {
+    //FIXME - TROCAR MOCK
     this.mockService.getVendas().subscribe((data: Venda[]) => {
       this.listaVendas = data;
       this.listaProdutosDescricao = this.listaVendas.flatMap(venda => venda.produtos.map(produto => produto.descricaoProduto))
