@@ -11,8 +11,9 @@ import { MockService } from 'src/app/mock/mock.service'
 })
 export class PaginaAntecipacaoComponent implements OnInit {
   listaVendas?: Venda[];
-  dropdownProdutosAtivo: boolean = false;
   mostrarProdutos: boolean = false;
+  listaProdutosDescricao: string[] = [];
+  dropdownProdutosAtivo: boolean = false;
   corBotaoAdicionar: string = "var(--botao-verde)"
   corBotaoAdicionarHover: string = "var(--botao-verde-hover)"
 
@@ -26,6 +27,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   ngOnInit(): void {
     this.mockService.getVendas().subscribe((data: Venda[]) => {
       this.listaVendas = data;
+      this.listaProdutosDescricao = this.listaVendas.flatMap(venda => venda.produtos.map(produto => produto.descricaoProduto))
     });
   }
 

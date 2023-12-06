@@ -9,7 +9,8 @@
 <div class="pagina">
     <div class="contianer-pesquisa">
         <div class="pesquisa-produto">
-            <app-input-pesquisar placeholder="produtos" height="19px"></app-input-pesquisar>
+            <!-- <app-input-pesquisar placeholder="produtos" height="19px"></app-input-pesquisar> -->
+            <app-input-pesquisar-filtro height="19px" [itens]="listaProdutosDescricao"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-numero-pedido">
             <app-input-pesquisar placeholder="número pedido" height="19px"></app-input-pesquisar>

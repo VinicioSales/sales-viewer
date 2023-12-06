@@ -13,6 +13,7 @@ import { InputDropdownComponent } from './components/input-dropdown/input-dropdo
 import { InputPesquisarComponent } from './components/input-pesquisar/input-pesquisar.component';
 import { PaginaAntecipacaoComponent } from './components/pagina-antecipacao/pagina-antecipacao.component';
 import { BotaoDropdownComponent } from './components/botao-dropdown/botao-dropdown.component';
+import { InputPesquisarFiltroComponent } from './components/input-pesquisar-filtro/input-pesquisar-filtro.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { BotaoDropdownComponent } from './components/botao-dropdown/botao-dropdo
     InputPesquisarComponent,
     PaginaAntecipacaoComponent,
     BotaoDropdownComponent,
+    InputPesquisarFiltroComponent,
   ],
   imports: [
     FormsModule,
