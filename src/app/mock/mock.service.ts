@@ -15,22 +15,22 @@ export class MockService {
     this.vendas = [
       {
         numeroPedido: 123456,
-        dataInclusao: "04/12/2023",
-        previsaoFaturamento: "04/12/2023",
-        valorVenda: 500.00,
+        dataInclusao: "06/12/2023",
+        previsaoFaturamento: "06/12/2023",
+        valorVenda: 111.00,
         produtos: [
           {
-            descricaoProduto: "Lorem ipsum dolor sit amet",
+            descricaoProduto: "1Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
             unidadeMedidaProduto: "UN"
           },
           {
-            descricaoProduto: "Lorem ipsum dolor sit amet",
+            descricaoProduto: "2Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
             unidadeMedidaProduto: "UN"
           },
           {
-            descricaoProduto: "Lorem ipsum dolor sit amet",
+            descricaoProduto: "3Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
             unidadeMedidaProduto: "UN"
           },
@@ -40,7 +40,7 @@ export class MockService {
         numeroPedido: 123456,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
-        valorVenda: 500.00,
+        valorVenda: 600.00,
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",

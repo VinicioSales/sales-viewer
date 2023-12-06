@@ -12,9 +12,9 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
   private subscription = new Subscription();
   
   // Inputs
-  @Input() width: string = '293px';
+  @Input() width: string = '100%';
   @Input() height: string = '50px';
-  @Input() itens: string[] = [];
+  @Input() itens: any[] = [];
   @Input() placeholder: string = 'input';
 
   // Variáveis
@@ -128,9 +128,14 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
       this.itensFiltrados = [...this.itens];
     } else {
       const textoPesquisadoMinusculo = this.textoPesquisado.toLowerCase();
-      this.itensFiltrados = this.itens.filter(item => item.toLowerCase().includes(textoPesquisadoMinusculo));
+      this.itensFiltrados = this.itens.filter(item => {
+        // Se o item for um número, convertê-lo em string
+        const itemStr = typeof item === 'number' ? item.toString() : item.toLowerCase();
+        return itemStr.includes(textoPesquisadoMinusculo);
+      });
     }
   }
+  
 
   //NOTE - selecionarItem
   selecionarItem(item: string) {

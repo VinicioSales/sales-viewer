@@ -11,7 +11,10 @@ import { MockService } from 'src/app/mock/mock.service'
 })
 export class PaginaAntecipacaoComponent implements OnInit {
   listaVendas?: Venda[];
+  listaValorVenda: number[] = [];
   mostrarProdutos: boolean = false;
+  listaNumeroPedido: number[] = [];
+  listaDataInclusao: string[] = [];
   listaProdutosDescricao: string[] = [];
   dropdownProdutosAtivo: boolean = false;
   corBotaoAdicionar: string = "var(--botao-verde)"
@@ -28,6 +31,9 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.mockService.getVendas().subscribe((data: Venda[]) => {
       this.listaVendas = data;
       this.listaProdutosDescricao = this.listaVendas.flatMap(venda => venda.produtos.map(produto => produto.descricaoProduto))
+      this.listaNumeroPedido = this.listaVendas.flatMap(venda => venda.numeroPedido)
+      this.listaDataInclusao = this.listaVendas.flatMap(venda => venda.dataInclusao)
+      this.listaValorVenda = this.listaVendas.flatMap(venda => venda.valorVenda)
     });
   }
 

@@ -9,17 +9,16 @@
 <div class="pagina">
     <div class="contianer-pesquisa">
         <div class="pesquisa-produto">
-            <!-- <app-input-pesquisar placeholder="produtos" height="19px"></app-input-pesquisar> -->
-            <app-input-pesquisar-filtro height="19px" [itens]="listaProdutosDescricao"></app-input-pesquisar-filtro>
+            <app-input-pesquisar-filtro height="19px" placeholder="produtos" [itens]="listaProdutosDescricao"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-numero-pedido">
-            <app-input-pesquisar placeholder="número pedido" height="19px"></app-input-pesquisar>
+            <app-input-pesquisar-filtro height="19px" placeholder="numero pedido" [itens]="listaNumeroPedido"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-data-inclusao">
-            <app-input-pesquisar placeholder="data inclusão" height="19px"></app-input-pesquisar>
+            <app-input-pesquisar-filtro height="19px" placeholder="data inclusão" [itens]="listaDataInclusao"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-valor">
-            <app-input-pesquisar placeholder="valor" height="19px"></app-input-pesquisar>
+            <app-input-pesquisar-filtro height="19px" placeholder="valor" [itens]="listaValorVenda"></app-input-pesquisar-filtro>
         </div>
         <div class="mais-produtos">
             <app-botao texto="Mais filtros" height="16px"></app-botao>
