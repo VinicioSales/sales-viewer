@@ -1,6 +1,13 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+[0.0] - 06-12-2023
+Added
+- Atualização componentes inputs pesquisa (vinicio)
+- Criado sistema de logs (vinicio)
+- Criado Mock para testes pagina antecipacao (vinicio)
+- Criado interfaces de vendas e produtos (vinicio)
+
 [0.0] - 05-12-2023
 Added
 - Finalizado codigo tela de adiantamento (vinicio)
