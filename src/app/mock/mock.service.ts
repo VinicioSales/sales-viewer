@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Venda } from 'src/app/interfaces/venda'
 
 @Injectable({
   providedIn: 'root'
 })
 export class MockService {
+  vendas!: Venda[];
 
   constructor() { }
 
   //NOTE - getVendas
-  getVendas(): Observable<any> {
-    const vendas = [
+  getVendas(): Observable<Venda[]> {
+    this.vendas = [
       {
         numeroPedido: 123456,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
-        valor: 500.00,
-        mostrarProdutos: false,
+        valorVenda: 500.00,
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -39,8 +40,7 @@ export class MockService {
         numeroPedido: 123456,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
-        valor: 500.00,
-        mostrarProdutos: true,
+        valorVenda: 500.00,
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -63,8 +63,7 @@ export class MockService {
         numeroPedido: 123456,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
-        valor: 500.00,
-        mostrarProdutos: false,
+        valorVenda: 500.00,
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -87,8 +86,7 @@ export class MockService {
         numeroPedido: 123456,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
-        valor: 500.00,
-        mostrarProdutos: false,
+        valorVenda: 500.00,
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -111,8 +109,7 @@ export class MockService {
         numeroPedido: 123456,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
-        valor: 500.00,
-        mostrarProdutos: false,
+        valorVenda: 500.00,
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -135,8 +132,7 @@ export class MockService {
         numeroPedido: 123456,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
-        valor: 500.00,
-        mostrarProdutos: false,
+        valorVenda: 500.00,
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -159,8 +155,7 @@ export class MockService {
         numeroPedido: 123456,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
-        valor: 500.00,
-        mostrarProdutos: false,
+        valorVenda: 500.00,
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -183,8 +178,7 @@ export class MockService {
         numeroPedido: 123456,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
-        valor: 500.00,
-        mostrarProdutos: false,
+        valorVenda: 500.00,
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -205,6 +199,6 @@ export class MockService {
       },
     ]
 
-    return of(vendas)
+    return of(this.vendas)
   }
 }

@@ -35,7 +35,7 @@
         <div class="valor-venda">VALOR</div>
     </div>
     <div class="tabela">
-        <ng-container *ngFor="let venda of vendas">
+        <ng-container *ngFor="let venda of listaVendas">
             <div class="linha-tabela">
                 <div class="menu-linha">
                     <app-botao-dropdown></app-botao-dropdown>
@@ -46,7 +46,7 @@
                 <div class="previsao-faturamento">{{ venda.previsaoFaturamento }}</div>
                 <div class="valor-venda">{{ venda.valorVenda }}</div>
             </div>
-            <ng-container *ngIf="venda.mostrarProdutos">
+            <ng-container *ngIf="mostrarProdutos">
                 <div class="container-header-dropdown-protudos">
                     <div class="header-dropdown-produtos">
                         <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>

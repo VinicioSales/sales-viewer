@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Venda } from 'src/app/interfaces/venda'
+import { Component, OnInit } from '@angular/core';
 import { MockService } from 'src/app/mock/mock.service'
 
 
@@ -8,210 +9,24 @@ import { MockService } from 'src/app/mock/mock.service'
   templateUrl: './pagina-antecipacao.component.html',
   styleUrls: ['./pagina-antecipacao.component.css']
 })
-export class PaginaAntecipacaoComponent {
+export class PaginaAntecipacaoComponent implements OnInit {
+  listaVendas?: Venda[];
+  mostrarProdutos: boolean = false;
   corBotaoAdicionar: string = "var(--botao-verde)"
   corBotaoAdicionarHover: string = "var(--botao-verde-hover)"
-  vendas: any[] = [
-    {
-      numeroPedido: 123456,
-      dataInclusao: "04/12/2023",
-      previsaoFaturamento: "04/12/2023",
-      valor: 500.00,
-      mostrarProdutos: false,
-      produtos: [
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-      ]
-    },
-    {
-      numeroPedido: 123456,
-      dataInclusao: "04/12/2023",
-      previsaoFaturamento: "04/12/2023",
-      valor: 500.00,
-      mostrarProdutos: true,
-      produtos: [
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-      ]
-    },
-    {
-      numeroPedido: 123456,
-      dataInclusao: "04/12/2023",
-      previsaoFaturamento: "04/12/2023",
-      valor: 500.00,
-      mostrarProdutos: false,
-      produtos: [
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-      ]
-    },
-    {
-      numeroPedido: 123456,
-      dataInclusao: "04/12/2023",
-      previsaoFaturamento: "04/12/2023",
-      valor: 500.00,
-      mostrarProdutos: false,
-      produtos: [
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-      ]
-    },
-    {
-      numeroPedido: 123456,
-      dataInclusao: "04/12/2023",
-      previsaoFaturamento: "04/12/2023",
-      valor: 500.00,
-      mostrarProdutos: false,
-      produtos: [
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-      ]
-    },
-    {
-      numeroPedido: 123456,
-      dataInclusao: "04/12/2023",
-      previsaoFaturamento: "04/12/2023",
-      valor: 500.00,
-      mostrarProdutos: false,
-      produtos: [
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-      ]
-    },
-    {
-      numeroPedido: 123456,
-      dataInclusao: "04/12/2023",
-      previsaoFaturamento: "04/12/2023",
-      valor: 500.00,
-      mostrarProdutos: false,
-      produtos: [
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-      ]
-    },
-    {
-      numeroPedido: 123456,
-      dataInclusao: "04/12/2023",
-      previsaoFaturamento: "04/12/2023",
-      valor: 500.00,
-      mostrarProdutos: false,
-      produtos: [
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-        {
-          descricaoProduto: "Lorem ipsum dolor sit amet",
-          valorProduto: 100.00,
-          unidadeMedidaProduto: "UN"
-        },
-      ]
-    },
-    
-  ];
 
   //NOTE - constructor
   constructor(
     private router: Router,
     private mockService: MockService,
   ) {}
+
+  //NOTE - ngOnInit
+  ngOnInit(): void {
+    this.mockService.getVendas().subscribe((data: Venda[]) => {
+      this.listaVendas = data;
+    });
+  }
 
   //NOTE - home
   home() {
