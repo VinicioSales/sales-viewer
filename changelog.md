@@ -7,6 +7,8 @@ Added
 - Criado sistema de logs (vinicio)
 - Criado Mock para testes pagina antecipacao (vinicio)
 - Criado interfaces de vendas e produtos (vinicio)
+- Iniciado tela de acessos (victor)
+- Corrigindo erros da tela de registro (victor)
 
 [0.0] - 05-12-2023
 Added
