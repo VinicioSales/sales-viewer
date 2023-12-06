@@ -11,6 +11,7 @@ import { MockService } from 'src/app/mock/mock.service'
 })
 export class PaginaAntecipacaoComponent implements OnInit {
   listaVendas?: Venda[];
+  dropdownProdutosAtivo: boolean = false;
   mostrarProdutos: boolean = false;
   corBotaoAdicionar: string = "var(--botao-verde)"
   corBotaoAdicionarHover: string = "var(--botao-verde-hover)"
