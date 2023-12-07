@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { TemaService } from '../../services/tema/tema.service';
 import { ImagemService } from 'src/app/services/imagem/imagem.service';
-import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, OnInit, OnDestroy, SimpleChanges, HostListener  } from '@angular/core';
+import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, OnInit, OnDestroy, SimpleChanges, HostListener, } from '@angular/core';
 
 @Component({
   selector: 'app-input-pesquisar-filtro',
@@ -35,6 +35,7 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
   @Output() itemSelecionadoChange = new EventEmitter<string>();
 
   // Viewchild
+  @ViewChild('inputRef') inputRef!: ElementRef;
   @ViewChild('containerRef') containerRef!: ElementRef;
   
   constructor(private temaService: TemaService, private imagemService: ImagemService) {
@@ -143,6 +144,8 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
     this.mostrarDropdown = !this.mostrarDropdown;
     this.handleBorderRadius();
     this.itemSelecionadoChange.emit(item);
+
+    this.inputRef.nativeElement.focus();
   }
 
   //NOTE - onEnter
