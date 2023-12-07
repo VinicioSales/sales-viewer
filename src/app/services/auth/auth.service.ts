@@ -8,9 +8,11 @@ import { urlBackend, rotaLogin, rotaEsqueciSenha, rotaRedefinirSenha, rotaRegist
   providedIn: 'root'
 })
 export class AuthService {
+  
 
   constructor(  
     private http: HttpClient,
+    private router: Router 
 ) { }
 
  //NOTE - Registrar usuário
@@ -36,4 +38,10 @@ redefinirSenha(novaSenha: string, codigoVerificacao: string): Observable<any> {
     recuperarSenha(email: string): Observable<any> {
       return this.http.post(`${urlBackend}${rotaEsqueciSenha}`, { email });
     }
+
+      //NOTE - logout
+  logout(): void {
+    localStorage.removeItem('token_de_autenticacao');
+    this.router.navigate(['/login']);
+  }
 }

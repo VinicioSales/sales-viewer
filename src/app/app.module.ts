@@ -23,6 +23,8 @@ import { RedefinirSenhaComponent } from './components/redefinir-senha/redefinir-
 import { LoginComponent } from './components/login/login.component';
 import { CarregamentoComponent } from './components/carregamento/carregamento.component';
 import { EsqueciSenhaComponent } from './components/esqueci-senha/esqueci-senha.component';
+import { HomeComponent } from './components/home/home.component';
+import { BotaoSairComponent } from './components/botao-sair/botao-sair.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { EsqueciSenhaComponent } from './components/esqueci-senha/esqueci-senha.
     LoginComponent,
     CarregamentoComponent,
     EsqueciSenhaComponent,
+    HomeComponent,
+    BotaoSairComponent,
   ],
   imports: [
     FormsModule,
