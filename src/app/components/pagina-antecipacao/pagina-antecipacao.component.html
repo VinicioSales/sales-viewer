@@ -20,13 +20,18 @@
             <app-input-pesquisar-filtro height="19px" placeholder="numero pedido" [itens]="listaNumeroPedido" (pesquisar)="handlleNumeroPedidoPesquisado($event)" (itemSelecionadoChange)="numeroPedidoPesquisado"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-data-inclusao">
-            <app-input-pesquisar-filtro height="19px" placeholder="data inclusão" [itens]="listaDataInclusao"></app-input-pesquisar-filtro>
+            <app-input type="date" height="2px" (valorChange)="handdleDataInclusaoPesquisado($event)"></app-input>
         </div>
         <div class="pesquisa-valor">
             <app-input-pesquisar-filtro height="19px" placeholder="valor" [itens]="listaValorVenda"></app-input-pesquisar-filtro>
         </div>
-        <div class="mais-produtos">
-            <app-botao texto="Mais filtros" height="16px"></app-botao>
+        <div class="menu-pesquisa">
+            <div class="mais-filtros">
+                <app-botao texto="Mais filtros" height="16px"></app-botao>
+            </div>
+            <app-botao texto="Limpar filtros" height="16px"></app-botao>
+
+            <!-- <div (click)="limparFiltros()">Limpar filtros</div> -->
         </div>
     </div>
     <div class="header-tabela">

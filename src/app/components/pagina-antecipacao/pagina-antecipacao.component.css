@@ -42,8 +42,19 @@
 .pesquisa-numero-pedido,
 .pesquisa-data-inclusao,
 .pesquisa-valor,
-.mais-produtos {
+.menu-pesquisa {
     width: 20%
+}
+
+.menu-pesquisa {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.mais-filtros {
+    width: 100%;
 }
 
 .tabela {

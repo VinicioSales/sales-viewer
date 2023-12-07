@@ -16,6 +16,7 @@ import { InputPesquisarComponent } from './components/input-pesquisar/input-pesq
 import { PaginaAntecipacaoComponent } from './components/pagina-antecipacao/pagina-antecipacao.component';
 import { InputPesquisarFiltroComponent } from './components/input-pesquisar-filtro/input-pesquisar-filtro.component';
 import { ModalGeralComponent } from './components/modal-geral/modal-geral.component';
+import { InputComponent } from './components/input/input.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ModalGeralComponent } from './components/modal-geral/modal-geral.compon
     PaginaAntecipacaoComponent,
     InputPesquisarFiltroComponent,
     ModalGeralComponent,
+    InputComponent,
   ],
   imports: [
     FormsModule,

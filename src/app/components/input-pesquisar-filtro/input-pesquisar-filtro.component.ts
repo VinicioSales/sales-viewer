@@ -12,9 +12,10 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
   private subscription = new Subscription();
   
   // Inputs
+  @Input() itens: any[] = [];
+  @Input() type: string = 'text';
   @Input() width: string = '100%';
   @Input() height: string = '50px';
-  @Input() itens: any[] = [];
   @Input() placeholder: string = 'input';
 
   // Variáveis

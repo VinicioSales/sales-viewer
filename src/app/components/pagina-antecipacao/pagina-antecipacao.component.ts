@@ -17,7 +17,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
   listaValorVenda: number[] = [];
   mostrarProdutos: boolean = false;
   listaNumeroPedido: number[] = [];
-  listaDataInclusao: string[] = [];
   valorVendaPesquisado: string = '';
   listaVendasFiltrada: Venda[] = [];
   numeroPedidoPesquisado: string = '';
@@ -42,7 +41,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.mockService.getVendas().pipe(
       catchError((error) => {
         console.error(`Erro ao buscar vendas: ${error}`)
-        // this.logService.error(`PaginaAntecipacaoComponent - ngOnInit: ${error}`)
+        this.logService.error(`PaginaAntecipacaoComponent - ngOnInit: ${error}`)
         return of([]);
       })
     ).subscribe((data: Venda[]) => {
@@ -56,7 +55,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
   resetarFiltros() {
     this.listaProdutosDescricao = this.listaVendas.flatMap(venda => venda.produtos.map(produto => produto.descricaoProduto));
     this.listaNumeroPedido = this.listaVendas.flatMap(venda => venda.numeroPedido);
-    this.listaDataInclusao = this.listaVendas.flatMap(venda => venda.dataInclusao);
     this.listaValorVenda = this.listaVendas.flatMap(venda => venda.valorVenda);
 
     this.listaVendasFiltrada = this.listaVendas;
@@ -66,7 +64,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
   atualizarListasFiltrada() {
     this.listaProdutosDescricao = this.listaVendasFiltrada.flatMap(venda => venda.produtos.map(produto => produto.descricaoProduto));
     this.listaNumeroPedido = this.listaVendasFiltrada.flatMap(venda => venda.numeroPedido);
-    this.listaDataInclusao = this.listaVendasFiltrada.flatMap(venda => venda.dataInclusao);
     this.listaValorVenda = this.listaVendasFiltrada.flatMap(venda => venda.valorVenda);
 
   }
@@ -99,12 +96,17 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.produtoDescricaoPesquisado = produtoDescricaoPesquisado;
 
     this.filtrarTabela();
-
-
   }
 
   //NOTE - handlleNumeroPedidoPesquisado
   handlleNumeroPedidoPesquisado(numeroVendaPesquisado: string) {
+    this.numeroPedidoPesquisado = numeroVendaPesquisado;
+
+    this.filtrarTabela();
+  }
+  
+  //NOTE - handlleDataInclusaoPesquisado
+  handdleDataInclusaoPesquisado(numeroVendaPesquisado: string) {
     this.numeroPedidoPesquisado = numeroVendaPesquisado;
 
     this.filtrarTabela();
@@ -130,7 +132,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
         produto => produto.descricaoProduto.toLocaleLowerCase() === this.produtoDescricaoPesquisado.toLocaleLowerCase()
       )
     );
-    
 
     this.atualizarListasFiltrada();
   }
@@ -145,7 +146,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - filtrarTabela
   filtrarTabela() {
-    this.listaVendasFiltrada = [...this.listaVendas];
+    this.limparFiltros();
   
     if (this.produtoDescricaoPesquisado && this.produtoDescricaoPesquisado != '') {
       this.filtrarVendaPorProduto();
@@ -154,8 +155,19 @@ export class PaginaAntecipacaoComponent implements OnInit {
     if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
       this.filtrarVendaPorNumeroPedido();
     }
+    
+    if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
+      this.filtrarVendaPorNumeroPedido();
+    }
   
     this.atualizarListasFiltrada();
   }
+
+  //NOTE - limparFiltros
+  limparFiltros() {
+    this.listaVendasFiltrada = [...this.listaVendas];
+  }
+
+
   
 }
