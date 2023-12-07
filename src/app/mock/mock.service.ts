@@ -37,7 +37,7 @@ export class MockService {
         ]
       },
       {
-        numeroPedido: 123456,
+        numeroPedido: 654321,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 600.00,

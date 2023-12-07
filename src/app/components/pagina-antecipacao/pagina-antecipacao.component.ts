@@ -20,7 +20,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   listaDataInclusao: string[] = [];
   valorVendaPesquisado: string = '';
   listaVendasFiltrada: Venda[] = [];
-  numeroVendaPesquisado: string = '';
+  numeroPedidoPesquisado: string = '';
   dataInclusaoPesquisado: string = '';
   listaProdutosDescricao: string[] = [];
   dropdownProdutosAtivo: boolean = false;
@@ -68,14 +68,15 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.listaNumeroPedido = this.listaVendasFiltrada.flatMap(venda => venda.numeroPedido);
     this.listaDataInclusao = this.listaVendasFiltrada.flatMap(venda => venda.dataInclusao);
     this.listaValorVenda = this.listaVendasFiltrada.flatMap(venda => venda.valorVenda);
+
   }
 
-  //NOTE - verificarCamposPesquisa
+  //NOTE - verificarCamposFiltrosVazios
   verificarCamposFiltrosVazios(): boolean {
     if (this.produtoDescricaoPesquisado || this.produtoDescricaoPesquisado != '') {
       return false; 
     
-    } else if (this.numeroVendaPesquisado || this.numeroVendaPesquisado != '') {
+    } else if (this.numeroPedidoPesquisado || this.numeroPedidoPesquisado != '') {
       return false
     
     } else if (this.dataInclusaoPesquisado || this.dataInclusaoPesquisado != '') {
@@ -97,39 +98,64 @@ export class PaginaAntecipacaoComponent implements OnInit {
   handlleProdutoDescricaoPesquisado(produtoDescricaoPesquisado: string) {
     this.produtoDescricaoPesquisado = produtoDescricaoPesquisado;
 
-    this.filtrarVendaPorProduto();
+    this.filtrarTabela();
 
 
   }
 
-  //NOTE - handlleNumeroVendaPesquisado
-  handlleNumeroVendaPesquisado(numeroVendaPesquisado: string) {
-    this.numeroVendaPesquisado = numeroVendaPesquisado;
+  //NOTE - handlleNumeroPedidoPesquisado
+  handlleNumeroPedidoPesquisado(numeroVendaPesquisado: string) {
+    this.numeroPedidoPesquisado = numeroVendaPesquisado;
+
+    this.filtrarTabela();
   }
 
   //NOTE - verificarEResetarFiltros
   verificarEResetarFiltros(): boolean {
-    const filtrosVazios = this.verificarCamposFiltrosVazios()
-    if (filtrosVazios) {
+    if (!this.produtoDescricaoPesquisado && !this.numeroPedidoPesquisado &&
+        !this.dataInclusaoPesquisado && !this.valorVendaPesquisado) {
       this.resetarFiltros();
       return true;
     }
-
+  
     return false;
   }
+  
 
   //NOTE - filtrarVendaPorProduto
   filtrarVendaPorProduto() {
-    if (this.verificarEResetarFiltros()) {
-      return;
-    }
-
+    
     this.listaVendasFiltrada = this.listaVendasFiltrada.filter(
       venda => venda.produtos.some(
         produto => produto.descricaoProduto.toLocaleLowerCase() === this.produtoDescricaoPesquisado.toLocaleLowerCase()
       )
     );
+    
 
     this.atualizarListasFiltrada();
   }
+
+  //NOTE - filtrarVendaPorNumeroPedido
+  filtrarVendaPorNumeroPedido() {
+    const numeroPedidoPesquisado = Number(this.numeroPedidoPesquisado);
+    this.listaVendasFiltrada = this.listaVendasFiltrada.filter(
+      venda => venda.numeroPedido === numeroPedidoPesquisado
+    );
+  }
+
+  //NOTE - filtrarTabela
+  filtrarTabela() {
+    this.listaVendasFiltrada = [...this.listaVendas];
+  
+    if (this.produtoDescricaoPesquisado && this.produtoDescricaoPesquisado != '') {
+      this.filtrarVendaPorProduto();
+    } 
+    
+    if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
+      this.filtrarVendaPorNumeroPedido();
+    }
+  
+    this.atualizarListasFiltrada();
+  }
+  
 }
