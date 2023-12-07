@@ -144,4 +144,12 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
     this.handleBorderRadius();
     this.itemSelecionadoChange.emit(item);
   }
+
+  //NOTE - onEnter
+  onEnter() {
+    this.onClick();
+    this.mostrarDropdown = false;
+    this.handleBorderRadius();
+  }
+
 }
