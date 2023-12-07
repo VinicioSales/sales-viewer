@@ -7,6 +7,12 @@ Added
 - Adicionado filtros para numero pedido (vinicio)
 - Adicionado filtros para data inclusao (vinicio)
 - Atualização componentes input (vinicio)
+- Finalizado tela de registro (victor)
+- Finalizado tela home (victor)
+- Finalizado tela redefinir senha (victor)
+- Finalizado tela de login (victor)
+- Finalizado tela requisitar redefinição de senha (victor)
+
 
 [0.0] - 06-12-2023
 Added
