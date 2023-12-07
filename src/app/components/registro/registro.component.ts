@@ -146,34 +146,34 @@ export class RegistroComponent {
 
 
   //NOTE - OnRegistro 
-  // onRegistro(){
-  //   const credenciaisValidadas = this.validarCredenciais();
-  //   if (credenciaisValidadas){
+  onRegistro(){
+    const credenciaisValidadas = this.validarCredenciais();
+    if (credenciaisValidadas){
       
-  //     this.authService.registrarUsuario(this.nomeValue, this.emailValue, this.senhaValue).subscribe({
-  //       next: (response) => {
+      this.authService.registrarUsuario(this.nomeValue, this.emailValue, this.senhaValue).subscribe({
+        next: (response) => {
           
-  //         this.exibirMensagemModal(RegistroComponent.MENSAGEM_REGISTRO_CONCLUIDO);            
-  //         setTimeout(() => {
-  //           this.router.navigate(['/login']);
-  //         }, 3000);               
+          this.exibirMensagemModal(RegistroComponent.MENSAGEM_REGISTRO_CONCLUIDO);            
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 3000);               
      
-  //       },
-  //       error: (error) => {
-  //         if (error.status === 409) {
-  //           this.exibirMensagemModal(RegistroComponent.MENSAGEM_EMAIL_JA_REGISTRADO);
-  //         } else if (error.status === 403) {
-  //           this.exibirMensagemModal(RegistroComponent.MENSAGEM_INTERNAL_SERVER_ERROR);
-  //         }      
-  //         else {
-  //           this.exibirMensagemModal(`Erro desconhecido: ${error}`);
-  //         }
+        },
+        error: (error) => {
+          if (error.status === 409) {
+            this.exibirMensagemModal(RegistroComponent.MENSAGEM_EMAIL_JA_REGISTRADO);
+          } else if (error.status === 403) {
+            this.exibirMensagemModal(RegistroComponent.MENSAGEM_INTERNAL_SERVER_ERROR);
+          }      
+          else {
+            this.exibirMensagemModal(`Erro desconhecido: ${error}`);
+          }
 
-  //       }
-  //     });
+        }
+      });
       
-  //   }
-  // }
+    }
+  }
 
 
 }
