@@ -1,6 +1,13 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+[0.0] - 07-12-2023
+Added
+- Adicionado filtros para produto (vinicio)
+- Adicionado filtros para numero pedido (vinicio)
+- Adicionado filtros para data inclusao (vinicio)
+- Atualização componentes input (vinicio)
+
 [0.0] - 06-12-2023
 Added
 - Atualização componentes inputs pesquisa (vinicio)
