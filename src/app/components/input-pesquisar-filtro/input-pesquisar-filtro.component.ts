@@ -30,8 +30,8 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
   imgTemaClaro: string = 'assets/img/lupa-light-mode.png';
 
   //NOTE -  Outputs
-  @Output() botaoClicado = new EventEmitter<void>();
   @Output() pesquisar = new EventEmitter<string>();
+  @Output() botaoClicado = new EventEmitter<void>();
   @Output() itemSelecionadoChange = new EventEmitter<string>();
 
   // Viewchild

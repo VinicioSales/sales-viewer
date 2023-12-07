@@ -1,6 +1,6 @@
+import { urlBackend } from '../statics';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { urlBackend } from '../statics';
 
 @Injectable({
   providedIn: 'root',

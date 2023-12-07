@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PaginaAntecipacaoComponent } from 'src/app/components/pagina-antecipacao/pagina-antecipacao.component'
 
 const routes: Routes = [
-  { path: 'antecipacao', component: PaginaAntecipacaoComponent},
+  { path: '', component: PaginaAntecipacaoComponent},
 ];
 
 @NgModule({
