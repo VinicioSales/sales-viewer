@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth/auth.service';
-// import { ModalService } from 'src/app/services/modal/modal.service'
+import { ModalService } from 'src/app/services/modal/modal.service'
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
-    // public modalService: ModalService,
+    public modalService: ModalService,
   ) {}
 
   @Input() valorEmail?: string;
@@ -50,20 +50,20 @@ export class LoginComponent {
   }
 
   //NOTE - validarCredenciais
-  // validarCredenciais(): boolean {
-  //   if (!this.valorEmail || !this.valorSenha) {
-  //     this.modalService.exibirMensagemModal(ModalService.MENSAGEM_CAMPOS_VAZIOS);
-  //     return false;
-  //   }
+  validarCredenciais(): boolean {
+    if (!this.valorEmail || !this.valorSenha) {
+      this.modalService.exibirMensagemModal(ModalService.MENSAGEM_CAMPOS_VAZIOS);
+      return false;
+    }
     
-  //   if (!this.validarEmail(this.valorEmail)) {
-  //     this.modalService.exibirMensagemModal(ModalService.MENSAGEM_EMAIL_INVALIDO);
-  //     return false;
-  //   }
+    if (!this.validarEmail(this.valorEmail)) {
+      this.modalService.exibirMensagemModal(ModalService.MENSAGEM_EMAIL_INVALIDO);
+      return false;
+    }
 
-  //   this.fecharMensagemModal();
-  //   return true;
-  // }
+    this.fecharMensagemModal();
+    return true;
+  }
 
   //NOTE - fecharMensagemModal
   fecharMensagemModal() {
@@ -85,36 +85,36 @@ export class LoginComponent {
   }
 
   //NOTE - logar
-  // logar() {
-  //   this.carregando = true;
+  logar() {
+    this.carregando = true;
 
-  //   this.authService.login(this.valorEmail!, this.valorSenha!).subscribe({
-  //     next: (response) => {
-  //       console.log(response);
-  //       const  token = response.token;
+    this.authService.login(this.valorEmail!, this.valorSenha!).subscribe({
+      next: (response) => {
+        console.log(response);
+        const  token = response.token;
 
-  //       if (token) {
-  //         localStorage.setItem('token_de_autenticacao', token);
-  //         this.router.navigate(['/home']);
-  //       }
+        if (token) {
+          localStorage.setItem('token_de_autenticacao', token);
+          this.router.navigate(['/home']);
+        }
         
-  //       this.carregando = false;
-  //     },
+        this.carregando = false;
+      },
       
-  //     error: (error: HttpErrorResponse) => {
-  //       this.modalService.exibirMensagemModal(error.error.message);
-  //       console.log(error.error.message);
-  //       this.carregando = false;
-  //     }
-  //   });
-  // }
+      error: (error: HttpErrorResponse) => {
+        this.modalService.exibirMensagemModal(error.error.message);
+        console.log(error.error.message);
+        this.carregando = false;
+      }
+    });
+  }
 
   //NOTE - onLogin
-  // onLogin() {
-  //   const credenciaisValidadas =  this.validarCredenciais();
-  //   if (credenciaisValidadas) {
-  //     this.logar();
-  //   }
-  // }
+  onLogin() {
+    const credenciaisValidadas =  this.validarCredenciais();
+    if (credenciaisValidadas) {
+      this.logar();
+    }
+  }
 
 }

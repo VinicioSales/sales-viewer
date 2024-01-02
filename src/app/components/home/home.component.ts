@@ -28,11 +28,7 @@ export class HomeComponent {
     this.authService.logout();
   }
 
-  //NOTE - navegarRotaSolicitarProdutos
-  navegarRotaSolicitarProdutos() {
-    this.router.navigate(['/requisitar-produtos']);
-  }
-  
+ 
   //NOTE - navegarRotaDevolverProdutos
   navegarRotaAnteciparParcelas() {
     this.router.navigate(['/antecipacao']);
