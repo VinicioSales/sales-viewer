@@ -5,6 +5,7 @@ Todas as mudanças do projeto serão documentados neste arquivo.
 Added
 - Add dinamica de status no componente botao (vinicio)
 - Filtrando vendas por data de inclusao (vinicio)
+- Corrgido conflitos no merge (victor)
 
 [0.0] - 07-12-2023
 Added
