@@ -1,6 +1,11 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+[0.0] - 02/01/2024
+Added
+- Add dinamica de status no componente botao (vinicio)
+- Filtrando vendas por data de inclusao (vinicio)
+
 [0.0] - 07-12-2023
 Added
 - Adicionado filtros para produto (vinicio)
