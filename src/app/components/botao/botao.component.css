@@ -20,3 +20,8 @@
 .componente-botao:hover {
     background: var(--cor-botao);
 }
+
+.sem-hover {
+    pointer-events: none;
+    opacity: 0.6;
+}

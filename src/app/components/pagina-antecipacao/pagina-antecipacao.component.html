@@ -26,12 +26,12 @@
             <app-input-pesquisar-filtro height="19px" placeholder="valor" [itens]="listaValorVenda"></app-input-pesquisar-filtro>
         </div>
         <div class="menu-pesquisa">
-            <div class="mais-filtros">
+            <div class="botoes-pesquisa">
                 <app-botao texto="Mais filtros" height="16px"></app-botao>
             </div>
-            <app-botao texto="Limpar filtros" height="16px"></app-botao>
-
-            <!-- <div (click)="limparFiltros()">Limpar filtros</div> -->
+            <div class="botoes-pesquisa">
+                <app-botao texto="Limpar filtros" height="16px" [botaoAtivo]="statusBotaoLimparFiltros"></app-botao>
+            </div>
         </div>
     </div>
     <div class="header-tabela">

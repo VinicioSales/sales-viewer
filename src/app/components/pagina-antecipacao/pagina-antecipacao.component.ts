@@ -24,6 +24,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   listaProdutosDescricao: string[] = [];
   dropdownProdutosAtivo: boolean = false;
   produtoDescricaoPesquisado: string = '';
+  statusBotaoLimparFiltros: boolean = false;
   corBotaoAdicionar: string = "var(--botao-verde)"
   corBotaoAdicionarHover: string = "var(--botao-verde-hover)"
 

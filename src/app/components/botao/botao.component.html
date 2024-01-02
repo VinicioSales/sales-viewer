@@ -2,8 +2,9 @@
     [style.width]="width"
     [style.height]="height"
     class="componente-botao"
-    (mouseenter)="hover = true"
+    [class.sem-hover]="!botaoAtivo"
+    (mouseenter)="hover = botaoAtivo"
     (mouseleave)="hover = false"
-    [style.background]="hover ? backgroundHover : background">
+    [style.background]="!botaoAtivo ? 'var(--cor-cinza)' : (hover ? backgroundHover : background)">
     {{ texto }}
 </button>
