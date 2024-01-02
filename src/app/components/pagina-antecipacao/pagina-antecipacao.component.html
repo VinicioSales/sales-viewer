@@ -14,10 +14,10 @@
 <div class="pagina">
     <div class="contianer-pesquisa">
         <div class="pesquisa-produto">
-            <app-input-pesquisar-filtro height="19px" placeholder="produtos" [itens]="listaProdutosDescricao" (pesquisar)="handlleProdutoDescricaoPesquisado($event)" (itemSelecionadoChange)="produtoDescricaoPesquisado"></app-input-pesquisar-filtro>
+            <app-input-pesquisar-filtro height="19px" placeholder="produtos" [itens]="listaProdutosDescricao" (pesquisar)="handleProdutoDescricaoPesquisado($event)" (itemSelecionadoChange)="produtoDescricaoPesquisado"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-numero-pedido">
-            <app-input-pesquisar-filtro height="19px" placeholder="numero pedido" [itens]="listaNumeroPedido" (pesquisar)="handlleNumeroPedidoPesquisado($event)" (itemSelecionadoChange)="numeroPedidoPesquisado"></app-input-pesquisar-filtro>
+            <app-input-pesquisar-filtro height="19px" placeholder="numero pedido" [itens]="listaNumeroPedido" (pesquisar)="handleNumeroPedidoPesquisado($event)" (itemSelecionadoChange)="numeroPedidoPesquisado"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-data-inclusao">
             <app-input type="date" height="2px" (valorChange)="handdleDataInclusaoPesquisado($event)"></app-input>

@@ -1,4 +1,4 @@
-import { catchError, of } from 'rxjs';
+import { catchError, of, retry } from 'rxjs';
 import { Router } from '@angular/router';
 import { Venda } from 'src/app/interfaces/venda'
 import { Component, OnInit } from '@angular/core';
@@ -92,23 +92,35 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  //NOTE - handlleProdutoDescricaoPesquisado
-  handlleProdutoDescricaoPesquisado(produtoDescricaoPesquisado: string) {
+  //NOTE - formatarData
+  formatarData(dataOrigital: string) {
+    let partesData = dataOrigital.split('-');
+    return partesData[2] + '/' + partesData[1] + '/' + partesData[0];
+  }
+
+  //NOTE - handleProdutoDescricaoPesquisado
+  handleProdutoDescricaoPesquisado(produtoDescricaoPesquisado: string) {
     this.produtoDescricaoPesquisado = produtoDescricaoPesquisado;
 
     this.filtrarTabela();
   }
 
-  //NOTE - handlleNumeroPedidoPesquisado
-  handlleNumeroPedidoPesquisado(numeroVendaPesquisado: string) {
+  //NOTE - handleNumeroPedidoPesquisado
+  handleNumeroPedidoPesquisado(numeroVendaPesquisado: string) {
     this.numeroPedidoPesquisado = numeroVendaPesquisado;
 
     this.filtrarTabela();
   }
   
-  //NOTE - handlleDataInclusaoPesquisado
-  handdleDataInclusaoPesquisado(numeroVendaPesquisado: string) {
-    this.numeroPedidoPesquisado = numeroVendaPesquisado;
+  //NOTE - handleDataInclusaoPesquisado
+  handdleDataInclusaoPesquisado(dataInclusaoPesquisado: string) {
+    if (!dataInclusaoPesquisado) {
+      this.limparFiltros();
+      return
+    } 
+
+    const dataInclusaoPesquisadoFormatado = this.formatarData(dataInclusaoPesquisado);
+    this.dataInclusaoPesquisado = dataInclusaoPesquisadoFormatado;
 
     this.filtrarTabela();
   }
@@ -145,6 +157,15 @@ export class PaginaAntecipacaoComponent implements OnInit {
     );
   }
 
+  //NOTE - filtrarVendaPorData
+  filtrarVendaPorData() {
+    const dataInclusao = this.dataInclusaoPesquisado;
+    this.listaVendasFiltrada = this.listaVendasFiltrada.filter(
+      venda => venda.dataInclusao === dataInclusao
+    );
+  }
+
+
   //NOTE - filtrarTabela
   filtrarTabela() {
     this.limparFiltros();
@@ -159,6 +180,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
     
     if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
       this.filtrarVendaPorNumeroPedido();
+    }
+
+    if (this.dataInclusaoPesquisado && this.dataInclusaoPesquisado != '') {
+      this.filtrarVendaPorData();
     }
   
     this.atualizarListasFiltrada();
