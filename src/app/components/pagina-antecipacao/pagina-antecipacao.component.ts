@@ -18,6 +18,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   listaNumeroPedido: number[] = [];
   valorVendaPesquisado: number = 0;
   listaVendasFiltrada: Venda[] = [];
+  listaVendasSelecionadas?: Venda[];
   numeroPedidoPesquisado: string = '';
   dataInclusaoPesquisado: string = '';
   mostrarDropdownProdutosVenda?: Venda;
@@ -50,11 +51,13 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.listaVendasFiltrada = data;
       this.resetarFiltros();
     });
+
+    // this.listaVendasFiltrada.forEach(venda => venda.checked = false);
   }
 
   //NOTE - mostrarDropdownProdutos
   mostrarDropdownProdutos(vendaSelecionada: Venda) {
-    const vendaEncontrada = this.listaVendasFiltrada.find(venda => venda.numeroPedido === vendaSelecionada.numeroPedido)
+    const vendaEncontrada = this.listaVendasFiltrada.find(venda => venda === vendaSelecionada)
     
     if (!vendaEncontrada) {
       return;
@@ -238,5 +241,19 @@ export class PaginaAntecipacaoComponent implements OnInit {
   }
   //!SECTION
 
-  
+  // //NOTE - ativarTodosCheckboxs
+  // ativarTodosCheckboxs() {
+
+  // }
+
+  // //NOTE - onSelecionarTodasVendas
+  // onSelecionarTodasVendas() {
+  //   if (this.listaVendasSelecionadas) {
+  //     this.listaVendasSelecionadas = undefined;
+  //     return
+  //   }
+
+  //   this.listaVendasSelecionadas = this.listaVendasFiltrada;
+  // }
+
 }
