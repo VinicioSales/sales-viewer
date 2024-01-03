@@ -27,6 +27,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   produtoDescricaoPesquisado: string = '';
   statusBotaoLimparFiltros: boolean = false;
   corBotaoAdicionar: string = "var(--botao-verde)"
+  checkedStatus: { [numeroPedido: number]: boolean } = {};
   corBotaoAdicionarHover: string = "var(--botao-verde-hover)"
 
   //NOTE - constructor
@@ -52,7 +53,9 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.resetarFiltros();
     });
 
-    // this.listaVendasFiltrada.forEach(venda => venda.checked = false);
+    this.listaVendasFiltrada.forEach(venda => {
+      this.checkedStatus[venda.numeroPedido] = false;
+    });
   }
 
   //NOTE - mostrarDropdownProdutos
@@ -241,19 +244,21 @@ export class PaginaAntecipacaoComponent implements OnInit {
   }
   //!SECTION
 
-  //NOTE - ativarTodosCheckboxs
-  ativarTodosCheckboxs() {
-
+  //NOTE - todosSelecionados
+  todosSelecionados(): boolean {
+    return Object.keys(this.checkedStatus).every(key => this.checkedStatus[Number(key)]);
   }
 
   //NOTE - onSelecionarTodasVendas
   onSelecionarTodasVendas() {
-    if (this.listaVendasSelecionadas) {
-      this.listaVendasSelecionadas = undefined;
-      return
-    }
+    const todosMarcados = this.todosSelecionados();
 
-    this.listaVendasSelecionadas = this.listaVendasFiltrada;
+    Object.keys(this.checkedStatus).forEach(key => {
+      const numeroPedido = Number(key);
+      this.checkedStatus[numeroPedido] = !todosMarcados;
+    });
+
+    this.listaVendasSelecionadas = todosMarcados ? [] : [...this.listaVendasFiltrada];
   }
 
 }

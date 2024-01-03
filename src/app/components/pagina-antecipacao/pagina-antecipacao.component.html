@@ -49,7 +49,7 @@
             <div class="linha-tabela">
                 <div class="menu-linha">
                     <app-botao-dropdown (click)="mostrarDropdownProdutos(venda)"></app-botao-dropdown>
-                    <mat-checkbox class="checkbox"></mat-checkbox>
+                    <mat-checkbox class="checkbox" [(ngModel)]="checkedStatus[venda.numeroPedido]"></mat-checkbox>
                 </div>
                 <div class="numero-pedido">{{ venda.numeroPedido }}</div>
                 <div class="data-inclusao">{{ venda.dataInclusao }}</div>
