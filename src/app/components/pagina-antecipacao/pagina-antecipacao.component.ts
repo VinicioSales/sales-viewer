@@ -57,7 +57,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - mostrarDropdownProdutos
   mostrarDropdownProdutos(vendaSelecionada: Venda) {
-    const vendaEncontrada = this.listaVendasFiltrada.find(venda => venda === vendaSelecionada)
+    const vendaEncontrada = this.listaVendasFiltrada.find(venda => venda.numeroPedido === vendaSelecionada.numeroPedido)
     
     if (!vendaEncontrada) {
       return;
@@ -241,19 +241,19 @@ export class PaginaAntecipacaoComponent implements OnInit {
   }
   //!SECTION
 
-  // //NOTE - ativarTodosCheckboxs
-  // ativarTodosCheckboxs() {
+  //NOTE - ativarTodosCheckboxs
+  ativarTodosCheckboxs() {
 
-  // }
+  }
 
-  // //NOTE - onSelecionarTodasVendas
-  // onSelecionarTodasVendas() {
-  //   if (this.listaVendasSelecionadas) {
-  //     this.listaVendasSelecionadas = undefined;
-  //     return
-  //   }
+  //NOTE - onSelecionarTodasVendas
+  onSelecionarTodasVendas() {
+    if (this.listaVendasSelecionadas) {
+      this.listaVendasSelecionadas = undefined;
+      return
+    }
 
-  //   this.listaVendasSelecionadas = this.listaVendasFiltrada;
-  // }
+    this.listaVendasSelecionadas = this.listaVendasFiltrada;
+  }
 
 }
