@@ -1,4 +1,16 @@
 
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 .header {
     padding: 8px 50px 8px 50px;
     display: flex;
@@ -112,6 +124,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    animation: slideDown 0.5s ease-out;
 }
 
 .dropdown-produtos,
@@ -128,6 +141,7 @@
 .container-header-dropdown-protudos {
     display: flex;
     justify-content: center;
+    animation: slideDown 0.5s ease-out;
 }
 
 .header-dropdown-produtos {
