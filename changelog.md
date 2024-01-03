@@ -1,13 +1,19 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
-[0.0] - 02/01/2024
+[0.6.0] - 03/01/2024
+Added
+- Filtrando vendas por valor da venda (vinicio)
+- Adicionado dropdown de produtos das vendas (vinicio)
+- Selecionando e deselecionando todas as vendas filtradas (vinicio)
+
+[0.5.0] - 02/01/2024
 Added
 - Add dinamica de status no componente botao (vinicio)
 - Filtrando vendas por data de inclusao (vinicio)
 - Corrgido conflitos no merge (victor)
 
-[0.0] - 07-12-2023
+[0.4.0] - 07-12-2023
 Added
 - Adicionado filtros para produto (vinicio)
 - Adicionado filtros para numero pedido (vinicio)
@@ -20,7 +26,7 @@ Added
 - Finalizado tela requisitar redefinição de senha (victor)
 
 
-[0.0] - 06-12-2023
+[0.3.0] - 06-12-2023
 Added
 - Atualização componentes inputs pesquisa (vinicio)
 - Criado sistema de logs (vinicio)
@@ -29,14 +35,14 @@ Added
 - Iniciado tela de acessos (victor)
 - Corrigindo erros da tela de registro (victor)
 
-[0.0] - 05-12-2023
+[0.2.0] - 05-12-2023
 Added
 - Finalizado codigo tela de adiantamento (vinicio)
 - Iniciado script tela de adiantamento (vinicio)
 - Código tela de registro (victor)
 - Criado componente logo parceiro (victor)
 
-[0.0] - 04-12-2023
+[0.1.0] - 04-12-2023
 Added
 - Finalizado desgin com alterações pedidas pelo cliente (vinicio)
 - Criando tela de Adiantamento de Vendas (vinicio)
