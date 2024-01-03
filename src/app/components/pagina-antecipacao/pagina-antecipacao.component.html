@@ -48,7 +48,7 @@
         <ng-container *ngFor="let venda of listaVendasFiltrada">
             <div class="linha-tabela">
                 <div class="menu-linha">
-                    <app-botao-dropdown></app-botao-dropdown>
+                    <app-botao-dropdown (click)="mostrarDropdownProdutos(venda)"></app-botao-dropdown>
                     <mat-checkbox class="checkbox"></mat-checkbox>
                 </div>
                 <div class="numero-pedido">{{ venda.numeroPedido }}</div>
@@ -56,7 +56,7 @@
                 <div class="previsao-faturamento">{{ venda.previsaoFaturamento }}</div>
                 <div class="valor-venda">{{ venda.valorVenda }}</div>
             </div>
-            <ng-container *ngIf="mostrarProdutos">
+            <ng-container *ngIf="mostrarDropdownProdutosVenda === venda">
                 <div class="container-header-dropdown-protudos">
                     <div class="header-dropdown-produtos">
                         <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>

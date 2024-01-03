@@ -15,12 +15,12 @@ import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 export class PaginaAntecipacaoComponent implements OnInit {
   listaVendas: Venda[] = [];
   listaValorVenda: number[] = [];
-  mostrarProdutos: boolean = false;
   listaNumeroPedido: number[] = [];
   valorVendaPesquisado: number = 0;
   listaVendasFiltrada: Venda[] = [];
   numeroPedidoPesquisado: string = '';
   dataInclusaoPesquisado: string = '';
+  mostrarDropdownProdutosVenda?: Venda;
   listaProdutosDescricao: string[] = [];
   dropdownProdutosAtivo: boolean = false;
   produtoDescricaoPesquisado: string = '';
@@ -50,6 +50,19 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.listaVendasFiltrada = data;
       this.resetarFiltros();
     });
+  }
+
+  //NOTE - mostrarDropdownProdutos
+  mostrarDropdownProdutos(vendaSelecionada: Venda) {
+    if (this.mostrarDropdownProdutosVenda) {
+      this.mostrarDropdownProdutosVenda = undefined;
+      return;
+    }
+
+    const vendaEncontrada = this.listaVendasFiltrada.find(venda => venda.numeroPedido === vendaSelecionada.numeroPedido)
+    if (vendaEncontrada) {
+      this.mostrarDropdownProdutosVenda = vendaEncontrada;
+    }
   }
 
   //NOTE - atualizarListas
