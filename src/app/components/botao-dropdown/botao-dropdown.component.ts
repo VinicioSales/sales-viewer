@@ -1,5 +1,5 @@
 import { TemaService } from '../../services/tema/tema.service';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ImagemService } from '../../services/imagem/imagem.service';
 
 @Component({
@@ -14,7 +14,6 @@ export class BotaoDropdownComponent {
 
   @Input() dropdownAtivo: boolean = false;
   
-  @Output() botaoClicado = new EventEmitter<void>();
   
   constructor(private temaService: TemaService, private imagemService: ImagemService) {
     this.atualizarImg();
@@ -28,8 +27,5 @@ export class BotaoDropdownComponent {
     this.imgSrc = this.imagemService.atualizarImg(this.imgTemaClaro, this.imgTemaEscuro);
   }
 
-  //NOTE - onClick
-  onClick() {
-    this.botaoClicado.emit();
-  }
+
 }

@@ -14,6 +14,7 @@ import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 })
 export class PaginaAntecipacaoComponent implements OnInit {
   listaVendas: Venda[] = [];
+  dropdownAtivoVenda?: number;
   listaValorVenda: number[] = [];
   listaNumeroPedido: number[] = [];
   valorVendaPesquisado: number = 0;
@@ -60,16 +61,18 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - mostrarDropdownProdutos
   mostrarDropdownProdutos(vendaSelecionada: Venda) {
-    const vendaEncontrada = this.listaVendasFiltrada.find(venda => venda.numeroPedido === vendaSelecionada.numeroPedido)
-    
+    const vendaEncontrada = this.listaVendasFiltrada.find(venda => venda.numeroPedido === vendaSelecionada.numeroPedido);
+
     if (!vendaEncontrada) {
       return;
     }
-    
-    if (this.mostrarDropdownProdutosVenda && this.mostrarDropdownProdutosVenda === vendaEncontrada) {
+
+    if (this.mostrarDropdownProdutosVenda === vendaEncontrada) {
       this.mostrarDropdownProdutosVenda = undefined;
+      this.dropdownAtivoVenda = undefined;
     } else {
       this.mostrarDropdownProdutosVenda = vendaEncontrada;
+      this.dropdownAtivoVenda = vendaEncontrada.numeroPedido;
     }
   }
 

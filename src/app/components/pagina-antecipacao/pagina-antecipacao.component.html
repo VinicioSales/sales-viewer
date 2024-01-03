@@ -48,7 +48,7 @@
         <ng-container *ngFor="let venda of listaVendasFiltrada">
             <div class="linha-tabela">
                 <div class="menu-linha">
-                    <app-botao-dropdown (click)="mostrarDropdownProdutos(venda)"></app-botao-dropdown>
+                    <app-botao-dropdown (click)="mostrarDropdownProdutos(venda)" [dropdownAtivo]="dropdownAtivoVenda === venda.numeroPedido"></app-botao-dropdown>
                     <mat-checkbox class="checkbox" [(ngModel)]="checkedStatus[venda.numeroPedido]"></mat-checkbox>
                 </div>
                 <div class="numero-pedido">{{ venda.numeroPedido }}</div>
