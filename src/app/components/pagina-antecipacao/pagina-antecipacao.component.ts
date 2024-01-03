@@ -54,13 +54,15 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - mostrarDropdownProdutos
   mostrarDropdownProdutos(vendaSelecionada: Venda) {
-    if (this.mostrarDropdownProdutosVenda) {
-      this.mostrarDropdownProdutosVenda = undefined;
+    const vendaEncontrada = this.listaVendasFiltrada.find(venda => venda.numeroPedido === vendaSelecionada.numeroPedido)
+    
+    if (!vendaEncontrada) {
       return;
     }
-
-    const vendaEncontrada = this.listaVendasFiltrada.find(venda => venda.numeroPedido === vendaSelecionada.numeroPedido)
-    if (vendaEncontrada) {
+    
+    if (this.mostrarDropdownProdutosVenda && this.mostrarDropdownProdutosVenda === vendaEncontrada) {
+      this.mostrarDropdownProdutosVenda = undefined;
+    } else {
       this.mostrarDropdownProdutosVenda = vendaEncontrada;
     }
   }
