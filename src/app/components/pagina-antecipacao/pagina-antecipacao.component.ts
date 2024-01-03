@@ -17,7 +17,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   listaValorVenda: number[] = [];
   mostrarProdutos: boolean = false;
   listaNumeroPedido: number[] = [];
-  valorVendaPesquisado: string = '';
+  valorVendaPesquisado: number = 0;
   listaVendasFiltrada: Venda[] = [];
   numeroPedidoPesquisado: string = '';
   dataInclusaoPesquisado: string = '';
@@ -80,7 +80,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
     } else if (this.dataInclusaoPesquisado || this.dataInclusaoPesquisado != '') {
       return false; 
     
-    } else if (this.valorVendaPesquisado || this.valorVendaPesquisado != '') {
+    } else if (this.valorVendaPesquisado || this.valorVendaPesquisado > 0) {
       return false
     }
 
@@ -97,6 +97,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
     let partesData = dataOrigital.split('-');
     return partesData[2] + '/' + partesData[1] + '/' + partesData[0];
   }
+
+  //SECTION - HANDLERS
 
   //NOTE - handleProdutoDescricaoPesquisado
   handleProdutoDescricaoPesquisado(produtoDescricaoPesquisado: string) {
@@ -125,6 +127,18 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.filtrarTabela();
   }
 
+  //NOTE - handleValorVendaPesquisado
+  handleValorVendaPesquisado(valorVendaPesquisado: number) {
+    if (!valorVendaPesquisado || valorVendaPesquisado <= 0) {
+      this.limparFiltros();
+      return
+    }
+
+    this.valorVendaPesquisado = Number(valorVendaPesquisado);
+    this.filtrarTabela();
+  }
+  //!SECTION
+
   //NOTE - verificarEResetarFiltros
   verificarEResetarFiltros(): boolean {
     if (!this.produtoDescricaoPesquisado && !this.numeroPedidoPesquisado &&
@@ -136,10 +150,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
     return false;
   }
   
+  //SECTION - FILTROS
 
   //NOTE - filtrarVendaPorProduto
   filtrarVendaPorProduto() {
-    
     this.listaVendasFiltrada = this.listaVendasFiltrada.filter(
       venda => venda.produtos.some(
         produto => produto.descricaoProduto.toLocaleLowerCase() === this.produtoDescricaoPesquisado.toLocaleLowerCase()
@@ -165,6 +179,16 @@ export class PaginaAntecipacaoComponent implements OnInit {
     );
   }
 
+  //NOTE - filtrarVendaPorValor
+  filtrarVendaPorValor() {
+    if (!this.valorVendaPesquisado) {
+      this.limparFiltros();
+    }
+
+    this.listaVendasFiltrada = this.listaVendasFiltrada.filter(
+      venda => venda.valorVenda === this.valorVendaPesquisado
+    )
+  }
 
   //NOTE - filtrarTabela
   filtrarTabela() {
@@ -185,6 +209,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
     if (this.dataInclusaoPesquisado && this.dataInclusaoPesquisado != '') {
       this.filtrarVendaPorData();
     }
+
+    if (this.valorVendaPesquisado && this.valorVendaPesquisado > 0) {
+      this.filtrarVendaPorValor();
+    }
   
     this.atualizarListasFiltrada();
   }
@@ -193,7 +221,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   limparFiltros() {
     this.listaVendasFiltrada = [...this.listaVendas];
   }
-
+  //!SECTION
 
   
 }
