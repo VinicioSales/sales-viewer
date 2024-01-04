@@ -1,7 +1,7 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
-[0.7.0] - 03/01/2024
+[0.7.0] - 04/01/2024
 Fixed
 - Mudança modal de mensagens geral
 
@@ -9,6 +9,7 @@ Added
 - Selecionando as vendas individualmente (vinicio)
 - Limpar os filtros e também os inputs (vinicio)
 - Funções de: Selecionar, descelencionar e dinamica de filtros sobre as vendas (EM ANDAMENTO) (vinicio) 
+- Testes unitários telas de acesso(Victor)
 
 [0.6.0] - 03/01/2024
 Added
