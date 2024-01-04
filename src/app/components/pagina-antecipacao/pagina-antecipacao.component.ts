@@ -33,6 +33,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   corBotaoAdicionar: string = "var(--botao-verde)"
   checkedStatus: { [numeroPedido: number]: boolean } = {};
   corBotaoAdicionarHover: string = "var(--botao-verde-hover)"
+  checkedStatusFiltrado: { [numeroPedido: number]: boolean } = {};
 
   //NOTE - constructor
   constructor(
@@ -43,7 +44,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
     public mensagensService: MensagensService,
   ) {}
 
-  @ViewChild('inputData') inputData!: InputPesquisarFiltroComponent;
   @ViewChild('inputValor') inputValor!: InputPesquisarFiltroComponent;
   @ViewChild('inputProduto') inputProduto!: InputPesquisarFiltroComponent;
   @ViewChild('inputNumeroPedido') inputNumeroPedido!: InputPesquisarFiltroComponent;
@@ -66,6 +66,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.listaVendasFiltrada.forEach(venda => {
       this.checkedStatus[venda.numeroPedido] = false;
     });
+    this.checkedStatusFiltrado = this.checkedStatus;
   }
 
   //NOTE - mostrarDropdownProdutos
@@ -82,6 +83,32 @@ export class PaginaAntecipacaoComponent implements OnInit {
     } else {
       this.mostrarDropdownProdutosVenda = vendaEncontrada;
       this.dropdownAtivoVenda = vendaEncontrada.numeroPedido;
+    }
+  }
+
+  //NOTE - filtrarCheckeckStatus
+  filtrarCheckedStatus() {
+    debugger;
+    for (let venda of this.listaVendasFiltrada) {
+        let key = venda.numeroPedido;
+        if (this.checkedStatus.hasOwnProperty(key)) {
+            this.checkedStatusFiltrado[key] = this.checkedStatus[key];
+        }
+    }
+
+    for (let key in this.checkedStatusFiltrado) {
+      if (!this.listaVendasFiltrada.some(venda => venda.numeroPedido === Number(key))) {
+          delete this.checkedStatusFiltrado[key];
+      }
+    }
+  }
+
+  //NOTE - atualizarCheckedStatusFiltrado
+  atualizarCheckedStatusFiltrado() {
+    for (let key in this.checkedStatusFiltrado) {
+      if (this.checkedStatus.hasOwnProperty(key)) {
+        this.checkedStatusFiltrado[key] = this.checkedStatus[key];
+      }
     }
   }
 
@@ -107,7 +134,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.produtoDescricaoPesquisado = '';
     this.numeroPedidoPesquisado = '';
     this.valorVendaPesquisado = 0;
-    this.dataInclusaoPesquisado = '';
   
     this.inputProduto.limparTextoPesquisado();
     this.inputNumeroPedido.limparTextoPesquisado();
@@ -115,7 +141,12 @@ export class PaginaAntecipacaoComponent implements OnInit {
   
     this.cdr.detectChanges();
     this.limparFiltros();
+    this.atualizarCheckedStatusFiltrado();
+
     this.statusBotaoLimparFiltros = false;
+
+    console.log(this.listaVendasSelecionadas)
+    console.log(this.checkedStatusFiltrado);
   }
   
   ativarBotaoLimparFiltros() {
@@ -159,6 +190,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
     this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
+    this.atualizarCheckedStatusFiltrado();
   }
 
   //NOTE - handleNumeroPedidoPesquisado
@@ -167,12 +199,16 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
     this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
+    this.atualizarCheckedStatusFiltrado();
+
   }
   
   //NOTE - handleDataInclusaoPesquisado
   handdleDataInclusaoPesquisado(dataInclusaoPesquisado: string) {
     if (!dataInclusaoPesquisado) {
       this.limparFiltros();
+      this.atualizarCheckedStatusFiltrado();
+
       return
     } 
 
@@ -187,12 +223,16 @@ export class PaginaAntecipacaoComponent implements OnInit {
   handleValorVendaPesquisado(valorVendaPesquisado: number) {
     if (!valorVendaPesquisado || valorVendaPesquisado <= 0) {
       this.limparFiltros();
+    this.atualizarCheckedStatusFiltrado();
+
       return
     }
 
     this.ativarBotaoLimparFiltros();
     this.valorVendaPesquisado = Number(valorVendaPesquisado);
     this.filtrarTabela();
+    this.atualizarCheckedStatusFiltrado();
+
   }
   //!SECTION
 
@@ -240,6 +280,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
   filtrarVendaPorValor() {
     if (!this.valorVendaPesquisado) {
       this.limparFiltros();
+    this.atualizarCheckedStatusFiltrado();
+
     }
 
     this.listaVendasFiltrada = this.listaVendasFiltrada.filter(
@@ -250,6 +292,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - filtrarTabela
   filtrarTabela() {
     this.limparFiltros();
+    this.atualizarCheckedStatusFiltrado();
+
   
     if (this.produtoDescricaoPesquisado && this.produtoDescricaoPesquisado != '') {
       this.filtrarVendaPorProduto();
@@ -282,25 +326,30 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - estaSelecionada
   estaSelecionada(venda: Venda) {
-    return this.checkedStatus[venda.numeroPedido];
+    return this.checkedStatusFiltrado[venda.numeroPedido];
   }
 
   //NOTE - estaoTodosSelecionados
   estaoTodosSelecionados(): boolean {
-    return Object.keys(this.checkedStatus).every(key => this.checkedStatus[Number(key)]);
+    return Object.keys(this.checkedStatusFiltrado).every(key => this.checkedStatusFiltrado[Number(key)]);
   }
 
   //NOTE - onSelecionarTodasVendas
   onSelecionarTodasVendas() {
+    debugger;
     const todosMarcados = this.estaoTodosSelecionados();
     this.todoSelecionados = !todosMarcados;
 
-    Object.keys(this.checkedStatus).forEach(key => {
+    Object.keys(this.checkedStatusFiltrado).forEach(key => {
       const numeroPedido = Number(key);
-      this.checkedStatus[numeroPedido] = !todosMarcados;
+      this.checkedStatusFiltrado[numeroPedido] = !todosMarcados;
     });
 
     this.listaVendasSelecionadas = todosMarcados ? [] : [...this.listaVendasFiltrada];
+
+    this.filtrarCheckedStatus();
+    console.log(this.listaVendasSelecionadas);
+    console.log(this.checkedStatusFiltrado);
   }
 
   //NOTE - addListaVendaSelecionada
@@ -316,13 +365,15 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - onSelecionarVenda
   onSelecionarVenda(vendaSelecionada: Venda) {
     const checkedStatus = this.estaSelecionada(vendaSelecionada);
-    this.checkedStatus[vendaSelecionada.numeroPedido] = checkedStatus;
+    this.checkedStatusFiltrado[vendaSelecionada.numeroPedido] = checkedStatus;
 
     if (checkedStatus) {
       this.addListaVendaSelecionada(vendaSelecionada);
     } else {
       this.removerVenda(vendaSelecionada);
     }
+
+    console.log(this.listaVendasSelecionadas)
   }
 
   //NOTE - onAdiantar

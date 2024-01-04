@@ -14,7 +14,7 @@ export class MockService {
   getVendas(): Observable<Venda[]> {
     this.vendas = [
       {
-        numeroPedido: 123456,
+        numeroPedido: 1,
         dataInclusao: "06/12/2023",
         previsaoFaturamento: "06/12/2023",
         valorVenda: 111.00,
@@ -37,7 +37,7 @@ export class MockService {
         ]
       },
       {
-        numeroPedido: 654321,
+        numeroPedido: 2,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 600.00,
@@ -60,7 +60,7 @@ export class MockService {
         ]
       },
       {
-        numeroPedido: 123446,
+        numeroPedido: 3,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
@@ -83,7 +83,7 @@ export class MockService {
         ]
       },
       {
-        numeroPedido: 173456,
+        numeroPedido: 4,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
@@ -106,7 +106,7 @@ export class MockService {
         ]
       },
       {
-        numeroPedido: 123956,
+        numeroPedido: 5,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
@@ -129,7 +129,7 @@ export class MockService {
         ]
       },
       {
-        numeroPedido: 121456,
+        numeroPedido: 6,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
@@ -152,7 +152,7 @@ export class MockService {
         ]
       },
       {
-        numeroPedido: 123446,
+        numeroPedido: 7,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
@@ -175,7 +175,7 @@ export class MockService {
         ]
       },
       {
-        numeroPedido: 123056,
+        numeroPedido: 8,
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
