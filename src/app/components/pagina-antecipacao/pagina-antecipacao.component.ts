@@ -43,11 +43,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
     public mensagensService: MensagensService,
   ) {}
 
-  @ViewChild(InputPesquisarFiltroComponent) inputPesquisarFiltroComponent!: InputPesquisarFiltroComponent;
-  @ViewChild('inputProduto') inputProduto!: InputPesquisarFiltroComponent;
   @ViewChild('inputData') inputData!: InputPesquisarFiltroComponent;
-  @ViewChild('inputNumeroPedido') inputNumeroPedido!: InputPesquisarFiltroComponent;
   @ViewChild('inputValor') inputValor!: InputPesquisarFiltroComponent;
+  @ViewChild('inputProduto') inputProduto!: InputPesquisarFiltroComponent;
+  @ViewChild('inputNumeroPedido') inputNumeroPedido!: InputPesquisarFiltroComponent;
 
   //NOTE - ngOnInit
   ngOnInit(): void {
@@ -116,8 +115,12 @@ export class PaginaAntecipacaoComponent implements OnInit {
   
     this.cdr.detectChanges();
     this.limparFiltros();
+    this.statusBotaoLimparFiltros = false;
   }
   
+  ativarBotaoLimparFiltros() {
+    this.statusBotaoLimparFiltros = true;
+  }
 
   //NOTE - verificarCamposFiltrosVazios
   verificarCamposFiltrosVazios(): boolean {
@@ -154,6 +157,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   handleProdutoDescricaoPesquisado(produtoDescricaoPesquisado: string) {
     this.produtoDescricaoPesquisado = produtoDescricaoPesquisado;
 
+    this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
   }
 
@@ -161,6 +165,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   handleNumeroPedidoPesquisado(numeroVendaPesquisado: string) {
     this.numeroPedidoPesquisado = numeroVendaPesquisado;
 
+    this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
   }
   
@@ -174,6 +179,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
     const dataInclusaoPesquisadoFormatado = this.formatarData(dataInclusaoPesquisado);
     this.dataInclusaoPesquisado = dataInclusaoPesquisadoFormatado;
 
+    this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
   }
 
@@ -184,6 +190,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
       return
     }
 
+    this.ativarBotaoLimparFiltros();
     this.valorVendaPesquisado = Number(valorVendaPesquisado);
     this.filtrarTabela();
   }
