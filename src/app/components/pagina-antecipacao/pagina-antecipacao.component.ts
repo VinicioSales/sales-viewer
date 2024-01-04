@@ -19,10 +19,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
   listaNumeroPedido: number[] = [];
   valorVendaPesquisado: number = 0;
   listaVendasFiltrada: Venda[] = [];
-  listaVendasSelecionadas?: Venda[];
   numeroPedidoPesquisado: string = '';
   dataInclusaoPesquisado: string = '';
   mostrarDropdownProdutosVenda?: Venda;
+  listaVendasSelecionadas: Venda[] = [];
   listaProdutosDescricao: string[] = [];
   dropdownProdutosAtivo: boolean = false;
   produtoDescricaoPesquisado: string = '';
@@ -247,6 +247,11 @@ export class PaginaAntecipacaoComponent implements OnInit {
   }
   //!SECTION
 
+  //NOTE - estaSelecionada
+  estaSelecionada(venda: Venda) {
+    return this.checkedStatus[venda.numeroPedido];
+  }
+
   //NOTE - todosSelecionados
   todosSelecionados(): boolean {
     return Object.keys(this.checkedStatus).every(key => this.checkedStatus[Number(key)]);
@@ -262,6 +267,28 @@ export class PaginaAntecipacaoComponent implements OnInit {
     });
 
     this.listaVendasSelecionadas = todosMarcados ? [] : [...this.listaVendasFiltrada];
+  }
+
+  //NOTE - addListaVendaSelecionada
+  addListaVendaSelecionada(vendaSelecionada: Venda) {
+    this.listaVendasSelecionadas.push(vendaSelecionada);
+  }
+
+  //NOTE - removerVenda
+  removerVenda(vendaARemover: Venda) {
+    this.listaVendasSelecionadas = this.listaVendasSelecionadas.filter(venda => venda.numeroPedido !== vendaARemover.numeroPedido);
+  }
+  
+  //NOTE - onSelecionarVenda
+  onSelecionarVenda(vendaSelecionada: Venda) {
+    const checkedStatus = this.estaSelecionada(vendaSelecionada);
+    this.checkedStatus[vendaSelecionada.numeroPedido] = checkedStatus;
+
+    if (checkedStatus) {
+      this.addListaVendaSelecionada(vendaSelecionada);
+    } else {
+      this.removerVenda(vendaSelecionada);
+    }
   }
 
 }
