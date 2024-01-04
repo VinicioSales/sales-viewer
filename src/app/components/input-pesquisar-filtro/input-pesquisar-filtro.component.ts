@@ -32,6 +32,7 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
 
   //NOTE -  Outputs
   @Output() pesquisar = new EventEmitter<any>();
+  @Output() limparInput = new EventEmitter<void>();
   @Output() botaoClicado = new EventEmitter<void>();
   @Output() itemSelecionadoChange = new EventEmitter<string>();
 
@@ -154,6 +155,12 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
     this.onClick();
     this.mostrarDropdown = false;
     this.handleBorderRadius();
+  }
+
+  //NOTE - limparTextoPesquisado
+  limparTextoPesquisado() {
+    this.textoPesquisado = '';
+    this.limparInput.emit();
   }
 
 }

@@ -1,10 +1,11 @@
-import { catchError, of, retry } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Venda } from 'src/app/interfaces/venda'
-import { Component, OnInit } from '@angular/core';
 import { MockService } from 'src/app/mock/mock.service'
 import { LogService } from 'src/app/services/log/log.service';
 import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
+import { Component, OnInit, ViewChild, ChangeDetectorRef  } from '@angular/core';
+import { InputPesquisarFiltroComponent } from '../input-pesquisar-filtro/input-pesquisar-filtro.component';
 
 
 @Component({
@@ -19,11 +20,13 @@ export class PaginaAntecipacaoComponent implements OnInit {
   listaNumeroPedido: number[] = [];
   valorVendaPesquisado: number = 0;
   listaVendasFiltrada: Venda[] = [];
+  todoSelecionados: boolean = false;
   numeroPedidoPesquisado: string = '';
   dataInclusaoPesquisado: string = '';
   mostrarDropdownProdutosVenda?: Venda;
   listaVendasSelecionadas: Venda[] = [];
   listaProdutosDescricao: string[] = [];
+  abrirModalConfirmacao: boolean = false;
   dropdownProdutosAtivo: boolean = false;
   produtoDescricaoPesquisado: string = '';
   statusBotaoLimparFiltros: boolean = false;
@@ -34,10 +37,17 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - constructor
   constructor(
     private router: Router,
+    public cdr: ChangeDetectorRef,
     private logService: LogService,
     private mockService: MockService,
     public mensagensService: MensagensService,
   ) {}
+
+  @ViewChild(InputPesquisarFiltroComponent) inputPesquisarFiltroComponent!: InputPesquisarFiltroComponent;
+  @ViewChild('inputProduto') inputProduto!: InputPesquisarFiltroComponent;
+  @ViewChild('inputData') inputData!: InputPesquisarFiltroComponent;
+  @ViewChild('inputNumeroPedido') inputNumeroPedido!: InputPesquisarFiltroComponent;
+  @ViewChild('inputValor') inputValor!: InputPesquisarFiltroComponent;
 
   //NOTE - ngOnInit
   ngOnInit(): void {
@@ -92,6 +102,22 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.listaValorVenda = this.listaVendasFiltrada.flatMap(venda => venda.valorVenda);
 
   }
+
+  //NOTE - onLimparFiltros
+  onLimparFiltros() {
+    this.produtoDescricaoPesquisado = '';
+    this.numeroPedidoPesquisado = '';
+    this.valorVendaPesquisado = 0;
+    this.dataInclusaoPesquisado = '';
+  
+    this.inputProduto.limparTextoPesquisado();
+    this.inputNumeroPedido.limparTextoPesquisado();
+    this.inputValor.limparTextoPesquisado();
+  
+    this.cdr.detectChanges();
+    this.limparFiltros();
+  }
+  
 
   //NOTE - verificarCamposFiltrosVazios
   verificarCamposFiltrosVazios(): boolean {
@@ -252,14 +278,15 @@ export class PaginaAntecipacaoComponent implements OnInit {
     return this.checkedStatus[venda.numeroPedido];
   }
 
-  //NOTE - todosSelecionados
-  todosSelecionados(): boolean {
+  //NOTE - estaoTodosSelecionados
+  estaoTodosSelecionados(): boolean {
     return Object.keys(this.checkedStatus).every(key => this.checkedStatus[Number(key)]);
   }
 
   //NOTE - onSelecionarTodasVendas
   onSelecionarTodasVendas() {
-    const todosMarcados = this.todosSelecionados();
+    const todosMarcados = this.estaoTodosSelecionados();
+    this.todoSelecionados = !todosMarcados;
 
     Object.keys(this.checkedStatus).forEach(key => {
       const numeroPedido = Number(key);
@@ -293,9 +320,12 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - onAdiantar
   onAdiantar() {
-    if (this.listaVendasSelecionadas.length <= 0) {
+    if (!this.listaVendasSelecionadas.length) {
       this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_ITENS_NAO_SELECIONADOS);
+      return
     }
+
+    this.abrirModalConfirmacao = true;
   }
 
 }

@@ -14,30 +14,30 @@
 <div class="pagina">
     <div class="contianer-pesquisa">
         <div class="pesquisa-produto">
-            <app-input-pesquisar-filtro height="19px" placeholder="produtos" [itens]="listaProdutosDescricao" (pesquisar)="handleProdutoDescricaoPesquisado($event)" (itemSelecionadoChange)="produtoDescricaoPesquisado"></app-input-pesquisar-filtro>
+            <app-input-pesquisar-filtro #inputProduto height="19px" placeholder="produtos" [itens]="listaProdutosDescricao" (pesquisar)="handleProdutoDescricaoPesquisado($event)" (itemSelecionadoChange)="produtoDescricaoPesquisado"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-numero-pedido">
-            <app-input-pesquisar-filtro height="19px" placeholder="numero pedido" [itens]="listaNumeroPedido" (pesquisar)="handleNumeroPedidoPesquisado($event)" (itemSelecionadoChange)="numeroPedidoPesquisado"></app-input-pesquisar-filtro>
+            <app-input-pesquisar-filtro #inputNumeroPedido height="19px" placeholder="numero pedido" [itens]="listaNumeroPedido" (pesquisar)="handleNumeroPedidoPesquisado($event)" (itemSelecionadoChange)="numeroPedidoPesquisado"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-data-inclusao">
-            <app-input type="date" height="2px" (valorChange)="handdleDataInclusaoPesquisado($event)"></app-input>
+            <app-input #inputData type="date" height="2px" (valorChange)="handdleDataInclusaoPesquisado($event)"></app-input>
         </div>
         <div class="pesquisa-valor">
-            <app-input-pesquisar-filtro type="number" height="19px" placeholder="valor" [itens]="listaValorVenda" (pesquisar)="handleValorVendaPesquisado($event)"></app-input-pesquisar-filtro>
+            <app-input-pesquisar-filtro #inputValor type="number" height="19px" placeholder="valor" [itens]="listaValorVenda" (pesquisar)="handleValorVendaPesquisado($event)"></app-input-pesquisar-filtro>
         </div>
         <div class="menu-pesquisa">
             <div class="botoes-pesquisa">
                 <app-botao texto="Mais filtros" height="16px"></app-botao>
             </div>
             <div class="botoes-pesquisa">
-                <app-botao texto="Limpar filtros" height="16px" [botaoAtivo]="statusBotaoLimparFiltros"></app-botao>
+                <app-botao texto="Limpar filtros" height="16px" [botaoAtivo]="statusBotaoLimparFiltros" (click)="onLimparFiltros()"></app-botao>
             </div>
         </div>
     </div>
     <div class="header-tabela">
         <div class="menu-header-tabela">
             <div class="blank"></div>
-            <mat-checkbox class="checkbox" (click)="onSelecionarTodasVendas()"></mat-checkbox>
+            <mat-checkbox class="checkbox" (click)="onSelecionarTodasVendas()" [(ngModel)]="todoSelecionados"></mat-checkbox>
         </div>
         <div class="numero-pedido">NUMERO PEDIDO</div>
         <div class="data-inclusao">DATA INCLUSÃO</div>
