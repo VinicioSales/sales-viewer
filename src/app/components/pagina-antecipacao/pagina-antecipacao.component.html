@@ -1,3 +1,8 @@
+<app-modal-geral
+    *ngIf="mensagensService.mostrarModal$ | async"
+    (fecharModal)="mensagensService.fecharModal()"
+    [mensagem]="mensagensService.mensagemModal$ | async">
+</app-modal-geral>
 <div class="header">
     <div class="blank"></div>
     <div class="titulo">Adiantamento De Vendas</div>
@@ -9,19 +14,24 @@
 <div class="pagina">
     <div class="contianer-pesquisa">
         <div class="pesquisa-produto">
-            <app-input-pesquisar placeholder="produtos" height="19px"></app-input-pesquisar>
+            <app-input-pesquisar-filtro height="19px" placeholder="produtos" [itens]="listaProdutosDescricao" (pesquisar)="handlleProdutoDescricaoPesquisado($event)" (itemSelecionadoChange)="produtoDescricaoPesquisado"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-numero-pedido">
-            <app-input-pesquisar placeholder="número pedido" height="19px"></app-input-pesquisar>
+            <app-input-pesquisar-filtro height="19px" placeholder="numero pedido" [itens]="listaNumeroPedido" (pesquisar)="handlleNumeroPedidoPesquisado($event)" (itemSelecionadoChange)="numeroPedidoPesquisado"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-data-inclusao">
-            <app-input-pesquisar placeholder="data inclusão" height="19px"></app-input-pesquisar>
+            <app-input type="date" height="2px" (valorChange)="handdleDataInclusaoPesquisado($event)"></app-input>
         </div>
         <div class="pesquisa-valor">
-            <app-input-pesquisar placeholder="valor" height="19px"></app-input-pesquisar>
+            <app-input-pesquisar-filtro height="19px" placeholder="valor" [itens]="listaValorVenda"></app-input-pesquisar-filtro>
         </div>
-        <div class="mais-produtos">
-            <app-botao texto="Mais filtros" height="16px"></app-botao>
+        <div class="menu-pesquisa">
+            <div class="mais-filtros">
+                <app-botao texto="Mais filtros" height="16px"></app-botao>
+            </div>
+            <app-botao texto="Limpar filtros" height="16px"></app-botao>
+
+            <!-- <div (click)="limparFiltros()">Limpar filtros</div> -->
         </div>
     </div>
     <div class="header-tabela">
@@ -34,33 +44,39 @@
         <div class="previsao-faturamento">PREVISÃO FATURAMENTO</div>
         <div class="valor-venda">VALOR</div>
     </div>
-    <ng-container *ngFor="let venda of vendas">
-        <div class="linha-tabela">
-            <div class="menu-linha">
-                <app-botao-dropdown></app-botao-dropdown>
-                <mat-checkbox class="checkbox"></mat-checkbox>
-            </div>
-            <div class="numero-pedido">{{ venda.numeroPedido }}</div>
-            <div class="data-inclusao">{{ venda.dataInclusao }}</div>
-            <div class="previsao-faturamento">{{ venda.previsaoFaturamento }}</div>
-            <div class="valor-venda">{{ venda.valorVenda }}</div>
-        </div>
-        <ng-container *ngIf="venda.mostrarProdutos">
-            <div class="header-dropdown-produtos">
-                <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>
-                <div class="valor-produto">VALOR</div>
-                <div class="unidade-medida">UNIDADE MEDIDA</div>
-            </div>
-            <div class="dropdown-produtos" *ngFor="let produto of venda.produtos">
-                <div class="linha-dropdown-produtos">
-                    <div class="descricao-produto">{{ produto.descricaoProduto }}</div>
-                    <div class="valor-produto">{{ produto.valorProduto }}</div>
-                    <div class="unidade-medida">{{ produto.unidadeMedidaProduto }}</div>
+    <div class="tabela">
+        <ng-container *ngFor="let venda of listaVendasFiltrada">
+            <div class="linha-tabela">
+                <div class="menu-linha">
+                    <app-botao-dropdown></app-botao-dropdown>
+                    <mat-checkbox class="checkbox"></mat-checkbox>
                 </div>
+                <div class="numero-pedido">{{ venda.numeroPedido }}</div>
+                <div class="data-inclusao">{{ venda.dataInclusao }}</div>
+                <div class="previsao-faturamento">{{ venda.previsaoFaturamento }}</div>
+                <div class="valor-venda">{{ venda.valorVenda }}</div>
             </div>
+            <ng-container *ngIf="mostrarProdutos">
+                <div class="container-header-dropdown-protudos">
+                    <div class="header-dropdown-produtos">
+                        <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>
+                        <div class="valor-produto">VALOR</div>
+                        <div class="unidade-medida">UNIDADE MEDIDA</div>
+                    </div>
+                </div>
+                <div class="dropdown-produtos" *ngFor="let produto of venda.produtos">
+                    <div class="linha-dropdown-produtos">
+                        <div class="descricao-produto">{{ produto.descricaoProduto }}</div>
+                        <div class="valor-produto">{{ produto.valorProduto }}</div>
+                        <div class="unidade-medida">{{ produto.unidadeMedidaProduto }}</div>
+                    </div>
+                </div>
+            </ng-container>
         </ng-container>
-    </ng-container>
+    </div>
     <div class="footer">
-        <app-botao texto="Adiantar"></app-botao>
+        <div class="botao-adiantar">
+            <app-botao [background]="corBotaoAdicionar" [backgroundHover]="corBotaoAdicionarHover" texto="Adiantar"></app-botao>
+        </div>
     </div>
 </div>

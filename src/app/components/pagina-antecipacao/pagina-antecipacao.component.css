@@ -1,6 +1,6 @@
 
 .header {
-    padding: 11px 50px 11px 50px;
+    padding: 8px 50px 8px 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -24,10 +24,11 @@
     display: flex;
     padding: 0 51px 0 51px;
     flex-direction: column;
+    
 }
 
 .contianer-pesquisa {
-    margin-top: 16px;
+    margin-top: 12px;
     padding: 36px 17px 36px 17px;
     display: flex;
     background: var(--cor-1);
@@ -41,8 +42,25 @@
 .pesquisa-numero-pedido,
 .pesquisa-data-inclusao,
 .pesquisa-valor,
-.mais-produtos {
+.menu-pesquisa {
     width: 20%
+}
+
+.menu-pesquisa {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.mais-filtros {
+    width: 100%;
+}
+
+.tabela {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 5px;
 }
 
 .header-tabela,
@@ -51,7 +69,7 @@
 .linha-dropdown-produtos {
     display: grid;
     background: var(--cor-1);
-    padding: 30px 23px 30px 23px;
+    padding: 13px 23px 13px 23px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:    "col-1 col-2 col-3 col-4 col-5";
 }
@@ -70,13 +88,14 @@
 }
 
 .checkbox {
-    color: var(--cor-2);
+    color: red;
     transform: scale(0.9);
 }
 
 
 .linha-tabela {
-    margin-top: 5px;
+    margin: 2.5px 0 2.5px 0;
+    color: var(--cor-2);
 }
 
 .numero-pedido,
@@ -90,7 +109,9 @@
 
 .dropdown-produtos {
     margin-top: 2px;
-
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 .dropdown-produtos,
@@ -104,8 +125,15 @@
     padding: 7px 0 7px 0;
 }
 
+.container-header-dropdown-protudos {
+    display: flex;
+    justify-content: center;
+}
+
 .header-dropdown-produtos {
     color: var(--cor-cinza);
+    margin-top: 3px;
+    width: 97%;
 }
 
 .descricao-produto,
@@ -129,8 +157,20 @@
 }
 
 .linha-dropdown-produtos {
-    margin-top: 2px;
+    margin-top: 1px;
     color: var(--cor-2);
     font-family: var(--font-light);
+    width: 97%;
 }
 
+.footer {
+    margin: 10px 0 10px 0;
+    padding: 18px 24px 18px 24px;
+    background: var(--cor-1);
+    display: flex;
+    justify-content: end;
+}
+
+.botao-adiantar {
+    width: 15%;
+}

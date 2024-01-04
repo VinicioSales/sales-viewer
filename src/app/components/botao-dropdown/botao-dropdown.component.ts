@@ -1,5 +1,5 @@
 import { TemaService } from '../../services/tema/tema.service';
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ImagemService } from '../../services/imagem/imagem.service';
 
 @Component({
@@ -11,6 +11,8 @@ export class BotaoDropdownComponent {
   public imgSrc?: string;
   private imgTemaClaro: string = 'assets/img/botao-dropdown-light-mode.png';
   private imgTemaEscuro: string = 'assets/img/botao-dropdown-dark-mode.png';
+
+  @Input() dropdownAtivo: boolean = false;
   
   @Output() botaoClicado = new EventEmitter<void>();
   

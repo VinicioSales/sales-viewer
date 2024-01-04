@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth/auth.service';
-import { ModalService } from 'src/app/services/modal/modal.service'
+import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
-    public modalService: ModalService,
+    public mensagensService: MensagensService,
   ) {}
 
   @Input() valorEmail?: string;
@@ -52,12 +52,12 @@ export class LoginComponent {
   //NOTE - validarCredenciais
   validarCredenciais(): boolean {
     if (!this.valorEmail || !this.valorSenha) {
-      this.modalService.exibirMensagemModal(ModalService.MENSAGEM_CAMPOS_VAZIOS);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_CAMPOS_VAZIOS);
       return false;
     }
     
     if (!this.validarEmail(this.valorEmail)) {
-      this.modalService.exibirMensagemModal(ModalService.MENSAGEM_EMAIL_INVALIDO);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_EMAIL_INVALIDO);
       return false;
     }
 
@@ -102,7 +102,7 @@ export class LoginComponent {
       },
       
       error: (error: HttpErrorResponse) => {
-        this.modalService.exibirMensagemModal(error.error.message);
+        this.mensagensService.exibirMensagemModal(error.error.message);
         console.log(error.error.message);
         this.carregando = false;
       }

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-// import { BotaoTestingModule } from 'src/app/components/botao/botao-testing.module'
 
 import { ModalGeralComponent } from './modal-geral.component';
 
@@ -9,7 +8,6 @@ describe('ModalGeralComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ModalGeralComponent],
       declarations: [ModalGeralComponent]
     });
     fixture = TestBed.createComponent(ModalGeralComponent);

@@ -9,7 +9,7 @@ import {EsqueciSenhaComponent} from 'src/app/components/esqueci-senha/esqueci-se
 import {HomeComponent} from 'src/app/components/home/home.component'
 
 const routes: Routes = [
-  { path: 'antecipacao', component: PaginaAntecipacaoComponent},
+  { path: '', component: PaginaAntecipacaoComponent},
   { path: 'registro', component: RegistroComponent},
   { path: 'redefinir-senha', component: RedefinirSenhaComponent},
   { path: 'login', component: LoginComponent},
