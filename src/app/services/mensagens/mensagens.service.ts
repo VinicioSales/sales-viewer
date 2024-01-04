@@ -13,6 +13,7 @@ export class MensagensService {
   static readonly MENSAGEM_NOVA_SENHA_VAZIO = 'Campo nova senha vazio';
   static readonly MENSAGEM_SENHAS_DIFERENTES = 'As senhas não conferem!';
   static readonly MENSAGEM_SENHA_REDEFINIDA = 'Senha redefinida com sucesso!';
+  static readonly MENSAGEM_ITENS_NAO_SELECIONADOS = 'Selecione ao menos um ítem';
   static readonly MENSAGEM_SENHA_CURTA = 'A senha deve ter no mínimo 8 caracteres!';
   static readonly MENSAGEM_CODIGO_VERIFICACAO_INVALIDO = 'Código de verificação inválido!';
   static readonly MENSAGEM_CODIGO_VERIFICACAO_VAZIO = 'Campo código de verificação vazio!';

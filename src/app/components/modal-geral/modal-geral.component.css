@@ -12,7 +12,7 @@
 .container-modal-geral {
     height: 30vh;
     width: 40vw;
-    background: var(--cor-primaria);
+    background: var(--cor-1);
     border-radius: 2px;
     box-shadow: 5px 1px 12px 1px rgba(0, 0, 0, 0.25);
     display: flex;
@@ -25,7 +25,7 @@
 }
 
 .mensagem {
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
     text-align: center;
     font-family: var(--font-regular);
     font-size: 1.5rem;

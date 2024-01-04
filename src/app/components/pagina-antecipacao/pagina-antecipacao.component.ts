@@ -291,4 +291,11 @@ export class PaginaAntecipacaoComponent implements OnInit {
     }
   }
 
+  //NOTE - onAdiantar
+  onAdiantar() {
+    if (this.listaVendasSelecionadas.length <= 0) {
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_ITENS_NAO_SELECIONADOS);
+    }
+  }
+
 }
