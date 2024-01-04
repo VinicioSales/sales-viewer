@@ -11,7 +11,7 @@ import { BotaoComponent } from '../botao/botao.component';
 import { LogoParceiroComponent } from '../logo-parceiro/logo-parceiro.component'; 
 import { AuthService } from '../../services/auth/auth.service';
 import { BotaoTemaComponent } from '../botao-tema/botao-tema.component';
-// import { ModalService } from 'src/app/services/modal/modal.service';
+import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 
 describe('LoginComponent', () => {
   let router: Router;
@@ -165,31 +165,31 @@ describe('LoginComponent', () => {
     it('deve retornar false e exibir mensagem se os campos estiverem vazios', () => {
       component.valorEmail = '';
       component.valorSenha = '';
-      spyOn(component.modalService, 'exibirMensagemModal');
+      spyOn(component.mensagensService, 'exibirMensagemModal');
       const resultado = component.validarCredenciais();
       expect(resultado).toBeFalse();
-      expect(component.modalService.exibirMensagemModal).toHaveBeenCalledWith(ModalService.MENSAGEM_CAMPOS_VAZIOS);
+      expect(component.mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_CAMPOS_VAZIOS);
     });
 
     // NOTE - deve retornar false e exibir mensagem se o e-mail for inválido
     it('deve retornar false e exibir mensagem se o e-mail for inválido', () => {
       component.valorEmail = 'email.invalido';
       component.valorSenha = 'senha123';
-      spyOn(component.modalService, 'exibirMensagemModal');
+      spyOn(component.mensagensService, 'exibirMensagemModal');
       const resultado = component.validarCredenciais();
       expect(resultado).toBeFalse();
-      expect(component.modalService.exibirMensagemModal).toHaveBeenCalledWith(ModalService.MENSAGEM_EMAIL_INVALIDO);
+      expect(component.mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_EMAIL_INVALIDO);
     });
 
     // NOTE - deve retornar true para credenciais válidas
     it('deve retornar true para credenciais válidas', () => {
       component.valorEmail = 'email@valido.com';
       component.valorSenha = 'senha123';
-      spyOn(component.modalService, 'exibirMensagemModal');
+      spyOn(component.mensagensService, 'exibirMensagemModal');
       spyOn(component, 'fecharMensagemModal');
       const resultado = component.validarCredenciais();
       expect(resultado).toBeTrue();
-      expect(component.modalService.exibirMensagemModal).not.toHaveBeenCalled();
+      expect(component.mensagensService.exibirMensagemModal).not.toHaveBeenCalled();
       expect(component.fecharMensagemModal).toHaveBeenCalled();
     });
   })

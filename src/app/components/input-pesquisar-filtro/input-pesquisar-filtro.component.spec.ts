@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { InputPesquisarFiltroComponent } from './input-pesquisar-filtro.component';
 
 describe('InputPesquisarFiltroComponent', () => {

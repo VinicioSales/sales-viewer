@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth/auth.service';
-// import { ModalService } from 'src/app/services/modal/modal.service'
+import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 
 @Component({
   selector: 'app-esqueci-senha',
@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class EsqueciSenhaComponent {
   constructor(
     private authService: AuthService,
-    // public modalService: ModalService,
+    public mensagensService: MensagensService,
   ) {}
 
   
@@ -32,21 +32,21 @@ export class EsqueciSenhaComponent {
 
 
   //NOTE - onRecuperarSenha
-  // onRecuperarSenha() {
-  //   this.carregando = true;
-  //   this.authService.recuperarSenha(this.valorEmail!).subscribe({
-  //     next: (response) => {
-  //     this.modalService.exibirMensagemModal(`Token de recuperação enviado para o email ${this.valorEmail}`);
+  onRecuperarSenha() {
+    this.carregando = true;
+    this.authService.recuperarSenha(this.valorEmail!).subscribe({
+      next: (response) => {
+      this.mensagensService.exibirMensagemModal(`Token de recuperação enviado para o email ${this.valorEmail}`);
 
-  //       this.carregando = false;
-  //     },
-  //     error: (error: HttpErrorResponse) => {
-  //       console.error(error.error.message);
-  //       this.modalService.exibirMensagemModal(error.error.message);
+        this.carregando = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error.error.message);
+        this.mensagensService.exibirMensagemModal(error.error.message);
 
-  //       this.carregando = false;
-  //     }
-  //   });
-  // }
+        this.carregando = false;
+      }
+    });
+  }
 
 }
