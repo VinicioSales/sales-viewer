@@ -66,7 +66,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.listaVendasFiltrada.forEach(venda => {
       this.checkedStatus[venda.numeroPedido] = false;
     });
-    this.checkedStatusFiltrado = this.checkedStatus;
+    this.checkedStatusFiltrado = { ...this.checkedStatus };
+    // this.checkedStatusFiltrado = this.checkedStatus;
   }
 
   //NOTE - mostrarDropdownProdutos
@@ -88,7 +89,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - filtrarCheckeckStatus
   filtrarCheckedStatus() {
-    debugger;
     for (let venda of this.listaVendasFiltrada) {
         let key = venda.numeroPedido;
         if (this.checkedStatus.hasOwnProperty(key)) {
@@ -103,11 +103,11 @@ export class PaginaAntecipacaoComponent implements OnInit {
     }
   }
 
-  //NOTE - atualizarCheckedStatusFiltrado
-  atualizarCheckedStatusFiltrado() {
-    for (let key in this.checkedStatusFiltrado) {
-      if (this.checkedStatus.hasOwnProperty(key)) {
-        this.checkedStatusFiltrado[key] = this.checkedStatus[key];
+  //NOTE - resetarCheckedStatusFiltrado
+  resetarCheckedStatusFiltrado() {
+    for (let key in this.checkedStatus) {
+      if (!this.checkedStatusFiltrado.hasOwnProperty(key)) {
+          this.checkedStatusFiltrado[key] = this.checkedStatus[key];
       }
     }
   }
@@ -141,12 +141,13 @@ export class PaginaAntecipacaoComponent implements OnInit {
   
     this.cdr.detectChanges();
     this.limparFiltros();
-    this.atualizarCheckedStatusFiltrado();
+    this.filtrarCheckedStatus();
+    this.resetarCheckedStatusFiltrado();
 
     this.statusBotaoLimparFiltros = false;
 
-    console.log(this.listaVendasSelecionadas)
     console.log(this.checkedStatusFiltrado);
+
   }
   
   ativarBotaoLimparFiltros() {
@@ -190,7 +191,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
     this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
-    this.atualizarCheckedStatusFiltrado();
+    this.filtrarCheckedStatus();
   }
 
   //NOTE - handleNumeroPedidoPesquisado
@@ -199,7 +200,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
     this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
-    this.atualizarCheckedStatusFiltrado();
+    this.filtrarCheckedStatus();
 
   }
   
@@ -207,7 +208,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   handdleDataInclusaoPesquisado(dataInclusaoPesquisado: string) {
     if (!dataInclusaoPesquisado) {
       this.limparFiltros();
-      this.atualizarCheckedStatusFiltrado();
+      this.filtrarCheckedStatus();
 
       return
     } 
@@ -217,13 +218,14 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
     this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
+    this.filtrarCheckedStatus();
   }
 
   //NOTE - handleValorVendaPesquisado
   handleValorVendaPesquisado(valorVendaPesquisado: number) {
     if (!valorVendaPesquisado || valorVendaPesquisado <= 0) {
       this.limparFiltros();
-    this.atualizarCheckedStatusFiltrado();
+    this.filtrarCheckedStatus();
 
       return
     }
@@ -231,7 +233,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.ativarBotaoLimparFiltros();
     this.valorVendaPesquisado = Number(valorVendaPesquisado);
     this.filtrarTabela();
-    this.atualizarCheckedStatusFiltrado();
+    this.filtrarCheckedStatus();
 
   }
   //!SECTION
@@ -280,7 +282,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   filtrarVendaPorValor() {
     if (!this.valorVendaPesquisado) {
       this.limparFiltros();
-    this.atualizarCheckedStatusFiltrado();
+    this.resetarCheckedStatusFiltrado();
 
     }
 
@@ -292,7 +294,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - filtrarTabela
   filtrarTabela() {
     this.limparFiltros();
-    this.atualizarCheckedStatusFiltrado();
+    this.resetarCheckedStatusFiltrado();
 
   
     if (this.produtoDescricaoPesquisado && this.produtoDescricaoPesquisado != '') {
@@ -336,8 +338,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - onSelecionarTodasVendas
   onSelecionarTodasVendas() {
-    debugger;
     const todosMarcados = this.estaoTodosSelecionados();
+
     this.todoSelecionados = !todosMarcados;
 
     Object.keys(this.checkedStatusFiltrado).forEach(key => {
@@ -345,11 +347,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.checkedStatusFiltrado[numeroPedido] = !todosMarcados;
     });
 
-    this.listaVendasSelecionadas = todosMarcados ? [] : [...this.listaVendasFiltrada];
 
-    this.filtrarCheckedStatus();
-    console.log(this.listaVendasSelecionadas);
-    console.log(this.checkedStatusFiltrado);
+    this.listaVendasSelecionadas = todosMarcados ? [] : [...this.listaVendasFiltrada];
   }
 
   //NOTE - addListaVendaSelecionada
@@ -373,7 +372,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.removerVenda(vendaSelecionada);
     }
 
-    console.log(this.listaVendasSelecionadas)
   }
 
   //NOTE - onAdiantar
