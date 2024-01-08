@@ -5,7 +5,12 @@ Todas as mudanças do projeto serão documentados neste arquivo.
 Fixed
 - Corrigido erros nos testes unitários tela de registro (victor)
 - feito testes na integração entre front-end e back-end (victor)
+- Testes em componentes ja criados (vinicio)
+- Bug ao selecionar vendas filtradas (vinicio)
 
+Added
+- Finalizado scripts tela de adiantamento (vinicio)
+- Iniciado testes unitarios tela de adiantamento (vinicio)
 
 [0.7.0] - 04/01/2024
 Fixed
