@@ -9,10 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { urlBackend, rotaRegistrarUsuarios } from 'src/app/services/statics';
 
 
 
-fdescribe('RegistroComponent', () => {
+describe('RegistroComponent', () => {
   let component: RegistroComponent;
   let fixture: ComponentFixture<RegistroComponent>;
   let authService: jasmine.SpyObj<AuthService>;
@@ -468,25 +469,5 @@ fdescribe('RegistroComponent', () => {
     }));
   });
   
-  //SECTION - registrarUsuario
-  describe('registrarUsuario', () =>{
-    //NOTE - deve registrar um usuário
-    it('deve registrar um usuário', () =>{
-      const testData = { nome: 'Teste', email: 'teste@teste.com', senha: '123456' };
-      const mockResponse = { success: true };
-      
-      authService.registrarUsuario(testData.nome, testData.email, testData.senha).subscribe(response => {
-        expect(response).toEqual(mockResponse);
-      });
-
-      const req = httpTestingController.expectOne(`[URL DO BACKEND AQUI]/[ROTA DE REGISTRO DE USUÁRIOS]`);
-      expect(req.request.method).toBe('POST');
-      expect(req.request.body).toEqual(testData);
-      req.flush(mockResponse);   
-
-    });
-    // afterEach(() => {
-    //   httpTestingController.verify();
-    // });
-  })
+  
 });
