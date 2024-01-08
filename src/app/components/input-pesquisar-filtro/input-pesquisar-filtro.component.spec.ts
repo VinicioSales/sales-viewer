@@ -18,8 +18,11 @@ describe('InputPesquisarFiltroComponent', () => {
 
   // SECTION - Configuração do TestBed e instância do componente
   beforeEach(async () => {
+    imagemServiceMock = {
+      atualizarImg: jasmine.createSpy().and.returnValue('url_da_imagem')
+    };
 
-    temaEscuroLigadoSubject = new BehaviorSubject<boolean>(false); // Estado inicial falso
+    temaEscuroLigadoSubject = new BehaviorSubject<boolean>(false);
     temaServiceMock = {
       temaEscuroLigado$: temaEscuroLigadoSubject.asObservable(),
       toggleTema: jasmine.createSpy(),
@@ -33,7 +36,8 @@ describe('InputPesquisarFiltroComponent', () => {
       ],
       declarations: [ InputPesquisarFiltroComponent ],
       providers: [
-        { provide: TemaService, useValue: temaServiceMock }
+        { provide: TemaService, useValue: temaServiceMock },
+        { provide: ImagemService, useValue: imagemServiceMock }
       ]
     }).compileComponents();
   });
@@ -129,6 +133,46 @@ describe('InputPesquisarFiltroComponent', () => {
       const testValue = 'teste';
       component.textoPesquisado = testValue;
       expect(component['_textoPesquisado']).toBe(testValue);
+    });
+  });
+  //!SECTION
+
+  // SECTION - textoPesquisado getter
+  describe('textoPesquisado getter', () => {
+    
+    // NOTE - Deve retornar o valor atual de _textoPesquisado
+    it('deve retornar o valor atual de _textoPesquisado', () => {
+      const testValue = 'teste';
+      component['_textoPesquisado'] = testValue; // Definir o valor de _textoPesquisado diretamente para teste
+      expect(component.textoPesquisado).toBe(testValue);
+    });
+  });
+  //!SECTION
+
+  // SECTION - atualizarItensFiltrados
+  describe('atualizarItensFiltrados', () => {
+    
+    // NOTE - Deve atualizar itensFiltrados para ser uma cópia de itens
+    it('deve atualizar itensFiltrados para ser uma cópia de itens', () => {
+      const testItens = ['item1', 'item2', 'item3'];
+      component.itens = testItens;
+      component.atualizarItensFiltrados();
+      expect(component.itensFiltrados).toEqual(testItens);
+      expect(component.itensFiltrados).not.toBe(testItens); // Verifica se é uma cópia, não a mesma referência
+    });
+  });
+  //!SECTION
+
+  // SECTION - atualizarImg
+  describe('atualizarImg', () => {
+    
+    // NOTE - Deve atualizar imgSrc usando ImagemService
+    it('deve atualizar imgSrc usando ImagemService', () => {
+      component.imgTemaClaro = 'caminho/temaClaro.png';
+      component.imgTemaEscuro = 'caminho/temaEscuro.png';
+      component.atualizarImg();
+      expect(imagemServiceMock.atualizarImg).toHaveBeenCalledWith('caminho/temaClaro.png', 'caminho/temaEscuro.png');
+      expect(component.imgSrc).toBe('url_da_imagem');
     });
   });
   //!SECTION

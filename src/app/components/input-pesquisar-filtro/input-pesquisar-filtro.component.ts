@@ -8,7 +8,7 @@ import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, OnInit, 
   templateUrl: './input-pesquisar-filtro.component.html',
   styleUrls: ['./input-pesquisar-filtro.component.css']
 })
-export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
+export class InputPesquisarFiltroComponent implements OnInit{
   private subscription = new Subscription();
   
   // Inputs
@@ -86,10 +86,6 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
     this.itensFiltrados = [...this.itens];
   }
 
-  //NOTE - ngOnDestroy
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 
   //NOTE - atualizarImg
   atualizarImg() {
