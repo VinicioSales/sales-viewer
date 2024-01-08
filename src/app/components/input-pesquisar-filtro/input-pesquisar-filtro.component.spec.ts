@@ -120,4 +120,16 @@ describe('InputPesquisarFiltroComponent', () => {
     });
   });
   //!SECTION
+
+  // SECTION - textoPesquisado setter
+  describe('textoPesquisado setter', () => {
+    
+    // NOTE - Deve atribuir o valor fornecido a _textoPesquisado
+    it('deve atribuir o valor fornecido a _textoPesquisado', () => {
+      const testValue = 'teste';
+      component.textoPesquisado = testValue;
+      expect(component['_textoPesquisado']).toBe(testValue);
+    });
+  });
+  //!SECTION
 });
