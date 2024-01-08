@@ -8,7 +8,7 @@ class MockTemaService {
   temaEscuroLigado$ = new BehaviorSubject<boolean>(false); // Simula o BehaviorSubject
 }
 
-fdescribe('BotaoDropdownComponent', () => {
+describe('BotaoDropdownComponent', () => {
   let component: BotaoDropdownComponent;
   let fixture: ComponentFixture<BotaoDropdownComponent>;
   let temaService: MockTemaService; // Usamos a versão mock do serviço

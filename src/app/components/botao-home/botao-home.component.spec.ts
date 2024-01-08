@@ -39,10 +39,6 @@ describe('BotaoHomeComponent', () => {
   });
   //!SECTION
 
-
-
-
-  
   //SECTION - onClick
   describe('onClick', () => {
     //NOTE - deve emitir o evento botaoClicado quando chamado
