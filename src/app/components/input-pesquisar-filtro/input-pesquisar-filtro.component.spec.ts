@@ -331,70 +331,131 @@ fdescribe('InputPesquisarFiltroComponent', () => {
   //!SECTION
 
   // SECTION - selecionarItem
-describe('selecionarItem', () => {
-  beforeEach(() => {
-    mockElementRef = new MockElementRef() as any; // Atualização aqui para fazer o casting
-    component.inputRef = mockElementRef;
+  describe('selecionarItem', () => {
+    beforeEach(() => {
+      mockElementRef = new MockElementRef() as any; // Atualização aqui para fazer o casting
+      component.inputRef = mockElementRef;
+    });
+
+    it('deve definir o item selecionado e o texto pesquisado corretamente', () => {
+      // Arrange
+      const item = 'Item de teste';
+      
+      // Act
+      component.selecionarItem(item);
+
+      // Assert
+      expect(component.itemSelecionado).toBe(item);
+      expect(component.textoPesquisado).toBe(item);
+    });
+
+    it('deve alternar mostrarDropdown', () => {
+      // Arrange
+      const mostrarDropdownInicial = component.mostrarDropdown;
+      
+      // Act
+      component.selecionarItem('Qualquer item');
+      
+      // Assert
+      expect(component.mostrarDropdown).toBe(!mostrarDropdownInicial);
+    });
+
+    it('deve chamar handleBorderRadius', () => {
+      // Arrange
+      spyOn(component, 'handleBorderRadius');
+      
+      // Act
+      component.selecionarItem('Qualquer item');
+      
+      // Assert
+      expect(component.handleBorderRadius).toHaveBeenCalled();
+    });
+
+    it('deve emitir o item selecionado via itemSelecionadoChange', () => {
+      // Arrange
+      const item = 'Item de teste';
+      spyOn(component.itemSelecionadoChange, 'emit');
+      
+      // Act
+      component.selecionarItem(item);
+      
+      // Assert
+      expect(component.itemSelecionadoChange.emit).toHaveBeenCalledWith(item);
+    });
+
+    it('deve focar o elemento de input', () => {
+      // Arrange
+      spyOn(mockElementRef.nativeElement, 'focus');
+      
+      // Act
+      component.selecionarItem('Qualquer item');
+      
+      // Assert
+      expect(mockElementRef.nativeElement.focus).toHaveBeenCalled();
+    });
   });
+  //!SECTION
 
-  it('deve definir o item selecionado e o texto pesquisado corretamente', () => {
-    // Arrange
-    const item = 'Item de teste';
-    
-    // Act
-    component.selecionarItem(item);
+  // SECTION - onEnter
+  describe('onEnter', () => {
+    it('deve chamar o método onClick', () => {
+      // Arrange
+      spyOn(component, 'onClick');
+      
+      // Act
+      component.onEnter();
+      
+      // Assert
+      expect(component.onClick).toHaveBeenCalled();
+    });
 
-    // Assert
-    expect(component.itemSelecionado).toBe(item);
-    expect(component.textoPesquisado).toBe(item);
+    it('deve configurar mostrarDropdown para false', () => {
+      // Arrange
+      component.mostrarDropdown = true;
+      
+      // Act
+      component.onEnter();
+      
+      // Assert
+      expect(component.mostrarDropdown).toBe(false);
+    });
+
+    it('deve chamar o método handleBorderRadius', () => {
+      // Arrange
+      spyOn(component, 'handleBorderRadius');
+      
+      // Act
+      component.onEnter();
+      
+      // Assert
+      expect(component.handleBorderRadius).toHaveBeenCalled();
+    });
   });
+  //!SECTION
 
-  it('deve alternar mostrarDropdown', () => {
-    // Arrange
-    const mostrarDropdownInicial = component.mostrarDropdown;
-    
-    // Act
-    component.selecionarItem('Qualquer item');
-    
-    // Assert
-    expect(component.mostrarDropdown).toBe(!mostrarDropdownInicial);
+  // SECTION - limparTextoPesquisado
+  describe('limparTextoPesquisado', () => {
+    it('deve limpar o texto pesquisado', () => {
+      // Arrange
+      component.textoPesquisado = 'Texto de teste';
+      
+      // Act
+      component.limparTextoPesquisado();
+      
+      // Assert
+      expect(component.textoPesquisado).toBe('');
+    });
+
+    it('deve emitir o evento limparInput', () => {
+      // Arrange
+      spyOn(component.limparInput, 'emit');
+      
+      // Act
+      component.limparTextoPesquisado();
+      
+      // Assert
+      expect(component.limparInput.emit).toHaveBeenCalled();
+    });
   });
-
-  it('deve chamar handleBorderRadius', () => {
-    // Arrange
-    spyOn(component, 'handleBorderRadius');
-    
-    // Act
-    component.selecionarItem('Qualquer item');
-    
-    // Assert
-    expect(component.handleBorderRadius).toHaveBeenCalled();
-  });
-
-  it('deve emitir o item selecionado via itemSelecionadoChange', () => {
-    // Arrange
-    const item = 'Item de teste';
-    spyOn(component.itemSelecionadoChange, 'emit');
-    
-    // Act
-    component.selecionarItem(item);
-    
-    // Assert
-    expect(component.itemSelecionadoChange.emit).toHaveBeenCalledWith(item);
-  });
-
-  it('deve focar o elemento de input', () => {
-    // Arrange
-    spyOn(mockElementRef.nativeElement, 'focus');
-    
-    // Act
-    component.selecionarItem('Qualquer item');
-    
-    // Assert
-    expect(mockElementRef.nativeElement.focus).toHaveBeenCalled();
-  });
-});
-//!SECTION
-
-
+  //!SECTION
 });
