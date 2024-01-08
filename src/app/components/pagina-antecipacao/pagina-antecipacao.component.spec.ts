@@ -273,8 +273,29 @@ fdescribe('PaginaAntecipacaoComponent', () => {
       expect(component.checkedStatusFiltrado[1]).toBeFalse(); // Não alterado
       expect(component.checkedStatusFiltrado[4]).toBeTrue(); // Não removido, pois a lógica atual não remove chaves extras
     });
+  });
+  //!SECTION
 
-    // ... Adicione mais testes conforme necessário ...
+  // SECTION: resetarFiltros
+  describe('resetarFiltros', () => {
+    beforeEach(() => {
+      component.listaVendas = vendasMock;
+    });
+
+    // NOTE: Deve atualizar as listas de descrições, números de pedidos e valores de venda
+    it('deve atualizar as listas de descrições, números de pedidos e valores de venda', () => {
+      component.resetarFiltros();
+      
+      expect(component.listaProdutosDescricao).toEqual(vendasMock.flatMap(venda => venda.produtos.map(produto => produto.descricaoProduto)));
+      expect(component.listaNumeroPedido).toEqual(vendasMock.flatMap(venda => venda.numeroPedido));
+      expect(component.listaValorVenda).toEqual(vendasMock.flatMap(venda => venda.valorVenda));
+    });
+
+    // NOTE: Deve sincronizar listaVendasFiltrada com listaVendas
+    it('deve sincronizar listaVendasFiltrada com listaVendas', () => {
+      component.resetarFiltros();
+      expect(component.listaVendasFiltrada).toEqual(component.listaVendas);
+    });
   });
   //!SECTION
   
