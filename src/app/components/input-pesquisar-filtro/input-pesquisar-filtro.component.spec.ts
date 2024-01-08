@@ -8,6 +8,7 @@ import { ImagemService } from 'src/app/services/imagem/imagem.service';
 import { InputPesquisarFiltroComponent } from './input-pesquisar-filtro.component';
 
 describe('InputPesquisarFiltroComponent', () => {
+  let mockElementRef: any;
   let temaServiceMock: any;
   let imagemServiceMock: any;
   let temaEscuroLigado$ = new Subject<boolean>();
@@ -42,6 +43,7 @@ describe('InputPesquisarFiltroComponent', () => {
     component = fixture.componentInstance;
     spyOn(component, 'atualizarImg').and.callThrough();
     spyOn(temaServiceMock.temaEscuroLigado$, 'subscribe').and.callThrough();
+    mockElementRef = { nativeElement: document.createElement('div') };
     fixture.detectChanges();
   });
 
@@ -86,6 +88,35 @@ describe('InputPesquisarFiltroComponent', () => {
     it('deve chamar atualizarImg quando o tema muda', () => {
       component.ngOnInit();
       expect(component.atualizarImg).toHaveBeenCalled();
+    });
+  });
+  //!SECTION
+
+  // SECTION - onDocumentClick
+  describe('onDocumentClick', () => {
+    
+    // NOTE - Deve fechar o dropdown quando clicado fora do elemento
+    it('deve fechar o dropdown quando clicado fora do elemento', () => {
+      component.mostrarDropdown = true; // Suponha que o dropdown esteja aberto
+      const event = new MouseEvent('click', { bubbles: true }); 
+      document.dispatchEvent(event); // Dispara o evento de clique no document
+      expect(component.mostrarDropdown).toBeFalse(); // O dropdown deve ser fechado
+    });
+
+    // NOTE - Não deve fechar o dropdown quando clicado dentro do elemento
+    it('não deve fechar o dropdown quando clicado dentro do elemento', () => {
+      component.mostrarDropdown = true; // Suponha que o dropdown esteja aberto
+      const event = new MouseEvent('click', { bubbles: true }); 
+      mockElementRef.nativeElement.dispatchEvent(event); // Dispara o evento de clique no elemento mock
+      expect(component.mostrarDropdown).toBeTrue(); // O dropdown deve permanecer aberto
+    });
+
+    // NOTE - Deve chamar handleBorderRadius quando clicado fora do elemento
+    it('deve chamar handleBorderRadius quando clicado fora do elemento', () => {
+      spyOn(component, 'handleBorderRadius');
+      const event = new MouseEvent('click', { bubbles: true }); 
+      document.dispatchEvent(event); // Dispara o evento de clique no document
+      expect(component.handleBorderRadius).toHaveBeenCalled(); // Verifica se handleBorderRadius foi chamado
     });
   });
   //!SECTION
