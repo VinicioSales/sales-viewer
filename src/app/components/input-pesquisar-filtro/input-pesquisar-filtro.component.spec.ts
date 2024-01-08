@@ -7,7 +7,7 @@ import { ImagemService } from 'src/app/services/imagem/imagem.service';
 
 import { InputPesquisarFiltroComponent } from './input-pesquisar-filtro.component';
 
-describe('InputPesquisarFiltroComponent', () => {
+fdescribe('InputPesquisarFiltroComponent', () => {
   let mockElementRef: any;
   let temaServiceMock: any;
   let imagemServiceMock: any;
@@ -173,6 +173,69 @@ describe('InputPesquisarFiltroComponent', () => {
       component.atualizarImg();
       expect(imagemServiceMock.atualizarImg).toHaveBeenCalledWith('caminho/temaClaro.png', 'caminho/temaEscuro.png');
       expect(component.imgSrc).toBe('url_da_imagem');
+    });
+  });
+  //!SECTION
+
+  // SECTION - handleBorderRadius
+  describe('handleBorderRadius', () => {
+    
+    // NOTE - Deve definir borderRadius como '0px' quando mostrarDropdown for true
+    it('deve definir borderRadius como "0px" quando mostrarDropdown for true', () => {
+      component.mostrarDropdown = true;
+      component.handleBorderRadius();
+      expect(component.borderRadius).toBe('0px');
+    });
+
+    // NOTE - Deve definir borderRadius como '10px' quando mostrarDropdown for false
+    it('deve definir borderRadius como "10px" quando mostrarDropdown for false', () => {
+      component.mostrarDropdown = false;
+      component.handleBorderRadius();
+      expect(component.borderRadius).toBe('10px');
+    });
+  });
+  //!SECTION
+
+  // SECTION - handleClick
+  describe('handleClick', () => {
+    let mockEvent: any;
+
+    beforeEach(() => {
+      mockEvent = {
+        target: {}
+      };
+      component.containerRef = {
+        nativeElement: {
+          contains: (target: any) => target === mockEvent.target
+        }
+      };
+    });
+    
+    // NOTE - Deve fechar o dropdown e chamar handleBorderRadius quando clicado fora do elemento
+    it('deve fechar o dropdown e chamar handleBorderRadius quando clicado fora do elemento', () => {
+      component.mostrarDropdown = true;
+      spyOn(component, 'handleBorderRadius');
+
+      // Criar um stub para o evento que inclui a propriedade target
+      const event = {
+        target: document
+      } as unknown as MouseEvent;
+      
+      component.handleClick(event);
+      expect(component.mostrarDropdown).toBeFalse();
+      expect(component.handleBorderRadius).toHaveBeenCalled();
+    });
+
+    // NOTE - Não deve fechar o dropdown ou chamar handleBorderRadius quando clicado dentro do elemento
+    it('não deve fechar o dropdown ou chamar handleBorderRadius quando clicado dentro do elemento', () => {
+      component.mostrarDropdown = true;
+      spyOn(component, 'handleBorderRadius');
+
+      mockEvent.target = component.containerRef.nativeElement; // Simula um clique dentro do elemento
+      component.handleClick(mockEvent);
+      
+      expect(component.mostrarDropdown).toBeTrue();
+      expect(component.handleBorderRadius).not.toHaveBeenCalled();
     });
   });
   //!SECTION
