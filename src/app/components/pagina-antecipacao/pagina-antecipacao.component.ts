@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Venda } from 'src/app/interfaces/venda'
 import { MockService } from 'src/app/mock/mock.service'
 import { LogService } from 'src/app/services/log/log.service';
+import { VendasService } from 'src/app/services/vendas/vendas.service';
 import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 import { Component, OnInit, ViewChild, ChangeDetectorRef  } from '@angular/core';
 import { InputPesquisarFiltroComponent } from '../input-pesquisar-filtro/input-pesquisar-filtro.component';
@@ -41,6 +42,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
     public cdr: ChangeDetectorRef,
     private logService: LogService,
     private mockService: MockService,
+    private vendasService: VendasService,
     public mensagensService: MensagensService,
   ) {}
 
@@ -50,8 +52,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - ngOnInit
   ngOnInit(): void {
-    //FIXME - TROCAR MOCK
-    this.mockService.getVendas().pipe(
+    this.vendasService.getVendas().pipe(
       catchError((error) => {
         console.error(`Erro ao buscar vendas: ${error}`)
         this.logService.error(`PaginaAntecipacaoComponent - ngOnInit: ${error}`)
@@ -61,14 +62,15 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.listaVendas = data;
       this.listaVendasFiltrada = data;
       this.resetarFiltros();
+  
+      this.checkedStatus = {};
+      this.listaVendasFiltrada.forEach(venda => {
+        this.checkedStatus[venda.numeroPedido] = false;
+      });
+      this.checkedStatusFiltrado = { ...this.checkedStatus };
     });
-
-    this.listaVendasFiltrada.forEach(venda => {
-      this.checkedStatus[venda.numeroPedido] = false;
-    });
-    this.checkedStatusFiltrado = { ...this.checkedStatus };
-    // this.checkedStatusFiltrado = this.checkedStatus;
   }
+  
 
   //NOTE - mostrarDropdownProdutos
   mostrarDropdownProdutos(vendaSelecionada: Venda) {
