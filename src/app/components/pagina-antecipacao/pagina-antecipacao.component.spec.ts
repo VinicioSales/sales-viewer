@@ -49,7 +49,6 @@ const vendasMock: Venda[] = [
 ];
 
 
-
 fdescribe('PaginaAntecipacaoComponent', () => {
   let router: Router;
   let logServiceMock: any;
@@ -342,6 +341,15 @@ fdescribe('PaginaAntecipacaoComponent', () => {
   });
   //!SECTION
 
+  //SECTION - onLimparFiltros
+  describe('onLimparFiltros', () => {
 
+    //NOTE - deve deixar produtoDescricaoPesquisado vazio
+    it('deve deixar produtoDescricaoPesquisado vazio', () => {
+      component.onLimparFiltros();
+
+      expect(component.produtoDescricaoPesquisado).toBe('');
+    })
+  })
   
 });
