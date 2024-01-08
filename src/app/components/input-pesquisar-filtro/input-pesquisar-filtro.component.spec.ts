@@ -16,7 +16,7 @@ class MockElementRef extends ElementRef {
   };
 }
 
-fdescribe('InputPesquisarFiltroComponent', () => {
+describe('InputPesquisarFiltroComponent', () => {
   let mockElementRef: any;
   let temaServiceMock: any;
   let imagemServiceMock: any;
