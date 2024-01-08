@@ -244,5 +244,41 @@ fdescribe('PaginaAntecipacaoComponent', () => {
   });
   //!SECTION
 
+  // SECTION: resetarCheckedStatusFiltrado
+  describe('resetarCheckedStatusFiltrado', () => {
+    beforeEach(() => {
+      component.checkedStatus = {
+        1: true,
+        2: false,
+        3: true
+      };
+      component.checkedStatusFiltrado = {};
+    });
+
+    // NOTE: Deve adicionar chaves de checkedStatus em checkedStatusFiltrado
+    it('deve adicionar chaves de checkedStatus em checkedStatusFiltrado se elas não existirem', () => {
+      component.resetarCheckedStatusFiltrado();
+      expect(component.checkedStatusFiltrado[1]).toBeTrue();
+      expect(component.checkedStatusFiltrado[2]).toBeFalse();
+      expect(component.checkedStatusFiltrado[3]).toBeTrue();
+    });
+
+    // NOTE: Não deve alterar chaves existentes em checkedStatusFiltrado
+    it('não deve alterar chaves existentes em checkedStatusFiltrado', () => {
+      component.checkedStatusFiltrado = {
+        1: false,
+        4: true
+      };
+      component.resetarCheckedStatusFiltrado();
+      expect(component.checkedStatusFiltrado[1]).toBeFalse(); // Não alterado
+      expect(component.checkedStatusFiltrado[4]).toBeTrue(); // Não removido, pois a lógica atual não remove chaves extras
+    });
+
+    // ... Adicione mais testes conforme necessário ...
+  });
+  //!SECTION
+  
+
+
   
 });
