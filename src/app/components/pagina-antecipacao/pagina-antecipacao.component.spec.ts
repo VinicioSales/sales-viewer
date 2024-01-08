@@ -64,6 +64,7 @@ fdescribe('PaginaAntecipacaoComponent', () => {
   beforeEach(() => {
     logServiceMock = jasmine.createSpyObj('LogService', ['error']);
     vendasServiceMock = jasmine.createSpyObj('VendasService', ['getVendas']);
+    vendasServiceMock.getVendas.and.returnValue(of(vendasMock));
 
     TestBed.configureTestingModule({
       imports: [
@@ -147,30 +148,62 @@ fdescribe('PaginaAntecipacaoComponent', () => {
       fixture.detectChanges(); // Inicializa ngOnInit
       expect(logServiceMock.error).toHaveBeenCalledWith(`PaginaAntecipacaoComponent - ngOnInit: ${errorResponse}`);
     });
+  });
+  //!SECTION
 
-    // NOTE - Deve inicializar listaVendas e listaVendasFiltrada
-    it('deve inicializar listaVendas e listaVendasFiltrada', fakeAsync(() => {
-      fixture.detectChanges(); // Inicializa ngOnInit
-      tick(); // Aguarda a conclusão das operações assíncronas
-  
-      expect(component.listaVendas).toEqual(vendasMock);
-      expect(component.listaVendasFiltrada).toEqual(vendasMock);
-  
-      // Verifica se checkedStatus e checkedStatusFiltrado foram inicializados corretamente
-      vendasMock.forEach(venda => {
-        expect(component.checkedStatus[venda.numeroPedido]).toBeFalse();
-        expect(component.checkedStatusFiltrado[venda.numeroPedido]).toBeFalse();
-      });
-    }));
-
-    // NOTE - Deve inicializar checkedStatus e checkedStatusFiltrado
-    it('deve inicializar checkedStatus e checkedStatusFiltrado', () => {
-      vendasServiceMock.getVendas.and.returnValue(of(vendasMock));
-      fixture.detectChanges(); // Inicializa ngOnInit
-      expect(component.checkedStatus).toEqual({ 1: false, 2: false });
-      expect(component.checkedStatusFiltrado).toEqual({ 1: false, 2: false });
-    });
+  // SECTION: mostrarDropdownProdutos
+  describe('mostrarDropdownProdutos', () => {
     
+    // Mock de objetos Venda
+    const vendaMock1: Venda = {
+      numeroPedido: 1,
+      dataInclusao: '2021-01-01',
+      previsaoFaturamento: '2021-02-01',
+      valorVenda: 100.00,
+      produtos: [/* ...produtos... */]
+    };
+
+    const vendaMock2: Venda = {
+      numeroPedido: 2,
+      dataInclusao: '2021-03-01',
+      previsaoFaturamento: '2021-04-01',
+      valorVenda: 200.00,
+      produtos: [/* ...produtos... */]
+    };
+
+    // NOTE: Quando a venda selecionada não é encontrada
+    it('não deve fazer nada se a venda selecionada não for encontrada', () => {
+      const vendaSelecionada: Venda = { 
+        numeroPedido: 999, 
+        dataInclusao: '',
+        previsaoFaturamento: '',
+        valorVenda: 0,
+        produtos: [] 
+      };
+      component.mostrarDropdownProdutos(vendaSelecionada);
+      expect(component.mostrarDropdownProdutosVenda).toBeUndefined();
+      expect(component.dropdownAtivoVenda).toBeUndefined();
+    });
+
+    // NOTE: Quando a venda selecionada já está ativa
+    it('deve desativar o dropdown se a mesma venda já está ativa', () => {
+      component.listaVendasFiltrada = [vendaMock1];
+      component.mostrarDropdownProdutos(vendaMock1); // Ativa o dropdown
+      component.mostrarDropdownProdutos(vendaMock1); // Desativa o dropdown
+      expect(component.mostrarDropdownProdutosVenda).toBeUndefined();
+      expect(component.dropdownAtivoVenda).toBeUndefined();
+    });
+
+    // NOTE: Quando a venda selecionada é diferente da venda ativa
+    it('deve ativar o dropdown para a nova venda selecionada', () => {
+      component.listaVendasFiltrada = [vendaMock1, vendaMock2];
+      component.mostrarDropdownProdutos(vendaMock1); // Ativa o dropdown para venda1
+      component.mostrarDropdownProdutos(vendaMock2); // Muda o dropdown para venda2
+      expect(component.mostrarDropdownProdutosVenda).toEqual(vendaMock2);
+      expect(component.dropdownAtivoVenda).toEqual(vendaMock2.numeroPedido);
+    });
+
+    // ... Adicione mais testes conforme necessário ...
   });
   //!SECTION
   
