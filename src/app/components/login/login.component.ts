@@ -100,10 +100,11 @@ export class LoginComponent {
         
         this.carregando = false;
       },
-      
       error: (error: HttpErrorResponse) => {
-        this.mensagensService.exibirMensagemModal(error.error.message);
-        console.log(error.error.message);
+        debugger;
+        console.log(error)
+        console.log(error.error);
+        this.mensagensService.exibirMensagemModal(error.error);
         this.carregando = false;
       }
     });

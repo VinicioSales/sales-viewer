@@ -16,8 +16,8 @@ export class AuthService {
 ) { }
 
  //NOTE - Registrar usuário
- registrarUsuario(nome: string, email: string, senha: string): Observable<any>{
-  return this.http.post(`${urlBackend}/${rotaRegistrarUsuarios}`,{nome, email,senha});
+ registrarUsuario(username: string, email: string, password: string): Observable<any>{
+  return this.http.post(`${urlBackend}/${rotaRegistrarUsuarios}`,{username, email,password});
 }  
 
 //NOTE - redefinirSenha
