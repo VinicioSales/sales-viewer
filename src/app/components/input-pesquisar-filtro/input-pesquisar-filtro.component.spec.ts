@@ -6,6 +6,15 @@ import { ImagemService } from 'src/app/services/imagem/imagem.service';
 
 
 import { InputPesquisarFiltroComponent } from './input-pesquisar-filtro.component';
+import { ElementRef } from '@angular/core';
+
+class MockElementRef extends ElementRef {
+  constructor() { super(null); }
+
+  override nativeElement = {
+    focus: () => {} // Função focus simulada
+  };
+}
 
 fdescribe('InputPesquisarFiltroComponent', () => {
   let mockElementRef: any;
@@ -239,4 +248,153 @@ fdescribe('InputPesquisarFiltroComponent', () => {
     });
   });
   //!SECTION
+
+  // SECTION - onClick
+  describe('onClick', () => {
+    // NOTE - Deve emitir o valor do texto pesquisado quando o método onClick for chamado
+    it('deve emitir o valor do texto pesquisado quando o método onClick for chamado', () => {
+      // Arrange
+      const textoPesquisado = 'Texto de teste';
+      component.textoPesquisado = textoPesquisado;
+      spyOn(component.pesquisar, 'emit'); // Espiona o método emit do evento pesquisar
+
+      component.onClick();
+
+      expect(component.pesquisar.emit).toHaveBeenCalledWith(textoPesquisado);
+    });
+  });
+  //!SECTION
+
+  // SECTION - onInputFocus
+  describe('onInputFocus', () => {
+    
+    // NOTE - Deve adicionar a classe 'focused' ao elemento HTML passado como parâmetro
+    it('deve adicionar a classe "focused" ao elemento HTML passado como parâmetro', () => {
+      // Arrange
+      const divElement = document.createElement('div');
+      spyOn(divElement.classList, 'add');
+
+      // Act
+      component.onInputFocus(divElement);
+
+      // Assert
+      expect(divElement.classList.add).toHaveBeenCalledWith('focused');
+    });
+  });
+  //!SECTION
+
+  // SECTION - onInputBlur
+  describe('onInputBlur', () => {
+    
+    // NOTE - Deve remover a classe 'focused' do elemento HTML passado como parâmetro
+    it('deve remover a classe "focused" do elemento HTML passado como parâmetro', () => {
+      // Arrange
+      const divElement = document.createElement('div');
+      divElement.classList.add('focused'); // Adicione a classe 'focused' para testar sua remoção
+      spyOn(divElement.classList, 'remove');
+
+      // Act
+      component.onInputBlur(divElement);
+
+      // Assert
+      expect(divElement.classList.remove).toHaveBeenCalledWith('focused');
+    });
+  });
+  //!SECTION
+
+  // SECTION - filtrarItens
+  describe('filtrarItens', () => {
+    
+    it('deve configurar mostrarDropdown para true', () => {
+      // Arrange
+      component.mostrarDropdown = false;
+      
+      // Act
+      component.filtrarItens();
+
+      // Assert
+      expect(component.mostrarDropdown).toBe(true);
+    });
+
+    it('deve configurar itensFiltrados para uma cópia profunda de itens quando textoPesquisado estiver vazio', () => {
+      // Arrange
+      component.textoPesquisado = '';
+      component.itens = [1, 2, 3];
+
+      // Act
+      component.filtrarItens();
+
+      // Assert
+      expect(component.itensFiltrados).toEqual(component.itens);
+    });
+  });
+  //!SECTION
+
+  // SECTION - selecionarItem
+describe('selecionarItem', () => {
+  beforeEach(() => {
+    mockElementRef = new MockElementRef() as any; // Atualização aqui para fazer o casting
+    component.inputRef = mockElementRef;
+  });
+
+  it('deve definir o item selecionado e o texto pesquisado corretamente', () => {
+    // Arrange
+    const item = 'Item de teste';
+    
+    // Act
+    component.selecionarItem(item);
+
+    // Assert
+    expect(component.itemSelecionado).toBe(item);
+    expect(component.textoPesquisado).toBe(item);
+  });
+
+  it('deve alternar mostrarDropdown', () => {
+    // Arrange
+    const mostrarDropdownInicial = component.mostrarDropdown;
+    
+    // Act
+    component.selecionarItem('Qualquer item');
+    
+    // Assert
+    expect(component.mostrarDropdown).toBe(!mostrarDropdownInicial);
+  });
+
+  it('deve chamar handleBorderRadius', () => {
+    // Arrange
+    spyOn(component, 'handleBorderRadius');
+    
+    // Act
+    component.selecionarItem('Qualquer item');
+    
+    // Assert
+    expect(component.handleBorderRadius).toHaveBeenCalled();
+  });
+
+  it('deve emitir o item selecionado via itemSelecionadoChange', () => {
+    // Arrange
+    const item = 'Item de teste';
+    spyOn(component.itemSelecionadoChange, 'emit');
+    
+    // Act
+    component.selecionarItem(item);
+    
+    // Assert
+    expect(component.itemSelecionadoChange.emit).toHaveBeenCalledWith(item);
+  });
+
+  it('deve focar o elemento de input', () => {
+    // Arrange
+    spyOn(mockElementRef.nativeElement, 'focus');
+    
+    // Act
+    component.selecionarItem('Qualquer item');
+    
+    // Assert
+    expect(mockElementRef.nativeElement.focus).toHaveBeenCalled();
+  });
+});
+//!SECTION
+
+
 });
