@@ -141,13 +141,9 @@ export class PaginaAntecipacaoComponent implements OnInit {
   
     this.cdr.detectChanges();
     this.limparFiltros();
-    this.filtrarCheckedStatus();
     this.resetarCheckedStatusFiltrado();
 
     this.statusBotaoLimparFiltros = false;
-
-    console.log(this.checkedStatusFiltrado);
-
   }
   
   ativarBotaoLimparFiltros() {
