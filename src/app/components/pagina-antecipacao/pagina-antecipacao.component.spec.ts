@@ -49,6 +49,7 @@ const vendasMock: Venda[] = [
 ];
 
 
+
 fdescribe('PaginaAntecipacaoComponent', () => {
   let router: Router;
   let logServiceMock: any;
@@ -93,6 +94,8 @@ fdescribe('PaginaAntecipacaoComponent', () => {
         { provide: VendasService, useValue: vendasServiceMock },
       ],
     }).compileComponents();
+
+    
 
     fixture = TestBed.createComponent(PaginaAntecipacaoComponent);
     component = fixture.componentInstance;
@@ -202,9 +205,44 @@ fdescribe('PaginaAntecipacaoComponent', () => {
       expect(component.mostrarDropdownProdutosVenda).toEqual(vendaMock2);
       expect(component.dropdownAtivoVenda).toEqual(vendaMock2.numeroPedido);
     });
-
-    // ... Adicione mais testes conforme necessário ...
   });
   //!SECTION
+
+  // SECTION: filtrarCheckedStatus
+  describe('filtrarCheckedStatus', () => {
+
+    beforeEach(() => {
+      component.listaVendasFiltrada = vendasMock;
+      component.checkedStatus = {
+        1: true,
+        2: false,
+        3: true // chave extra que não existe em listaVendasFiltrada
+      };
+      component.checkedStatusFiltrado = { ...component.checkedStatus };
+    });
+
+    // NOTE: Deve manter status para vendas existentes em listaVendasFiltrada
+    it('deve manter status para vendas existentes em listaVendasFiltrada', () => {
+      component.filtrarCheckedStatus();
+      expect(component.checkedStatusFiltrado[1]).toBeTrue();
+      expect(component.checkedStatusFiltrado[2]).toBeFalse();
+    });
+
+    // NOTE: Deve remover chaves que não correspondem a vendas em listaVendasFiltrada
+    it('deve remover chaves que não correspondem a vendas em listaVendasFiltrada', () => {
+      component.filtrarCheckedStatus();
+      expect(component.checkedStatusFiltrado[3]).toBeUndefined();
+    });
+
+    // NOTE: Deve manter checkedStatusFiltrado vazio se listaVendasFiltrada for vazia
+    it('deve manter checkedStatusFiltrado vazio se listaVendasFiltrada for vazia', () => {
+      component.listaVendasFiltrada = [];
+      component.filtrarCheckedStatus();
+      expect(Object.keys(component.checkedStatusFiltrado).length).toBe(0);
+    });
+
+  });
+  //!SECTION
+
   
 });
