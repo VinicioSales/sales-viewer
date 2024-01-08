@@ -22,15 +22,15 @@ import { InputPesquisarFiltroComponent } from './components/input-pesquisar-filt
   declarations: [
     AppComponent,
     BotaoComponent,
+    InputComponent,
     BotaoTemaComponent,
     BotaoHomeComponent,
+    ModalGeralComponent,
     InputDropdownComponent,
     BotaoDropdownComponent,
     InputPesquisarComponent,
     PaginaAntecipacaoComponent,
     InputPesquisarFiltroComponent,
-    ModalGeralComponent,
-    InputComponent,
   ],
   imports: [
     FormsModule,

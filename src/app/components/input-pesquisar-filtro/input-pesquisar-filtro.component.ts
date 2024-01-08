@@ -41,7 +41,7 @@ export class InputPesquisarFiltroComponent implements OnInit, OnDestroy{
   @ViewChild('containerRef') containerRef!: ElementRef;
   
   constructor(private temaService: TemaService, private imagemService: ImagemService) {
-    this.atualizarImg(); // Atualizar a imagem quando o componente é criado
+    this.atualizarImg();
   }
 
   //NOTE - ngOnInit
