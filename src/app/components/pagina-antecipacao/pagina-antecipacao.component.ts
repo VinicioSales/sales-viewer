@@ -380,4 +380,9 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.abrirModalConfirmacao = true;
   }
 
+  //NOTE - fecharModalConfirmacaoAdiantamento
+  fecharModalConfirmacaoAdiantamento() {
+    this.abrirModalConfirmacao = false;
+  }
+
 }
