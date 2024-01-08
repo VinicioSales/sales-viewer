@@ -299,6 +299,48 @@ fdescribe('PaginaAntecipacaoComponent', () => {
   });
   //!SECTION
   
+   // SECTION: atualizarListasFiltrada
+  describe('atualizarListasFiltrada', () => {
+
+    // NOTE: Deve atualizar listaProdutosDescricao com base em listaVendasFiltrada
+    it('deve atualizar listaProdutosDescricao com base em listaVendasFiltrada', () => {
+      // Certifique-se de que listaVendasFiltrada está inicializada corretamente
+      component.listaVendasFiltrada = vendasMock;
+    
+      component.atualizarListasFiltrada();
+    
+      const expectedProdutosDescricao = vendasMock.flatMap(venda => venda.produtos.map(produto => produto.descricaoProduto));
+      expect(component.listaProdutosDescricao).toEqual(expectedProdutosDescricao);
+    });
+    
+
+    // NOTE: Deve atualizar listaNumeroPedido com base em listaVendasFiltrada
+    it('deve atualizar listaNumeroPedido com base em listaVendasFiltrada', () => {
+      // Certifique-se de que listaVendasFiltrada está inicializada corretamente
+      component.listaVendasFiltrada = vendasMock;
+    
+      component.atualizarListasFiltrada();
+    
+      const expectedNumerosPedido = vendasMock.map(venda => venda.numeroPedido);
+      expect(component.listaNumeroPedido).toEqual(expectedNumerosPedido);
+    });
+    
+
+    // NOTE: Deve atualizar listaValorVenda com base em listaVendasFiltrada
+    it('deve atualizar listaValorVenda com base em listaVendasFiltrada', () => {
+      // Inicializando listaVendasFiltrada com os dados de vendasMock
+      component.listaVendasFiltrada = vendasMock;
+    
+      component.atualizarListasFiltrada();
+    
+      // Usando map ao invés de flatMap, pois valorVenda é um valor numérico
+      const expectedValoresVenda = vendasMock.map(venda => venda.valorVenda);
+      expect(component.listaValorVenda).toEqual(expectedValoresVenda);
+    });
+    
+    // ... Adicione mais testes se necessário ...
+  });
+  //!SECTION
 
 
   
