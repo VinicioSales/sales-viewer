@@ -1,7 +1,12 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
-[0.7.0] - 08/01/2024
+[0.9.0] - 09/01/2024
+Added
+- Finalizado testes unitários tela adiatamento de vendas (vinicio)
+- Iniciado teste end to end com backend na tela de adiantamento de vendas (vinicio)
+
+[0.8.0] - 08/01/2024
 Fixed
 - Corrigido erros nos testes unitários tela de registro (victor)
 - feito testes na integração entre front-end e back-end (victor)
