@@ -8,8 +8,8 @@ import { InputComponent } from '../input/input.component';
 import { BotaoComponent } from '../botao/botao.component';
 import { LogService } from 'src/app/services/log/log.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, TestBed, } from '@angular/core/testing';
 import { VendasService } from 'src/app/services/vendas/vendas.service';
 import { BotaoTemaComponent } from '../botao-tema/botao-tema.component';
 import { BotaoHomeComponent } from '../botao-home/botao-home.component';
@@ -48,10 +48,25 @@ const vendasMock: Venda[] = [
   }
 ];
 
+const vendaMock2: Venda = 
+  {
+    numeroPedido: 1,
+    dataInclusao: '2021-01-01',
+    previsaoFaturamento: '2021-02-01',
+    valorVenda: 100.00,
+    produtos: [
+      {
+        descricaoProduto: 'Produto 1',
+        valorProduto: 50.00,
+        unidadeMedidaProduto: 'un'
+      }
+    ]
+  }
 
 
 
-fdescribe('PaginaAntecipacaoComponent', () => {
+
+describe('PaginaAntecipacaoComponent', () => {
   let router: Router;
   let logServiceMock: any;
   let cdr: ChangeDetectorRef;
@@ -782,6 +797,160 @@ fdescribe('PaginaAntecipacaoComponent', () => {
       expect(component.estaSelecionada(venda)).toBeFalse();
     });
   });
+  //!SECTION
+
+  //SECTION - estaoTodosSelecionados
+  describe('estaoTodosSelecionados', () => {
+    beforeEach(() => {
+      component.checkedStatusFiltrado = { 1: true, 2: false };
+    });
   
+    //NOTE - deve retornar verdadeiro se todos os itens estiverem selecionados
+    it('deve retornar verdadeiro se todos os itens estiverem selecionados', () => {
+      component.checkedStatusFiltrado = { 1: true, 2: true };
+      expect(component.estaoTodosSelecionados()).toBeTrue();
+    });
   
+    //NOTE - deve retornar falso se pelo menos um item não estiver selecionado
+    it('deve retornar falso se pelo menos um item não estiver selecionado', () => {
+      expect(component.estaoTodosSelecionados()).toBeFalse();
+    });
+  });
+  //!SECTION
+
+  //SECTION - onSelecionarTodasVendas
+  describe('onSelecionarTodasVendas', () => {
+    beforeEach(() => {
+      component.listaVendasFiltrada = vendasMock;
+      component.checkedStatusFiltrado = { 1: false, 2: false };
+    });
+  
+    it('deve marcar todos os itens se nenhum estiver selecionado', () => {
+      console.log('component.listaVendasFiltrada');
+      console.log(component.listaVendasFiltrada);
+      component.onSelecionarTodasVendas();
+      expect(Object.values(component.checkedStatusFiltrado).every(status => status)).toBeTrue();
+      expect(component.listaVendasSelecionadas.length).toBe(vendasMock.length);
+    });
+  
+    it('deve desmarcar todos os itens se todos estiverem selecionados', () => {
+      component.checkedStatusFiltrado = { 1: true, 2: true };
+      component.onSelecionarTodasVendas();
+      expect(Object.values(component.checkedStatusFiltrado).every(status => !status)).toBeTrue();
+      expect(component.listaVendasSelecionadas.length).toBe(0);
+    });
+  });
+  //!SECTION
+
+  //SECTION - addListaVendaSelecionada
+  describe('addListaVendaSelecionada', () => {
+    beforeEach(() => {
+      component.listaVendasSelecionadas = [];
+    });
+    
+    //NOTE - deve adicionar uma venda à lista de vendas selecionadas
+    it('deve adicionar uma venda à lista de vendas selecionadas', () => {
+      const venda = { numeroPedido: 1 };
+      component.addListaVendaSelecionada(vendaMock2);
+      expect(component.listaVendasSelecionadas).toContain(vendaMock2);
+    });
+  });
+  //!SECTION
+  
+  //SECTION - removerVenda
+  describe('removerVenda', () => {
+    beforeEach(() => {
+      component.listaVendasSelecionadas = vendasMock;
+    });
+  
+    //NOTE - deve remover uma venda da lista de vendas selecionadas
+    it('deve remover uma venda da lista de vendas selecionadas', () => {
+      component.removerVenda(vendaMock2);
+      expect(component.listaVendasSelecionadas).not.toContain(vendaMock2);
+    });
+  });
+  //!SECTION
+
+  //SECTION - onSelecionarVenda
+  describe('onSelecionarVenda', () => {
+    beforeEach(() => {
+      component.checkedStatusFiltrado = {};
+      component.listaVendasSelecionadas = [];
+    });
+  
+    it('deve adicionar a venda à lista de vendas selecionadas se estiver marcada', () => {
+      component.checkedStatusFiltrado[1] = true;
+      component.onSelecionarVenda(vendaMock2);
+      expect(component.listaVendasSelecionadas).toContain(vendaMock2);
+    });
+  
+    it('deve remover a venda da lista de vendas selecionadas se não estiver marcada', () => {
+      component.checkedStatusFiltrado[1] = false;
+      component.onSelecionarVenda(vendaMock2);
+      expect(component.listaVendasSelecionadas).not.toContain(vendaMock2);
+    });
+  });
+  //!SECTION
+
+  //SECTION - onAdiantar
+  describe('onAdiantar', () => {
+    let component: PaginaAntecipacaoComponent;
+    let routerMock: any;
+    let cdrMock: any;
+    let logServiceMock: any;
+    let mockServiceMock: any;
+    let vendasServiceMock: any;
+    let mensagensServiceMock: any;
+  
+    beforeEach(() => {
+      // Criando mocks para todas as dependências
+      routerMock = jasmine.createSpyObj('Router', ['navigate']);
+      cdrMock = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
+      logServiceMock = jasmine.createSpyObj('LogService', ['error']);
+      mockServiceMock = jasmine.createSpyObj('MockService', ['someMethod']); // Substitua 'someMethod' pelos métodos reais
+      vendasServiceMock = jasmine.createSpyObj('VendasService', ['getVendas']);
+      mensagensServiceMock = jasmine.createSpyObj('MensagensService', ['exibirMensagemModal']);
+  
+      // Instanciando o componente com todos os mocks
+      component = new PaginaAntecipacaoComponent(
+        routerMock,
+        cdrMock,
+        logServiceMock,
+        mockServiceMock,
+        vendasServiceMock,
+        mensagensServiceMock
+      );
+  
+      component.listaVendasSelecionadas = vendasMock;
+    });
+  
+    //NOTE - deve exibir uma mensagem se nenhuma venda estiver selecionada
+    it('deve exibir uma mensagem se nenhuma venda estiver selecionada', () => {
+      component.listaVendasSelecionadas = [];
+      component.onAdiantar();
+      expect(mensagensServiceMock.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_ITENS_NAO_SELECIONADOS);
+    });
+  
+    //NOTE - deve abrir o modal de confirmação se houver vendas selecionadas
+    it('deve abrir o modal de confirmação se houver vendas selecionadas', () => {
+      component.onAdiantar();
+      expect(component.abrirModalConfirmacao).toBeTrue();
+    });
+  });
+  
+  //!SECTION
+
+  //SECTION - fecharModalConfirmacaoAdiantamento
+  describe('fecharModalConfirmacaoAdiantamento', () => {
+    beforeEach(() => {
+      component.abrirModalConfirmacao = true;
+    });
+  
+    //NOTE - deve fechar o modal de confirmação de adiantamento
+    it('deve fechar o modal de confirmação de adiantamento', () => {
+      component.fecharModalConfirmacaoAdiantamento();
+      expect(component.abrirModalConfirmacao).toBeFalse();
+    });
+  });
+  //!SECTION
 });
