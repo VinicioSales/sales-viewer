@@ -424,7 +424,24 @@ fdescribe('PaginaAntecipacaoComponent', () => {
       expect(component.verificarCamposFiltrosVazios()).toBeFalse();
     });
   });
+  //!SECTION
 
+  //SECTION - formatarData
+  describe('formatarData', () => {
+    // NOTE: Teste para uma data válida
+    it('deve formatar corretamente uma data do formato yyyy-mm-dd para dd/mm/yyyy', () => {
+      const dataOriginal = '2021-12-31';
+      const dataFormatada = component.formatarData(dataOriginal);
+      expect(dataFormatada).toEqual('31/12/2021');
+    });
+
+    // NOTE: Teste para outra data válida
+    it('deve formatar corretamente outra data do formato yyyy-mm-dd para dd/mm/yyyy', () => {
+      const dataOriginal = '2022-01-01';
+      const dataFormatada = component.formatarData(dataOriginal);
+      expect(dataFormatada).toEqual('01/01/2022');
+    });
+  });
 
   
 });
