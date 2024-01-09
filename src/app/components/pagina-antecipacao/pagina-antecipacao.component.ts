@@ -328,7 +328,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - estaSelecionada
   estaSelecionada(venda: Venda) {
-    return this.checkedStatusFiltrado[venda.numeroPedido];
+    return !!this.checkedStatusFiltrado[venda.numeroPedido];
   }
 
   //NOTE - estaoTodosSelecionados

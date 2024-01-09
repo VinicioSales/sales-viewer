@@ -49,6 +49,8 @@ const vendasMock: Venda[] = [
 ];
 
 
+
+
 fdescribe('PaginaAntecipacaoComponent', () => {
   let router: Router;
   let logServiceMock: any;
@@ -511,7 +513,275 @@ fdescribe('PaginaAntecipacaoComponent', () => {
   })
   //!SECTION
 
+  //SECTION - handdleDataInclusaoPesquisado
+  describe('handdleDataInclusaoPesquisado', () => {
+    //NOTE - deve formatar a data e executar outras funções quando a data de inclusão pesquisada for válida
+    it('deve formatar a data e executar outras funções quando a data de inclusão pesquisada for válida', () => {
+      const dataInclusaoPesquisado = '01/01/2024';
+      const dataInclusaoPesquisadoFormatada = '2024-01-01';
+      
+      spyOn(component, 'formatarData').and.returnValue(dataInclusaoPesquisadoFormatada);
+      spyOn(component, 'ativarBotaoLimparFiltros');
+      spyOn(component, 'filtrarTabela');
+      spyOn(component, 'filtrarCheckedStatus');
   
+      component.handdleDataInclusaoPesquisado(dataInclusaoPesquisado);
+  
+      expect(component.formatarData).toHaveBeenCalledWith(dataInclusaoPesquisado);
+      expect(component.ativarBotaoLimparFiltros).toHaveBeenCalled();
+      expect(component.filtrarTabela).toHaveBeenCalled();
+      expect(component.filtrarCheckedStatus).toHaveBeenCalled();
+    });
+  
+    //NOTE - deve definir dataInclusaoPesquisado corretamente quando a data de inclusão pesquisada for válida
+    it('deve definir dataInclusaoPesquisado corretamente quando a data de inclusão pesquisada for válida', () => {
+      const dataInclusaoPesquisado = '01/01/2024';
+      const dataInclusaoPesquisadoFormatada = '2024-01-01';
+      
+      spyOn(component, 'formatarData').and.returnValue(dataInclusaoPesquisadoFormatada);
+  
+      component.handdleDataInclusaoPesquisado(dataInclusaoPesquisado);
+  
+      expect(component.dataInclusaoPesquisado).toBe(dataInclusaoPesquisadoFormatada);
+    });
+  })
+  //!SECTION
 
+  //SECTION - handleValorVendaPesquisado
+  describe('handleValorVendaPesquisado', () => {
+    //NOTE - deve limpar filtros e definir valorVendaPesquisado ao receber um valor válido
+    it('deve limpar filtros e definir valorVendaPesquisado ao receber um valor válido', () => {
+      spyOn(component, 'limparFiltros');
+      spyOn(component, 'ativarBotaoLimparFiltros');
+      const valorVendaPesquisado = 100;
+  
+      component.handleValorVendaPesquisado(valorVendaPesquisado);
+  
+      expect(component.limparFiltros).toHaveBeenCalled();
+      expect(component.ativarBotaoLimparFiltros).toHaveBeenCalled();
+      expect(component.valorVendaPesquisado).toBe(valorVendaPesquisado);
+    });
+  });
+  //!SECTION
+
+  //SECTION - verificarEResetarFiltros
+  describe('verificarEResetarFiltros', () => {
+    describe('verificarEResetarFiltros', () => {
+      //NOTE - deve resetar filtros e retornar true quando nenhum filtro estiver definido
+      it('deve resetar filtros e retornar true quando nenhum filtro estiver definido', () => {
+        spyOn(component, 'resetarFiltros');
+    
+        const resultado = component.verificarEResetarFiltros();
+    
+        expect(component.resetarFiltros).toHaveBeenCalled();
+        expect(resultado).toBe(true);
+      });
+    
+      //NOTE - não deve resetar filtros e retornar false quando pelo menos um filtro estiver definido
+      it('não deve resetar filtros e retornar false quando pelo menos um filtro estiver definido', () => {
+        component.produtoDescricaoPesquisado = 'Produto';
+        
+        const resultado = component.verificarEResetarFiltros();
+    
+        expect(resultado).toBe(false);
+      });
+    });
+    
+  })
+  //!SECTION
+
+  //SECTION - filtrarVendaPorProduto
+  describe('filtrarVendaPorProduto', () => {
+    beforeEach(async () => {
+      fixture = TestBed.createComponent(PaginaAntecipacaoComponent);
+      component = fixture.componentInstance;
+      component.listaVendas = vendasMock; // Usando vendasMock como dados iniciais
+      fixture.detectChanges();
+    });
+  
+    // NOTE: Teste para verificar se o filtro por descrição do produto funciona corretamente
+    it('deve filtrar vendas com base na descrição do produto', () => {
+      component.produtoDescricaoPesquisado = 'Produto 1';
+      component.filtrarVendaPorProduto();
+      expect(component.listaVendasFiltrada.length).toBe(1);
+      expect(component.listaVendasFiltrada[0].numeroPedido).toEqual(1);
+    });
+  
+    // NOTE: Teste para verificar se o método atualiza listaVendasFiltrada adequadamente
+    it('deve atualizar listaVendasFiltrada ao chamar filtrarVendaPorProduto', () => {
+      spyOn(component, 'atualizarListasFiltrada');
+      component.filtrarVendaPorProduto();
+      expect(component.atualizarListasFiltrada).toHaveBeenCalled();
+    });
+  });
+  //!SECTION
+
+  //SECTION - filtrarVendaPorNumeroPedido
+  describe('filtrarVendaPorNumeroPedido', () => {
+    //NOTE - deve filtrar as vendas pelo número do pedido especificado
+    it('deve filtrar as vendas pelo número do pedido especificado', () => {
+      component.numeroPedidoPesquisado = '1';
+      component.filtrarVendaPorNumeroPedido();
+      expect(component.listaVendasFiltrada.every(v => v.numeroPedido === Number(component.numeroPedidoPesquisado))).toBeTrue();
+    });
+  
+    //NOTE - não deve incluir vendas com números de pedido diferentes
+    it('não deve incluir vendas com números de pedido diferentes', () => {
+      component.numeroPedidoPesquisado = '999';
+      component.filtrarVendaPorNumeroPedido();
+      expect(component.listaVendasFiltrada.length).toBe(0);
+    });
+  });
+  //!SECTION
+
+  //SECTION - filtrarVendaPorData
+  describe('filtrarVendaPorData', () => {
+
+    //NOTE - deve filtrar as vendas pela data de inclusão especificada
+    it('deve filtrar as vendas pela data de inclusão especificada', () => {
+      component.dataInclusaoPesquisado = '2021-01-01';
+      component.filtrarVendaPorData();
+      expect(component.listaVendasFiltrada.every(v => v.dataInclusao === component.dataInclusaoPesquisado)).toBeTrue();
+    });
+  
+    //NOTE - não deve incluir vendas com datas de inclusão diferentes
+    it('não deve incluir vendas com datas de inclusão diferentes', () => {
+      component.dataInclusaoPesquisado = '2021-12-31';
+      component.filtrarVendaPorData();
+      expect(component.listaVendasFiltrada.length).toBe(0);
+    });
+  });
+  //!SECTION
+
+  //SECTION - filtrarVendaPorValor
+  describe('filtrarVendaPorValor', () => {
+
+    //NOTE - deve filtrar as vendas pelo valor da venda especificado
+    it('deve filtrar as vendas pelo valor da venda especificado', () => {
+      component.valorVendaPesquisado = 100.00;
+      component.filtrarVendaPorValor();
+      expect(component.listaVendasFiltrada.every(v => v.valorVenda === component.valorVendaPesquisado)).toBeTrue();
+    });
+  
+    //NOTE - deve limpar os filtros se o valor da venda pesquisado for 0 ou nulo
+    it('deve limpar os filtros se o valor da venda pesquisado for 0 ou nulo', () => {
+      spyOn(component, 'limparFiltros');
+      spyOn(component, 'resetarCheckedStatusFiltrado');
+      component.valorVendaPesquisado = 0;
+      component.filtrarVendaPorValor();
+      expect(component.limparFiltros).toHaveBeenCalled();
+      expect(component.resetarCheckedStatusFiltrado).toHaveBeenCalled();
+    });
+  });
+  //!SECTION
+
+  //SECTION - filtrarTabela
+  describe('filtrarTabela', () => {
+    //NOTE - deve chamar o método apropriado de filtragem com base nos campos de filtro preenchidos
+    it('deve chamar o método apropriado de filtragem com base nos campos de filtro preenchidos', () => {
+      spyOn(component, 'filtrarVendaPorProduto');
+      spyOn(component, 'filtrarVendaPorNumeroPedido');
+      spyOn(component, 'filtrarVendaPorData');
+      spyOn(component, 'filtrarVendaPorValor');
+      spyOn(component, 'atualizarListasFiltrada');
+  
+      component.produtoDescricaoPesquisado = 'Produto 1';
+      component.numeroPedidoPesquisado = '1';
+      component.dataInclusaoPesquisado = '2021-01-01';
+      component.valorVendaPesquisado = 100.00;
+  
+      component.filtrarTabela();
+  
+      expect(component.filtrarVendaPorProduto).toHaveBeenCalled();
+      expect(component.filtrarVendaPorNumeroPedido).toHaveBeenCalled();
+      expect(component.filtrarVendaPorData).toHaveBeenCalled();
+      expect(component.filtrarVendaPorValor).toHaveBeenCalled();
+      expect(component.atualizarListasFiltrada).toHaveBeenCalled();
+    });
+  });
+  //!SECTION
+
+  //SECTION - limparFiltros
+  describe('limparFiltros', () => {
+
+    //NOTE - deve igualar listaVendasFiltrada à listaVendas
+    it('deve igualar listaVendasFiltrada à listaVendas', () => {
+      component.limparFiltros();
+      expect(component.listaVendasFiltrada).toEqual(component.listaVendas);
+    });
+  
+    //NOTE - deve manter a referência original de listaVendas após limpar filtros
+    it('deve manter a referência original de listaVendas após limpar filtros', () => {
+      component.listaVendasFiltrada = [...vendasMock]; // Modificação inicial
+      component.limparFiltros();
+      expect(component.listaVendasFiltrada).toEqual(component.listaVendas);
+    });
+  });
+  //!SECTION
+
+  //SECTION - estaSelecionada
+  describe('estaSelecionada', () => {
+
+    beforeEach(() => {
+      component.checkedStatusFiltrado = { 1: true, 2: false };
+    });
+
+    //NOTE - deve retornar verdadeiro se a venda estiver selecionada
+    it('deve retornar verdadeiro se a venda estiver selecionada', () => {
+      const venda: Venda = 
+        {
+          numeroPedido: 1,
+          dataInclusao: '2021-01-01',
+          previsaoFaturamento: '2021-02-01',
+          valorVenda: 100.00,
+          produtos: [
+            {
+              descricaoProduto: 'Produto 1',
+              valorProduto: 50.00,
+              unidadeMedidaProduto: 'un'
+            }
+          ]
+        }
+      expect(component.estaSelecionada(venda)).toBeTrue();
+    });
+  
+    //NOTE - deve retornar falso se a venda não estiver selecionada
+    it('deve retornar falso se a venda não estiver selecionada', () => {
+      const venda: Venda = 
+        {
+          numeroPedido: 2,
+          dataInclusao: '2021-01-01',
+          previsaoFaturamento: '2021-02-01',
+          valorVenda: 100.00,
+          produtos: [
+            {
+              descricaoProduto: 'Produto 1',
+              valorProduto: 50.00,
+              unidadeMedidaProduto: 'un'
+            }
+          ]
+        }
+      expect(component.estaSelecionada(venda)).toBeFalse();
+    });
+  
+    it('deve retornar falso se a venda não estiver no objeto checkedStatusFiltrado', () => {
+      const venda: Venda = 
+        {
+          numeroPedido: 3,
+          dataInclusao: '2021-01-01',
+          previsaoFaturamento: '2021-02-01',
+          valorVenda: 100.00,
+          produtos: [
+            {
+              descricaoProduto: 'Produto 1',
+              valorProduto: 50.00,
+              unidadeMedidaProduto: 'un'
+            }
+          ]
+        }
+      expect(component.estaSelecionada(venda)).toBeFalse();
+    });
+  });
+  
   
 });
