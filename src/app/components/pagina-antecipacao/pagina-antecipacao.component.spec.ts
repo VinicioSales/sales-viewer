@@ -336,20 +336,45 @@ fdescribe('PaginaAntecipacaoComponent', () => {
       const expectedValoresVenda = vendasMock.map(venda => venda.valorVenda);
       expect(component.listaValorVenda).toEqual(expectedValoresVenda);
     });
-    
-    // ... Adicione mais testes se necessário ...
   });
   //!SECTION
 
   //SECTION - onLimparFiltros
   describe('onLimparFiltros', () => {
 
-    //NOTE - deve deixar produtoDescricaoPesquisado vazio
-    it('deve deixar produtoDescricaoPesquisado vazio', () => {
+    //NOTE - deve resetar as propriedades de pesquisa
+    it('deve resetar as propriedades de pesquisa', () => {
+      component.produtoDescricaoPesquisado = 'algum valor';
+      component.numeroPedidoPesquisado = '123';
+      component.valorVendaPesquisado = 10;
+    
+      component.onLimparFiltros();
+    
+      expect(component.produtoDescricaoPesquisado).toBe('');
+      expect(component.numeroPedidoPesquisado).toBe('');
+      expect(component.valorVendaPesquisado).toBe(0);
+    });
+
+    //NOTE - Deve chamar os metodos ao chamar o onLimparFiltros
+    it('Deve chamar os metodos ao chamar o onLimparFiltros', () => {
+      spyOn(component, 'limparFiltros');
+      spyOn(component, 'resetarCheckedStatusFiltrado');
+
       component.onLimparFiltros();
 
-      expect(component.produtoDescricaoPesquisado).toBe('');
+      expect(component.limparFiltros).toHaveBeenCalled();
+      expect(component.resetarCheckedStatusFiltrado).toHaveBeenCalled();
     })
-  })
+
+    //NOTE - deve deixar statusBotaoLimparFiltros false
+    it('deve deixar statusBotaoLimparFiltros false', () => {
+      component.statusBotaoLimparFiltros = false;
+
+      component.onLimparFiltros();
+
+      expect(component.statusBotaoLimparFiltros).toBeFalse();
+    });
+    
+  });
   
 });
