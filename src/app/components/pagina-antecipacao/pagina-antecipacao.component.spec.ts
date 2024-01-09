@@ -374,7 +374,57 @@ fdescribe('PaginaAntecipacaoComponent', () => {
 
       expect(component.statusBotaoLimparFiltros).toBeFalse();
     });
-    
   });
+  //!SECTION
+
+  //SECTION - ativarBotaoLimparFiltros
+  describe('ativarBotaoLimparFiltros', () => {
+    //NOTE - verificar se ativarBotaoLimparFiltros define statusBotaoLimparFiltros como true
+    it('deve definir statusBotaoLimparFiltros como true', () => {
+      component.ativarBotaoLimparFiltros();
+
+      expect(component.statusBotaoLimparFiltros).toBeTrue();
+    });
+  })
+  //!SECTION
+
+  //SECTION - verificarCamposFiltrosVazios
+  describe('verificarCamposFiltrosVazios', () => {
+
+    it('deve retornar true se todos os campos de filtro estiverem vazios', () => {
+      component.produtoDescricaoPesquisado = '';
+      component.numeroPedidoPesquisado = '';
+      component.dataInclusaoPesquisado = '';
+      component.valorVendaPesquisado = 0;
+
+      expect(component.verificarCamposFiltrosVazios()).toBeTrue();
+    });
+
+    //NOTE - deve retornar false se produtoDescricaoPesquisado não estiver vazio
+    it('deve retornar false se produtoDescricaoPesquisado não estiver vazio', () => {
+      component.produtoDescricaoPesquisado = 'Algum produto';
+      expect(component.verificarCamposFiltrosVazios()).toBeFalse();
+    });
+
+    //NOTE - deve retornar false se numeroPedidoPesquisado não estiver vazio
+    it('deve retornar false se numeroPedidoPesquisado não estiver vazio', () => {
+      component.numeroPedidoPesquisado = '123';
+      expect(component.verificarCamposFiltrosVazios()).toBeFalse();
+    });
+
+    //NOTE - deve retornar false se dataInclusaoPesquisado não estiver vazia
+    it('deve retornar false se dataInclusaoPesquisado não estiver vazia', () => {
+      component.dataInclusaoPesquisado = '2021-01-01';
+      expect(component.verificarCamposFiltrosVazios()).toBeFalse();
+    });
+
+    //NOTE - deve retornar false se valorVendaPesquisado for maior que zero
+    it('deve retornar false se valorVendaPesquisado for maior que zero', () => {
+      component.valorVendaPesquisado = 100;
+      expect(component.verificarCamposFiltrosVazios()).toBeFalse();
+    });
+  });
+
+
   
 });
