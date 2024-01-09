@@ -442,6 +442,39 @@ fdescribe('PaginaAntecipacaoComponent', () => {
       expect(dataFormatada).toEqual('01/01/2022');
     });
   });
+  //!SECTION
+
+  //SECTION - handleProdutoDescricaoPesquisado
+  describe('handleProdutoDescricaoPesquisado', () => {
+    // NOTE: Teste para verificar se atualiza a propriedade produtoDescricaoPesquisado
+    it('deve atualizar a propriedade produtoDescricaoPesquisado', () => {
+      const descricaoTeste = 'Produto Teste';
+      component.handleProdutoDescricaoPesquisado(descricaoTeste);
+      expect(component.produtoDescricaoPesquisado).toEqual(descricaoTeste);
+    });
+
+    // NOTE: Teste para verificar se ativarBotaoLimparFiltros é chamado
+    it('deve chamar ativarBotaoLimparFiltros', () => {
+      spyOn(component, 'ativarBotaoLimparFiltros');
+      component.handleProdutoDescricaoPesquisado('Teste');
+      expect(component.ativarBotaoLimparFiltros).toHaveBeenCalled();
+    });
+
+    // NOTE: Teste para verificar se filtrarTabela é chamado
+    it('deve chamar filtrarTabela', () => {
+      spyOn(component, 'filtrarTabela');
+      component.handleProdutoDescricaoPesquisado('Teste');
+      expect(component.filtrarTabela).toHaveBeenCalled();
+    });
+
+    // NOTE: Teste para verificar se filtrarCheckedStatus é chamado
+    it('deve chamar filtrarCheckedStatus', () => {
+      spyOn(component, 'filtrarCheckedStatus');
+      component.handleProdutoDescricaoPesquisado('Teste');
+      expect(component.filtrarCheckedStatus).toHaveBeenCalled();
+    });
+  })
+  //!SECTION
 
   
 });
