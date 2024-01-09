@@ -6,6 +6,8 @@ import { LogService } from 'src/app/services/log/log.service';
 import { VendasService } from 'src/app/services/vendas/vendas.service';
 import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 import { Component, OnInit, ViewChild, ChangeDetectorRef  } from '@angular/core';
+import { SnakeToCamelService } from 'src/app/services/snake-to-camel/snake-to-camel.service';
+import { AlterarChavesService } from 'src/app/services/alterar-chaves/alterar-chaves.service';
 import { InputPesquisarFiltroComponent } from '../input-pesquisar-filtro/input-pesquisar-filtro.component';
 
 
@@ -44,6 +46,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
     private mockService: MockService,
     private vendasService: VendasService,
     public mensagensService: MensagensService,
+    public alterarChavesService: AlterarChavesService,
+    public snakeToCamelService: SnakeToCamelService,
   ) {}
 
   @ViewChild('inputValor') inputValor!: InputPesquisarFiltroComponent;
@@ -59,10 +63,15 @@ export class PaginaAntecipacaoComponent implements OnInit {
         return of([]);
       })
     ).subscribe((data: Venda[]) => {
-      this.listaVendas = data;
-      this.listaVendasFiltrada = data;
+      const chavesParaAlterar = {
+        data_emissao: 'dataInclusao',
+        valor_total_pedido: 'valorVenda',
+      }
+      data = data.map(venda => this.alterarChavesService.mapKeys(venda, chavesParaAlterar));
+      const camelCaseData = data.map(venda => this.snakeToCamelService.transformKeysToCamelCase(venda));
+      this.listaVendas = camelCaseData;
+      this.listaVendasFiltrada = camelCaseData;
       this.resetarFiltros();
-  
       this.checkedStatus = {};
       this.listaVendasFiltrada.forEach(venda => {
         this.checkedStatus[venda.numeroPedido] = false;
@@ -296,15 +305,14 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.limparFiltros();
     this.resetarCheckedStatusFiltrado();
 
-  
     if (this.produtoDescricaoPesquisado && this.produtoDescricaoPesquisado != '') {
       this.filtrarVendaPorProduto();
     } 
-    
+
     if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
       this.filtrarVendaPorNumeroPedido();
     }
-    
+
     if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
       this.filtrarVendaPorNumeroPedido();
     }
@@ -316,8 +324,11 @@ export class PaginaAntecipacaoComponent implements OnInit {
     if (this.valorVendaPesquisado && this.valorVendaPesquisado > 0) {
       this.filtrarVendaPorValor();
     }
-  
+    
+    console.log(this.checkedStatusFiltrado);
     this.atualizarListasFiltrada();
+    console.log(this.checkedStatusFiltrado);
+
   }
 
   //NOTE - limparFiltros
@@ -331,6 +342,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
     return !!this.checkedStatusFiltrado[venda.numeroPedido];
   }
 
+  //FIXME - PROBLEMA AO SELECIONAR FILTRADO
   //NOTE - estaoTodosSelecionados
   estaoTodosSelecionados(): boolean {
     return Object.keys(this.checkedStatusFiltrado).every(key => this.checkedStatusFiltrado[Number(key)]);
@@ -338,7 +350,14 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - onSelecionarTodasVendas
   onSelecionarTodasVendas() {
+    console.log('-----------------------------')
+    console.log('this.checkedStatusFiltrado');
+    console.log(this.checkedStatusFiltrado);
+    
     const todosMarcados = this.estaoTodosSelecionados();
+
+    console.log('this.checkedStatusFiltrado');
+    console.log(this.checkedStatusFiltrado);
 
     this.todoSelecionados = !todosMarcados;
 

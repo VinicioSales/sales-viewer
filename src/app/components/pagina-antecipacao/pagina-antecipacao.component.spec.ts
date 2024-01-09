@@ -900,6 +900,8 @@ describe('PaginaAntecipacaoComponent', () => {
     let logServiceMock: any;
     let mockServiceMock: any;
     let vendasServiceMock: any;
+    let snakeToCamelService: any;
+    let alterarChavesService: any;
     let mensagensServiceMock: any;
   
     beforeEach(() => {
@@ -918,7 +920,9 @@ describe('PaginaAntecipacaoComponent', () => {
         logServiceMock,
         mockServiceMock,
         vendasServiceMock,
-        mensagensServiceMock
+        snakeToCamelService,
+        alterarChavesService,
+        mensagensServiceMock,
       );
   
       component.listaVendasSelecionadas = vendasMock;
