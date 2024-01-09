@@ -476,5 +476,42 @@ fdescribe('PaginaAntecipacaoComponent', () => {
   })
   //!SECTION
 
+  //SECTION - handleNumeroPedidoPesquisado
+  describe('handleNumeroPedidoPesquisado', () => {
+    it('deve atualizar o número do pedido pesquisado', () => {
+      const numeroPedidoPesquisado = '12345';
+      component.handleNumeroPedidoPesquisado(numeroPedidoPesquisado);
+  
+      expect(component.numeroPedidoPesquisado).toBe(numeroPedidoPesquisado);
+    });
+  
+    it('deve ativar o botão de limpar filtros', () => {
+      spyOn(component, 'ativarBotaoLimparFiltros');
+      const numeroPedidoPesquisado = '12345';
+      component.handleNumeroPedidoPesquisado(numeroPedidoPesquisado);
+  
+      expect(component.ativarBotaoLimparFiltros).toHaveBeenCalled();
+    });
+  
+    it('deve chamar o método de filtrar tabela', () => {
+      spyOn(component, 'filtrarTabela');
+      const numeroPedidoPesquisado = '12345';
+      component.handleNumeroPedidoPesquisado(numeroPedidoPesquisado);
+  
+      expect(component.filtrarTabela).toHaveBeenCalled();
+    });
+  
+    it('deve chamar o método de filtrar checked status', () => {
+      spyOn(component, 'filtrarCheckedStatus');
+      const numeroPedidoPesquisado = '12345';
+      component.handleNumeroPedidoPesquisado(numeroPedidoPesquisado);
+  
+      expect(component.filtrarCheckedStatus).toHaveBeenCalled();
+    });
+  })
+  //!SECTION
+
+  
+
   
 });
