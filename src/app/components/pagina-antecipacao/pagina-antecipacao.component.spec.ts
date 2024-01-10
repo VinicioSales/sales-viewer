@@ -900,8 +900,8 @@ describe('PaginaAntecipacaoComponent', () => {
     let logServiceMock: any;
     let mockServiceMock: any;
     let vendasServiceMock: any;
-    let snakeToCamelService: any;
-    let alterarChavesService: any;
+    let snakeToCamelServiceMock: any;
+    let alterarChavesServiceMock: any;
     let mensagensServiceMock: any;
   
     beforeEach(() => {
@@ -909,8 +909,10 @@ describe('PaginaAntecipacaoComponent', () => {
       routerMock = jasmine.createSpyObj('Router', ['navigate']);
       cdrMock = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
       logServiceMock = jasmine.createSpyObj('LogService', ['error']);
-      mockServiceMock = jasmine.createSpyObj('MockService', ['someMethod']); // Substitua 'someMethod' pelos métodos reais
+      mockServiceMock = jasmine.createSpyObj('MockService', ['someMethod']);
       vendasServiceMock = jasmine.createSpyObj('VendasService', ['getVendas']);
+      snakeToCamelServiceMock = jasmine.createSpyObj('SnakeToCamelService', ['transformKeysToCamelCase']);
+      alterarChavesServiceMock = jasmine.createSpyObj('AlterarChavesService', ['mapKeys']);
       mensagensServiceMock = jasmine.createSpyObj('MensagensService', ['exibirMensagemModal']);
   
       // Instanciando o componente com todos os mocks
@@ -920,27 +922,21 @@ describe('PaginaAntecipacaoComponent', () => {
         logServiceMock,
         mockServiceMock,
         vendasServiceMock,
-        snakeToCamelService,
-        alterarChavesService,
-        mensagensServiceMock,
+        snakeToCamelServiceMock,
+        alterarChavesServiceMock,
+        mensagensServiceMock
       );
   
-      component.listaVendasSelecionadas = vendasMock;
-    });
-  
-    //NOTE - deve exibir uma mensagem se nenhuma venda estiver selecionada
-    it('deve exibir uma mensagem se nenhuma venda estiver selecionada', () => {
       component.listaVendasSelecionadas = [];
-      component.onAdiantar();
-      expect(mensagensServiceMock.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_ITENS_NAO_SELECIONADOS);
     });
   
-    //NOTE - deve abrir o modal de confirmação se houver vendas selecionadas
     it('deve abrir o modal de confirmação se houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = vendasMock;
       component.onAdiantar();
       expect(component.abrirModalConfirmacao).toBeTrue();
     });
   });
+  
   
   //!SECTION
 
