@@ -274,7 +274,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
       venda => venda.numeroPedido.toString().startsWith(numeroPedidoPesquisado)
     );
   }
-  
 
   //NOTE - filtrarVendaPorData
   filtrarVendaPorData() {
@@ -286,16 +285,18 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - filtrarVendaPorValor
   filtrarVendaPorValor() {
-    if (!this.valorVendaPesquisado) {
+    if (!this.valorVendaPesquisado && this.valorVendaPesquisado !== 0) {
       this.limparFiltros();
-    this.resetarCheckedStatusFiltrado();
-
+      this.resetarCheckedStatusFiltrado();
+      return;
     }
-
+  
+    const valorVendaPesquisadoString = this.valorVendaPesquisado.toString();
     this.listaVendasFiltrada = this.listaVendasFiltrada.filter(
-      venda => venda.valorVenda === this.valorVendaPesquisado
-    )
+      venda => venda.valorVenda.toString().startsWith(valorVendaPesquisadoString)
+    );
   }
+  
 
   //NOTE - filtrarTabela
   filtrarTabela() {
