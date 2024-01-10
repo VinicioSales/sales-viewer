@@ -17,6 +17,7 @@ import { InputDropdownComponent } from './components/input-dropdown/input-dropdo
 import { InputPesquisarComponent } from './components/input-pesquisar/input-pesquisar.component';
 import { PaginaAntecipacaoComponent } from './components/pagina-antecipacao/pagina-antecipacao.component';
 import { InputPesquisarFiltroComponent } from './components/input-pesquisar-filtro/input-pesquisar-filtro.component';
+import { ModalConfirmacaoAdiantamentoComponent } from './components/modal-confirmacao-adiantamento/modal-confirmacao-adiantamento.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { InputPesquisarFiltroComponent } from './components/input-pesquisar-filt
     InputPesquisarComponent,
     PaginaAntecipacaoComponent,
     InputPesquisarFiltroComponent,
+    ModalConfirmacaoAdiantamentoComponent,
   ],
   imports: [
     FormsModule,

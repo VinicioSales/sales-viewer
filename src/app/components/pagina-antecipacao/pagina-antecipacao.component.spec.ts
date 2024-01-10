@@ -933,7 +933,7 @@ describe('PaginaAntecipacaoComponent', () => {
     it('deve abrir o modal de confirmação se houver vendas selecionadas', () => {
       component.listaVendasSelecionadas = vendasMock;
       component.onAdiantar();
-      expect(component.abrirModalConfirmacao).toBeTrue();
+      expect(component.mostrarModalConfirmacao).toBeTrue();
     });
   });
   
@@ -943,13 +943,13 @@ describe('PaginaAntecipacaoComponent', () => {
   //SECTION - fecharModalConfirmacaoAdiantamento
   describe('fecharModalConfirmacaoAdiantamento', () => {
     beforeEach(() => {
-      component.abrirModalConfirmacao = true;
+      component.mostrarModalConfirmacao = true;
     });
   
     //NOTE - deve fechar o modal de confirmação de adiantamento
     it('deve fechar o modal de confirmação de adiantamento', () => {
       component.fecharModalConfirmacaoAdiantamento();
-      expect(component.abrirModalConfirmacao).toBeFalse();
+      expect(component.mostrarModalConfirmacao).toBeFalse();
     });
   });
   //!SECTION

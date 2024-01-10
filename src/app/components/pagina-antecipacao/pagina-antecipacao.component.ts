@@ -29,9 +29,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
   mostrarDropdownProdutosVenda?: Venda;
   listaVendasSelecionadas: Venda[] = [];
   listaProdutosDescricao: string[] = [];
-  abrirModalConfirmacao: boolean = false;
   dropdownProdutosAtivo: boolean = false;
   produtoDescricaoPesquisado: string = '';
+  quantidadeVendasSelecionadas: number = 0;
+  mostrarModalConfirmacao: boolean = false;
   statusBotaoLimparFiltros: boolean = false;
   corBotaoAdicionar: string = "var(--botao-verde)"
   checkedStatus: { [numeroPedido: number]: boolean } = {};
@@ -381,7 +382,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
     } else {
       this.removerVenda(vendaSelecionada);
     }
-
   }
 
   //NOTE - onAdiantar
@@ -391,12 +391,38 @@ export class PaginaAntecipacaoComponent implements OnInit {
       return
     }
 
-    this.abrirModalConfirmacao = true;
+    this.quantidadeVendasSelecionadas = this.getQuantidadeVendasSelecionadas();
+    console.log(this.quantidadeVendasSelecionadas);
+
+    this.mostrarModalConfirmacao = true;
   }
 
-  //NOTE - fecharModalConfirmacaoAdiantamento
-  fecharModalConfirmacaoAdiantamento() {
-    this.abrirModalConfirmacao = false;
+  //NOTE - onFecharModalConfirmacaoAdiantamento
+  onFecharModalConfirmacaoAdiantamento() {
+    this.mostrarModalConfirmacao = false;
+  }
+
+  //NOTE - onConfirmarAdiantamento
+  onConfirmarAdiantamento() {
+    // if (this.listaVendasSelecionadas) {
+    //   this.vendasService.postVendasParaAdiantamento(this.listaVendasSelecionadas).subscribe({
+    //     next: (response) => {
+    //       this.mensagensService.exibirMensagemModal(response.message);
+    //     },
+    //     error: (erro) => {
+    //       console.error(erro);
+    //       this.mensagensService.exibirMensagemModal(erro.error);
+    //     }
+    //   })
+
+    //   this.onFecharModalConfirmacaoAdiantamento();
+    // }
+    console.log('ok')
+  }
+
+  //NOTE - getQuantidadeVendasSelecionadas
+  getQuantidadeVendasSelecionadas() {
+    return this.listaVendasSelecionadas.length;
   }
 
 }
