@@ -1,6 +1,19 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+[0.10.0] - 10/01/2024
+Fixed
+- Resolvido bug selecionar vendas filtradas (vinicio)
+
+Change
+- Melhora filtro por produto (vinicio)
+- Melhora filtro por valor (vinicio)
+- Melhora filtro por numero pedido (vinicio)
+- Ajuste nos testes unitários (vinicio)
+
+Added
+- Add modal confirmacao - Incompleto (vinicio)
+
 [0.9.0] - 09/01/2024
 Added
 - Finalizado testes unitários tela adiatamento de vendas (vinicio)
