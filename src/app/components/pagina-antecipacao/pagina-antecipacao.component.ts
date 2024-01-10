@@ -269,11 +269,12 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - filtrarVendaPorNumeroPedido
   filtrarVendaPorNumeroPedido() {
-    const numeroPedidoPesquisado = Number(this.numeroPedidoPesquisado);
+    const numeroPedidoPesquisado = this.numeroPedidoPesquisado.toString();
     this.listaVendasFiltrada = this.listaVendasFiltrada.filter(
-      venda => venda.numeroPedido === numeroPedidoPesquisado
+      venda => venda.numeroPedido.toString().startsWith(numeroPedidoPesquisado)
     );
   }
+  
 
   //NOTE - filtrarVendaPorData
   filtrarVendaPorData() {
@@ -307,6 +308,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
     if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
       this.filtrarVendaPorNumeroPedido();
+      console.log(this.listaVendasFiltrada);
     }
 
     if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
