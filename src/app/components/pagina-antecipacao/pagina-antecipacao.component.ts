@@ -258,14 +258,16 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - filtrarVendaPorProduto
   filtrarVendaPorProduto() {
+    const produtoDescricaoPesquisado = this.produtoDescricaoPesquisado.toLocaleLowerCase();
     this.listaVendasFiltrada = this.listaVendasFiltrada.filter(
       venda => venda.produtos.some(
-        produto => produto.descricaoProduto.toLocaleLowerCase() === this.produtoDescricaoPesquisado.toLocaleLowerCase()
+        produto => produto.descricaoProduto.toLocaleLowerCase().startsWith(produtoDescricaoPesquisado)
       )
     );
-
+  
     this.atualizarListasFiltrada();
   }
+  
 
   //NOTE - filtrarVendaPorNumeroPedido
   filtrarVendaPorNumeroPedido() {
