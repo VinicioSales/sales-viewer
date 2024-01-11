@@ -312,7 +312,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
     if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
       this.filtrarVendaPorNumeroPedido();
-      console.log(this.listaVendasFiltrada);
     }
 
     if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
@@ -392,7 +391,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
     }
 
     this.quantidadeVendasSelecionadas = this.getQuantidadeVendasSelecionadas();
-    console.log(this.quantidadeVendasSelecionadas);
 
     this.mostrarModalConfirmacao = true;
   }
@@ -404,20 +402,19 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - onConfirmarAdiantamento
   onConfirmarAdiantamento() {
-    // if (this.listaVendasSelecionadas) {
-    //   this.vendasService.postVendasParaAdiantamento(this.listaVendasSelecionadas).subscribe({
-    //     next: (response) => {
-    //       this.mensagensService.exibirMensagemModal(response.message);
-    //     },
-    //     error: (erro) => {
-    //       console.error(erro);
-    //       this.mensagensService.exibirMensagemModal(erro.error);
-    //     }
-    //   })
+    if (this.listaVendasSelecionadas) {
+      this.vendasService.postVendasParaAdiantamento(this.listaVendasSelecionadas).subscribe({
+        next: (response) => {
+          this.mensagensService.exibirMensagemModal(response.message);
+        },
+        error: (erro) => {
+          console.error(erro);
+          this.mensagensService.exibirMensagemModal(erro.error);
+        }
+      })
 
-    //   this.onFecharModalConfirmacaoAdiantamento();
-    // }
-    console.log('ok')
+      this.onFecharModalConfirmacaoAdiantamento();
+    }
   }
 
   //NOTE - getQuantidadeVendasSelecionadas
