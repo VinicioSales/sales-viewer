@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Venda } from 'src/app/interfaces/venda';
 import { ChangeDetectorRef } from '@angular/core';
 import { MockService } from 'src/app/mock/mock.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { InputComponent } from '../input/input.component';
 import { BotaoComponent } from '../botao/botao.component';
 import { LogService } from 'src/app/services/log/log.service';
@@ -73,6 +73,7 @@ describe('PaginaAntecipacaoComponent', () => {
   let logService: LogService;
   let vendasServiceMock: any;
   let mockService: MockService;
+  let mensagensServiceMock: any;
   let mensagensService: MensagensService;
   let component: PaginaAntecipacaoComponent;
   let fixture: ComponentFixture<PaginaAntecipacaoComponent>;
@@ -80,8 +81,9 @@ describe('PaginaAntecipacaoComponent', () => {
 
   beforeEach(() => {
     logServiceMock = jasmine.createSpyObj('LogService', ['error']);
-    vendasServiceMock = jasmine.createSpyObj('VendasService', ['getVendas']);
+    vendasServiceMock = jasmine.createSpyObj('VendasService', ['getVendas', 'postVendasParaAdiantamento']);
     vendasServiceMock.getVendas.and.returnValue(of(vendasMock));
+    mensagensServiceMock = jasmine.createSpyObj('MensagensService', ['exibirMensagemModal']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -108,6 +110,7 @@ describe('PaginaAntecipacaoComponent', () => {
         ChangeDetectorRef,
         { provide: LogService, useValue: logServiceMock },
         { provide: VendasService, useValue: vendasServiceMock },
+        { provide: MensagensService, useValue: mensagensServiceMock },
       ],
     }).compileComponents();
 
@@ -935,6 +938,14 @@ describe('PaginaAntecipacaoComponent', () => {
       component.onAdiantar();
       expect(component.mostrarModalConfirmacao).toBeTrue();
     });
+    
+    it('deve chamar getQuantidadeVendasSelecionadas', () => {
+      spyOn(component, 'getQuantidadeVendasSelecionadas')
+      component.listaVendasSelecionadas = vendasMock;
+      component.onAdiantar();
+
+      expect(component.getQuantidadeVendasSelecionadas).toHaveBeenCalled();
+    });
   });
   
   
@@ -948,8 +959,45 @@ describe('PaginaAntecipacaoComponent', () => {
   
     //NOTE - deve fechar o modal de confirmação de adiantamento
     it('deve fechar o modal de confirmação de adiantamento', () => {
-      component.fecharModalConfirmacaoAdiantamento();
+      component.onFecharModalConfirmacaoAdiantamento();
       expect(component.mostrarModalConfirmacao).toBeFalse();
+    });
+  });
+  //!SECTION
+
+  //SECTION - onFecharModalConfirmacaoAdiantamento
+  describe('onFecharModalConfirmacaoAdiantamento', () => {
+    //NOTE - deve definir mostrarModalConfirmacao como false
+    it('deve definir mostrarModalConfirmacao como false', () => {
+      component.mostrarModalConfirmacao = true;
+      component.onFecharModalConfirmacaoAdiantamento();
+      expect(component.mostrarModalConfirmacao).toBe(false);
+    });
+  });
+  //!SECTION
+
+  //SECTION - onConfirmarAdiantamento
+  describe('onConfirmarAdiantamento', () => {
+    it('deve chamar postVendasParaAdiantamento e exibir mensagem em caso de sucesso', () => {
+      let responseMock = { message: 'Sucesso' };
+      vendasServiceMock.postVendasParaAdiantamento.and.returnValue(of(responseMock));
+    
+      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
+      component.onConfirmarAdiantamento();
+    
+      expect(vendasServiceMock.postVendasParaAdiantamento).toHaveBeenCalled();
+      expect(mensagensServiceMock.exibirMensagemModal).toHaveBeenCalledWith('Sucesso');
+      expect(component.mostrarModalConfirmacao).toBe(false);
+    });
+    
+  })
+
+  //SECTION - getQuantidadeVendasSelecionadas
+  describe('getQuantidadeVendasSelecionadas', () => {
+    //NOTE - deve retornar o número de vendas selecionadas
+    it('deve retornar o número de vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
+      expect(component.getQuantidadeVendasSelecionadas()).toBe(component.listaVendasSelecionadas.length);
     });
   });
   //!SECTION

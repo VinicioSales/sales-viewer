@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { BotaoComponent } from '../botao/botao.component';
 import { ModalConfirmacaoAdiantamentoComponent } from './modal-confirmacao-adiantamento.component';
 
 describe('ModalConfirmacaoAdiantamentoComponent', () => {
@@ -8,7 +9,10 @@ describe('ModalConfirmacaoAdiantamentoComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ModalConfirmacaoAdiantamentoComponent]
+      declarations: [
+        BotaoComponent,
+        ModalConfirmacaoAdiantamentoComponent,
+      ]
     });
     fixture = TestBed.createComponent(ModalConfirmacaoAdiantamentoComponent);
     component = fixture.componentInstance;

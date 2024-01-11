@@ -80,7 +80,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.checkedStatusFiltrado = { ...this.checkedStatus };
     });
   }
-  
 
   //NOTE - mostrarDropdownProdutos
   mostrarDropdownProdutos(vendaSelecionada: Venda) {
@@ -288,7 +287,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - filtrarVendaPorValor
   filtrarVendaPorValor() {
-    if (!this.valorVendaPesquisado && this.valorVendaPesquisado !== 0) {
+    if (!this.valorVendaPesquisado) {
       this.limparFiltros();
       this.resetarCheckedStatusFiltrado();
       return;
@@ -356,7 +355,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
       const numeroPedido = Number(key);
       this.checkedStatusFiltrado[numeroPedido] = !todosMarcados;
     });
-
 
     this.listaVendasSelecionadas = todosMarcados ? [] : [...this.listaVendasFiltrada];
   }
