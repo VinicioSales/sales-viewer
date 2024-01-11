@@ -19,6 +19,7 @@ import { InputPesquisarFiltroComponent } from '../input-pesquisar-filtro/input-p
 export class PaginaAntecipacaoComponent implements OnInit {
   listaVendas: Venda[] = [];
   dropdownAtivoVenda?: number;
+  carregando: boolean = false;
   listaValorVenda: number[] = [];
   listaNumeroPedido: number[] = [];
   valorVendaPesquisado: number = 0;
@@ -57,10 +58,13 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - ngOnInit
   ngOnInit(): void {
+    this.mostrarCarregando();
     this.vendasService.getVendas().pipe(
       catchError((error) => {
         console.error(`Erro ao buscar vendas: ${error}`)
         this.logService.error(`PaginaAntecipacaoComponent - ngOnInit: ${error}`)
+        this.esconderCarregando();
+
         return of([]);
       })
     ).subscribe((data: Venda[]) => {
@@ -83,6 +87,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.checkedStatusFiltrado = { ...this.checkedStatus };
 
       console.log(this.listaVendasFiltrada);
+      this.esconderCarregando();
     });
   }
 
@@ -307,6 +312,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - filtrarTabela
   filtrarTabela() {
+    this.mostrarCarregando();
+
     this.limparFiltros();
     this.resetarCheckedStatusFiltrado();
 
@@ -331,6 +338,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
     }
     
     this.atualizarListasFiltrada();
+    this.esconderCarregando();
   }
 
   //NOTE - limparFiltros
@@ -423,6 +431,16 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - getQuantidadeVendasSelecionadas
   getQuantidadeVendasSelecionadas() {
     return this.listaVendasSelecionadas.length;
+  }
+
+  //NOTE - mostrarCarregando
+  mostrarCarregando() {
+    this.carregando = true;
+  }
+  
+  //NOTE - esconderCarregando
+  esconderCarregando() {
+    this.carregando = false;
   }
 
 }
