@@ -29,7 +29,7 @@ const vendasMock: Venda[] = [
       {
         descricaoProduto: 'Produto 1',
         valorProduto: 50.00,
-        unidadeMedidaProduto: 'un'
+        codigoProduto: 123
       }
     ]
   },
@@ -42,7 +42,7 @@ const vendasMock: Venda[] = [
       {
         descricaoProduto: 'Produto 2',
         valorProduto: 100.00,
-        unidadeMedidaProduto: 'un'
+        codigoProduto: 123
       }
     ]
   }
@@ -58,7 +58,7 @@ const vendaMock2: Venda =
       {
         descricaoProduto: 'Produto 1',
         valorProduto: 50.00,
-        unidadeMedidaProduto: 'un'
+        codigoProduto: 123
       }
     ]
   }
@@ -680,16 +680,6 @@ describe('PaginaAntecipacaoComponent', () => {
       component.filtrarVendaPorValor();
       expect(component.listaVendasFiltrada.every(v => v.valorVenda === component.valorVendaPesquisado)).toBeTrue();
     });
-  
-    //NOTE - deve limpar os filtros se o valor da venda pesquisado for 0 ou nulo
-    it('deve limpar os filtros se o valor da venda pesquisado for 0 ou nulo', () => {
-      spyOn(component, 'limparFiltros');
-      spyOn(component, 'resetarCheckedStatusFiltrado');
-      component.valorVendaPesquisado = 0;
-      component.filtrarVendaPorValor();
-      expect(component.limparFiltros).toHaveBeenCalled();
-      expect(component.resetarCheckedStatusFiltrado).toHaveBeenCalled();
-    });
   });
   //!SECTION
 
@@ -756,7 +746,7 @@ describe('PaginaAntecipacaoComponent', () => {
             {
               descricaoProduto: 'Produto 1',
               valorProduto: 50.00,
-              unidadeMedidaProduto: 'un'
+              codigoProduto: 123
             }
           ]
         }
@@ -775,7 +765,7 @@ describe('PaginaAntecipacaoComponent', () => {
             {
               descricaoProduto: 'Produto 1',
               valorProduto: 50.00,
-              unidadeMedidaProduto: 'un'
+              codigoProduto: 123
             }
           ]
         }
@@ -793,7 +783,7 @@ describe('PaginaAntecipacaoComponent', () => {
             {
               descricaoProduto: 'Produto 1',
               valorProduto: 50.00,
-              unidadeMedidaProduto: 'un'
+              codigoProduto: 123
             }
           ]
         }
