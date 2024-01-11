@@ -65,7 +65,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
       })
     ).subscribe((data: Venda[]) => {
       const chavesParaAlterar = {
+        valor: 'valorProduto',
+        codigo: 'codigoProduto',
         data_emissao: 'dataInclusao',
+        descricao: 'descricaoProduto',
         valor_total_pedido: 'valorVenda',
       }
       data = data.map(venda => this.alterarChavesService.mapKeys(venda, chavesParaAlterar));
@@ -78,6 +81,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
         this.checkedStatus[venda.numeroPedido] = false;
       });
       this.checkedStatusFiltrado = { ...this.checkedStatus };
+
+      console.log(this.listaVendasFiltrada);
     });
   }
 

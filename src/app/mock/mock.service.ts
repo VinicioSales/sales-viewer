@@ -22,17 +22,17 @@ export class MockService {
           {
             descricaoProduto: "1Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
           {
             descricaoProduto: "2Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
           {
             descricaoProduto: "3Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
         ]
       },
@@ -45,17 +45,17 @@ export class MockService {
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
         ]
       },
@@ -68,17 +68,17 @@ export class MockService {
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
         ]
       },
@@ -91,17 +91,17 @@ export class MockService {
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
         ]
       },
@@ -114,17 +114,17 @@ export class MockService {
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 456
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 456
           },
         ]
       },
@@ -137,17 +137,17 @@ export class MockService {
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 456
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 456
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 456
           },
         ]
       },
@@ -160,17 +160,17 @@ export class MockService {
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 789
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 789
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 789
           },
         ]
       },
@@ -183,17 +183,17 @@ export class MockService {
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 789
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
             valorProduto: 100.00,
-            unidadeMedidaProduto: "UN"
+            codigoProduto: 123
           },
         ]
       },

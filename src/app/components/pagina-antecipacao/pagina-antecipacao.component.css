@@ -151,22 +151,22 @@
 
 .descricao-produto,
 .valor-produto,
-.unidade-medida {
+.codigo-produto {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .descricao-produto {
-    grid-area: col-2;
-}
-
-.valor-produto {
     grid-area: col-3;
 }
 
-.unidade-medida {
+.valor-produto {
     grid-area: col-4;
+}
+
+.codigo-produto {
+    grid-area: col-2;
 }
 
 .linha-dropdown-produtos {
