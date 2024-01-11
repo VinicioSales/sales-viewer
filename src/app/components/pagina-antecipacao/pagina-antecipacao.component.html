@@ -77,6 +77,9 @@
         </ng-container>
     </div>
     <div class="footer">
+        <div class="quantidade-itens">
+            {{quantidadeVendasFiltradas }} ítens exibidos
+        </div>
         <div class="botao-adiantar">
             <app-botao [background]="corBotaoAdicionar" [backgroundHover]="corBotaoAdicionarHover" texto="Adiantar" (click)="onAdiantar()"></app-botao>
         </div>

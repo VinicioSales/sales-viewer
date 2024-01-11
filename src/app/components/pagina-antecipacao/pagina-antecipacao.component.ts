@@ -28,6 +28,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   numeroPedidoPesquisado: string = '';
   dataInclusaoPesquisado: string = '';
   mostrarDropdownProdutosVenda?: Venda;
+  quantidadeVendasFiltradas: number = 0;
   listaVendasSelecionadas: Venda[] = [];
   listaProdutosDescricao: string[] = [];
   dropdownProdutosAtivo: boolean = false;
@@ -85,8 +86,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
         this.checkedStatus[venda.numeroPedido] = false;
       });
       this.checkedStatusFiltrado = { ...this.checkedStatus };
+      this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
 
-      console.log(this.listaVendasFiltrada);
       this.esconderCarregando();
     });
   }
@@ -160,6 +161,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   
     this.cdr.detectChanges();
     this.limparFiltros();
+    this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
     this.resetarCheckedStatusFiltrado();
 
     this.statusBotaoLimparFiltros = false;
@@ -207,6 +209,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
     this.filtrarCheckedStatus();
+    this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
   }
 
   //NOTE - handleNumeroPedidoPesquisado
@@ -216,40 +219,33 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
     this.filtrarCheckedStatus();
-
+    this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
   }
   
   //NOTE - handleDataInclusaoPesquisado
   handdleDataInclusaoPesquisado(dataInclusaoPesquisado: string) {
-    if (!dataInclusaoPesquisado) {
+    if (!dataInclusaoPesquisado || dataInclusaoPesquisado == '') {
       this.limparFiltros();
-      this.filtrarCheckedStatus();
+    this.filtrarCheckedStatus();
 
       return
-    } 
-
+    }
     const dataInclusaoPesquisadoFormatado = this.formatarData(dataInclusaoPesquisado);
     this.dataInclusaoPesquisado = dataInclusaoPesquisadoFormatado;
 
     this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
     this.filtrarCheckedStatus();
+    this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
   }
 
   //NOTE - handleValorVendaPesquisado
   handleValorVendaPesquisado(valorVendaPesquisado: number) {
-    if (!valorVendaPesquisado || valorVendaPesquisado <= 0) {
-      this.limparFiltros();
-    this.filtrarCheckedStatus();
-
-      return
-    }
-
     this.ativarBotaoLimparFiltros();
     this.valorVendaPesquisado = Number(valorVendaPesquisado);
     this.filtrarTabela();
     this.filtrarCheckedStatus();
-
+    this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
   }
   //!SECTION
 
@@ -297,24 +293,18 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - filtrarVendaPorValor
   filtrarVendaPorValor() {
-    if (!this.valorVendaPesquisado) {
-      this.limparFiltros();
-      this.resetarCheckedStatusFiltrado();
-      return;
-    }
-  
     const valorVendaPesquisadoString = this.valorVendaPesquisado.toString();
     this.listaVendasFiltrada = this.listaVendasFiltrada.filter(
       venda => venda.valorVenda.toString().startsWith(valorVendaPesquisadoString)
     );
   }
   
-
   //NOTE - filtrarTabela
   filtrarTabela() {
     this.mostrarCarregando();
 
     this.limparFiltros();
+    this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
     this.resetarCheckedStatusFiltrado();
 
     if (this.produtoDescricaoPesquisado && this.produtoDescricaoPesquisado != '') {
@@ -352,7 +342,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
     return !!this.checkedStatusFiltrado[venda.numeroPedido];
   }
 
-  //FIXME - PROBLEMA AO SELECIONAR FILTRADO
   //NOTE - estaoTodosSelecionados
   estaoTodosSelecionados(): boolean {
     return Object.keys(this.checkedStatusFiltrado).every(key => this.checkedStatusFiltrado[Number(key)]);
@@ -441,6 +430,11 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - esconderCarregando
   esconderCarregando() {
     this.carregando = false;
+  }
+
+  //NOTE - getQuantidadeVendasFiltradas
+  getQuantidadeVendasFiltradas() {
+    return this.listaVendasFiltrada.length;
   }
 
 }

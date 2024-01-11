@@ -181,7 +181,11 @@
     padding: 18px 24px 18px 24px;
     background: var(--cor-1);
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+}
+
+.quantidade-itens {
+    color: var(--cor-2);
 }
 
 .botao-adiantar {
