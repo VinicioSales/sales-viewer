@@ -1,7 +1,7 @@
-import { TestBed } from '@angular/core/testing';
 import { LogService } from './log.service';
+import { TestBed } from '@angular/core/testing';
+import { urlBackend, rotaLog } from '../statics';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { urlBackend } from '../statics';
 
 describe('LogService', () => {
   let service: LogService;
@@ -25,7 +25,7 @@ describe('LogService', () => {
       const testMessage = 'Test log message';
       service.log(testMessage);
 
-      const req = httpTestingController.expectOne(urlBackend);
+      const req = httpTestingController.expectOne(`${urlBackend}${rotaLog}`);
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual({ level: 'info', message: testMessage });
       req.flush({});
@@ -39,7 +39,7 @@ describe('LogService', () => {
       const testMessage = 'Test error message';
       service.error(testMessage);
 
-      const req = httpTestingController.expectOne(urlBackend);
+      const req = httpTestingController.expectOne(`${urlBackend}${rotaLog}`);
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual({ level: 'error', message: testMessage });
       req.flush({});
