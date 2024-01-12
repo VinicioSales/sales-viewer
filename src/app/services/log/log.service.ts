@@ -1,5 +1,5 @@
-import { urlBackend } from '../statics';
 import { Injectable } from '@angular/core';
+import { urlBackend, rotaLog } from '../statics';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class LogService {
   }
 
   private sendLogToServer(log: any): void {
-    this.http.post(urlBackend, log).subscribe({
+    this.http.post(`${urlBackend}${rotaLog}`, log).subscribe({
       error: (err) => console.error('Erro ao enviar log para o servidor', err),
     });
   }
