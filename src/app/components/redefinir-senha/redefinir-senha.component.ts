@@ -16,19 +16,12 @@ export class RedefinirSenhaComponent {
   ) {}
 
 
-  static readonly MENSAGEM_CAMPOS_VAZIOS = 'Preencha todos os campos!';
-  static readonly MENSAGEM_NOVA_SENHA_VAZIO = 'Campo nova senha vazio';
-  static readonly MENSAGEM_SENHAS_DIFERENTES = 'As senhas não conferem!';
-  static readonly MENSAGEM_SENHA_REDEFINIDA = 'Senha redefinida com sucesso!';
-  static readonly MENSAGEM_SENHA_CURTA = 'A senha deve ter no mínimo 8 caracteres!';
-  static readonly MENSAGEM_CODIGO_VERIFICACAO_INVALIDO = 'Código de verificação inválido!';
-  static readonly MENSAGEM_CODIGO_VERIFICACAO_VAZIO = 'Campo código de verificação vazio!';
-  static readonly MENSAGEM_CONFIRMAR_NOVA_SENHA_VAZIO = 'Campo confirmar nova senha vazio!';
-  static readonly MENSAGEM_ERRO_INTERNO = 'Ocorreu um erro inesperado, tente novamente em alguns minutos. Caso o erro persista, entre em contato com o suporte.';
+
 
   @Input() mensagemModal: string = '';
 
   valorNovaSenha: string = '';
+  carregando: boolean = false;
   mostrarModal: boolean = false;
   valorCodigoVerificacao: string = '';
   valorConfirmarNovaSenha: string = '';
@@ -58,20 +51,15 @@ export class RedefinirSenhaComponent {
     }
   }
 
-  //NOTE - exibirMensagemModal
-  exibirMensagemModal(mensagem: string): void {
-    this.mostrarModal = true;
-    this.mensagemModal = mensagem;
-  }
-
   //NOTE - validarSenha
   validarSenhas() {
     if (this.valorNovaSenha.length < 8) {
-      this.exibirMensagemModal(RedefinirSenhaComponent.MENSAGEM_SENHA_CURTA);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_SENHA_CURTA);
+
       return false;
 
     } else if (this.valorNovaSenha != this.valorConfirmarNovaSenha) {
-      this.exibirMensagemModal(RedefinirSenhaComponent.MENSAGEM_SENHAS_DIFERENTES);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_SENHAS_DIFERENTES);
       return false;
     }
 
@@ -80,21 +68,20 @@ export class RedefinirSenhaComponent {
 
   //NOTE - validarCampos
   validarCampos() {
-    debugger;
     if (this.valorNovaSenha.trim() == '' && this.valorConfirmarNovaSenha.trim() == '' && this.valorCodigoVerificacao.trim() == '') {
-      this.exibirMensagemModal(RedefinirSenhaComponent.MENSAGEM_CAMPOS_VAZIOS);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_CAMPOS_VAZIOS);
       return false;
     
     } else if (this.valorNovaSenha.trim() == '') {
-      this.exibirMensagemModal(RedefinirSenhaComponent.MENSAGEM_NOVA_SENHA_VAZIO);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_NOVA_SENHA_VAZIO);
       return false;
 
     } else if (this.valorConfirmarNovaSenha.trim() == '') {
-      this.exibirMensagemModal(RedefinirSenhaComponent.MENSAGEM_CONFIRMAR_NOVA_SENHA_VAZIO);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_CONFIRMAR_NOVA_SENHA_VAZIO);
       return false;
 
     } else if (this.valorCodigoVerificacao.trim() == '') {
-      this.exibirMensagemModal(RedefinirSenhaComponent.MENSAGEM_CODIGO_VERIFICACAO_VAZIO);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_CODIGO_VERIFICACAO_VAZIO);
       return false;
     }
 
@@ -116,19 +103,17 @@ export class RedefinirSenhaComponent {
     if (validado) {
       this.authService.redefinirSenha(this.valorNovaSenha, this.valorCodigoVerificacao).subscribe({
         next: (response) => {
-          this.exibirMensagemModal(RedefinirSenhaComponent.MENSAGEM_SENHA_REDEFINIDA);
+          this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_SENHA_REDEFINIDA);
           this.router.navigate(['/login']);
         },
 
         error: (error) => {
           if (error.status === 401) {
-            this.exibirMensagemModal(RedefinirSenhaComponent.MENSAGEM_CODIGO_VERIFICACAO_INVALIDO);
-          
+            this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_CODIGO_VERIFICACAO_INVALIDO);
           } else if (error.status === 500) {
-            this.exibirMensagemModal(RedefinirSenhaComponent.MENSAGEM_ERRO_INTERNO);
-          
+            this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_ERRO_INTERNO);
           } else {
-            this.exibirMensagemModal(`Erro desconhecido: ${error}`);
+            this.mensagensService.exibirMensagemModal(`Erro desconhecido: ${error}`);
           }
         }
       })
