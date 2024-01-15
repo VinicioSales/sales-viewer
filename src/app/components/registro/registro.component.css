@@ -14,7 +14,7 @@
     height: 75%;
     flex-shrink: 0;
     border-radius: 2px;
-    background:var(--cor-primaria);
+    background:var(--cor-1);
     box-shadow: 2px 9px 12px 4px rgba(12, 12, 12, 0.25); 
     display: grid;                 
     grid-template-rows: auto 13% 13% 13% 13% auto auto;   
@@ -47,7 +47,7 @@ h2{
     margin-top: 0px;
     margin-bottom: 2px;
     font-size: 2.142rem;   
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
     
 }
 
@@ -65,7 +65,7 @@ h2{
     justify-content: space-between;
     flex-direction: column;
     align-items: center;   
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
     width: 100%;
 
 }
@@ -114,16 +114,16 @@ h2{
 
 a {
     text-decoration: none;
-    color: var(--cor-secundaria);   
+    color: var(--cor-2);   
 }
 a:focus {
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
 }
 a:hover{
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
 }
 a:active{
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
 }
 
 .logo-parceiro{
