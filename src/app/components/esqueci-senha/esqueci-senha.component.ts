@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth/auth.service';
 import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
@@ -14,7 +14,6 @@ export class EsqueciSenhaComponent {
     public mensagensService: MensagensService,
   ) {}
 
-  
   valorEmail: string = '';
   carregando: boolean = false;
   mostrarModal: boolean = false;

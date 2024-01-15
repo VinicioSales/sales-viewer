@@ -101,13 +101,17 @@ export class RedefinirSenhaComponent {
     ]);
     
     if (validado) {
+      this.mostrarCarregando();
       this.authService.redefinirSenha(this.valorNovaSenha, this.valorCodigoVerificacao).subscribe({
         next: (response) => {
+          this.esconderCarregando();
           this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_SENHA_REDEFINIDA);
           this.router.navigate(['/login']);
         },
 
         error: (error) => {
+          this.esconderCarregando();
+
           if (error.status === 401) {
             this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_CODIGO_VERIFICACAO_INVALIDO);
           } else if (error.status === 500) {
@@ -118,6 +122,16 @@ export class RedefinirSenhaComponent {
         }
       })
     }
+  }
+
+   //NOTE - mostrarCarregando
+  mostrarCarregando() {
+    this.carregando = true;
+  }
+
+  //NOTE - esconderCarregando
+  esconderCarregando() {
+    this.carregando = false;
   }
 
 }
