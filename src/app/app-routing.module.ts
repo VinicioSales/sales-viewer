@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'esqueci-senha', component: EsqueciSenhaComponent},
   { path: 'redefinir-senha', component: RedefinirSenhaComponent},
   { path: '', component: PaginaAntecipacaoComponent, /*canActivate: [AuthGuard]*/ },
-  { path: 'antecipar-venda', component: PaginaAntecipacaoComponent, /*canActivate: [AuthGuard]*/},
+  { path: 'adiantamento', component: PaginaAntecipacaoComponent, /*canActivate: [AuthGuard]*/},
 ];
 
 @NgModule({
