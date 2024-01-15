@@ -10,18 +10,22 @@
             <app-botao-tema></app-botao-tema>
         </div>
         <div class="titulo">Redefinir senha</div>
-        <app-input
+        <app-input-senha
             type="password"
             class="input-nova-senha"
             placeholder="nova senha"
+            [mostrarSenha]="mostrarSenha"
+            (mudarVizualizacaoSenha)="handleVizualizacaoSenha()"
             (valorChange)="onValorInputChange($event, 'inputNovaSenha')">
-        </app-input>
-        <app-input
+        </app-input-senha>
+        <app-input-senha
             type="password"
+            [mostrarSenha]="mostrarSenha"
             class="input-confirmar-nova-senha"
             placeholder="confimar nova senha"
+            (mudarVizualizacaoSenha)="handleVizualizacaoSenha()"
             (valorChange)="onValorInputChange($event, 'inputConfirmarNovaSenha')">
-        </app-input>
+        </app-input-senha>
         <app-input
             class="codigo-veirificacao"
             placeholder="codigo de verificação"

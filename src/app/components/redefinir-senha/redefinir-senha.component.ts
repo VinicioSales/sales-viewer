@@ -15,14 +15,12 @@ export class RedefinirSenhaComponent {
     public mensagensService: MensagensService,
   ) {}
 
-
-
-
   @Input() mensagemModal: string = '';
 
   valorNovaSenha: string = '';
   carregando: boolean = false;
   mostrarModal: boolean = false;
+  mostrarSenha: boolean = false;
   valorCodigoVerificacao: string = '';
   valorConfirmarNovaSenha: string = '';
   corBotao: string = 'var(--cor-botao)';
@@ -33,6 +31,12 @@ export class RedefinirSenhaComponent {
     this.mostrarModal = false;
     this.mensagemModal = '';
   }
+
+  //NOTE - handleVizualizacaoSenha
+  handleVizualizacaoSenha() {
+    this.mostrarSenha = !this.mostrarSenha;
+  }
+
 
   //NOTE - onValorInputChange
   onValorInputChange(novoValor: string, inputId: string) {

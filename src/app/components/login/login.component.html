@@ -15,12 +15,14 @@
             placeholder="email"
             (valorChange)="onValorInputChange($event, 'inputEmail')">
         </app-input>
-        <app-input
+        <app-input-senha
             type="password"
-            class="input-senha"
-            placeholder="senha"
+            class="input-nova-senha"
+            placeholder="nova senha"
+            [mostrarSenha]="mostrarSenha"
+            (mudarVizualizacaoSenha)="handleVizualizacaoSenha()"
             (valorChange)="onValorInputChange($event, 'inputSenha')">
-        </app-input>
+        </app-input-senha>
         <button
             class="esqueci-senha"
             (click)="navegarRotaEsqueciSenha()">

@@ -22,10 +22,16 @@ export class LoginComponent {
   
   carregando: boolean = false;
   mostrarModal: boolean = false;
+  mostrarSenha: boolean = false;
 
   //NOTE - navegarRotaEsqueciSenha
   navegarRotaEsqueciSenha(): void {
     this.router.navigate(['/esqueci-senha']);
+  }
+
+  //NOTE - handleVizualizacaoSenha
+  handleVizualizacaoSenha() {
+    this.mostrarSenha = !this.mostrarSenha;
   }
 
   //NOTE - navegarRotaRegistro
