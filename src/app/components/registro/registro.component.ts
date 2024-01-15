@@ -39,7 +39,12 @@ export class RegistroComponent {
   mensagemModal: string = '';
   carregando: boolean = false;
   mostrarModal: boolean = false;
+  mostrarSenha: boolean = false;
   confirmarSenhaValue: string = '';
+
+  handleVizualizacaoSenha() {
+    this.mostrarSenha = !this.mostrarSenha;
+  }
 
   onNomeValueChanged(inputNome: string) {
     // Esta função será acionada quando o valor do input de nome mudar

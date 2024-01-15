@@ -1,5 +1,5 @@
 import { TemaService } from '../../services/tema/tema.service';
-import { Component, Input, Output, EventEmitter, } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 
 @Component({
@@ -7,7 +7,7 @@ import { Component, Input, Output, EventEmitter, } from '@angular/core';
   templateUrl: './input-senha.component.html',
   styleUrls: ['./input-senha.component.css']
 })
-export class InputSenhaComponent {
+export class InputSenhaComponent implements OnInit {
   // NOTE - Inputs
   @Input() width: string = '100%';
   @Input() height: string = '50px';
@@ -40,6 +40,11 @@ export class InputSenhaComponent {
     });
   }
 
+  //NOTE - ngOnInit
+  ngOnInit(): void {
+    // this.toggleImagem();
+  }
+
   //NOTE - onValorChange
   onValorChange(novoValor: string): void {
     this.valor = novoValor;
@@ -61,4 +66,5 @@ export class InputSenhaComponent {
     this.toggleImagem();
     this.mudarVizualizacaoSenha.emit();
   }
+
 }
