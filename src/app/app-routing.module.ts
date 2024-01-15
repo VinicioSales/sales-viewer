@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent},
   { path: 'esqueci-senha', component: EsqueciSenhaComponent},
   { path: 'redefinir-senha', component: RedefinirSenhaComponent},
-{ path: '', component: PaginaAntecipacaoComponent, /*canActivate: [AuthGuard]*/ },
+  { path: '', component: PaginaAntecipacaoComponent, /*canActivate: [AuthGuard]*/ },
   { path: 'antecipar-venda', component: PaginaAntecipacaoComponent, /*canActivate: [AuthGuard]*/},
 ];
 

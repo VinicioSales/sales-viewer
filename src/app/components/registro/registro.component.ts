@@ -49,9 +49,10 @@ export class RegistroComponent {
   nomeValue: string = ''; 
   emailValue: string = '';  
   senhaValue: string = '';
-  confirmarSenhaValue: string = '';
   mensagemModal: string = '';
+  carregando: boolean = false;
   mostrarModal: boolean = false;
+  confirmarSenhaValue: string = '';
 
   onNomeValueChanged(inputNome: string) {
     // Esta função será acionada quando o valor do input de nome mudar
@@ -139,22 +140,34 @@ export class RegistroComponent {
     this.mensagemModal = mensagem;
 
   }
-   
+  
   //NOTE - fecharMensagemModal
   fecharMensagemModal() {
     this.mostrarModal = false;
     this.mensagemModal = "";
   }
 
+  //NOTE - mostrarCarregando
+  mostrarCarregando() {
+    this.carregando = true;
+  }
+
+  //NOTE - esconderCarregando
+  esconderCarregando() {
+    this.carregando = false;
+  }
+
 
   //NOTE - OnRegistro 
   onRegistro(){
+    this.mostrarCarregando();
     const credenciaisValidadas = this.validarCredenciais();
     if (credenciaisValidadas){
       
       this.authService.registrarUsuario(this.nomeValue, this.emailValue, this.senhaValue).subscribe({
         next: (response) => {
           
+          this.esconderCarregando();
           this.exibirMensagemModal(RegistroComponent.MENSAGEM_REGISTRO_CONCLUIDO);            
           setTimeout(() => {
             this.router.navigate(['/login']);
@@ -162,6 +175,7 @@ export class RegistroComponent {
     
         },
         error: (error) => {
+          this.esconderCarregando();
           if (error.status === 409) {
             this.exibirMensagemModal(RegistroComponent.MENSAGEM_EMAIL_JA_REGISTRADO);
           } else if (error.status === 403) {

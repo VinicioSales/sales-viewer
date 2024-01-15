@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth/auth.service';
 import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
@@ -19,7 +19,6 @@ export class EsqueciSenhaComponent {
   carregando: boolean = false;
   mostrarModal: boolean = false;
 
-
   //NOTE - handleFecharModal
   handleFecharModal() {
     this.mostrarModal = false;
@@ -29,7 +28,6 @@ export class EsqueciSenhaComponent {
   onValorInputChange(novoValor: string) {
     this.valorEmail = novoValor;
   }
-
 
   //NOTE - onRecuperarSenha
   onRecuperarSenha() {
