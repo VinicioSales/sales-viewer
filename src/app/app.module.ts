@@ -27,6 +27,7 @@ import { CarregamentoComponent } from './components/carregamento/carregamento.co
 import { EsqueciSenhaComponent } from './components/esqueci-senha/esqueci-senha.component';
 import { HomeComponent } from './components/home/home.component';
 import { BotaoSairComponent } from './components/botao-sair/botao-sair.component';
+import { LogoRocinanteComponent } from './components/logo-rocinante/logo-rocinante.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { BotaoSairComponent } from './components/botao-sair/botao-sair.component
     PaginaAntecipacaoComponent,
     InputPesquisarFiltroComponent,
     ModalConfirmacaoAdiantamentoComponent,
+    LogoRocinanteComponent,
   ],
   imports: [
     FormsModule,

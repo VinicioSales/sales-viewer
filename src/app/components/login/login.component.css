@@ -4,13 +4,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
 }
 
 .container-login {
     width: 23%;
     height: 75%;
-    background: var(--cor-primaria);
+    background: var(--cor-1);
     border-radius: 2px;
     box-shadow: 2px 9px 12px 4px rgba(12, 12, 12, 0.25);
     justify-self: center;
@@ -87,7 +87,7 @@ app-botao-tema {
 .esqueci-senha {
     grid-area: esqueci-senha;
     font-size: 0.85rem;
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
 }
 
 .esqueci-senha:hover,
@@ -113,14 +113,14 @@ app-botao-tema {
 .linha {
     height: 1px;
     width: 80%;
-    background: var(--cor-secundaria);
+    background: var(--cor-2);
 }
 
 .botao-registre {
     font-size: 1rem;
     white-space: nowrap;
     align-self: center;
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
 }
 
 .footer {
@@ -148,13 +148,13 @@ a:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
 }
 
 .container-esqueci-senha {
     width: 23%;
     height: 75%;
-    background: var(--cor-primaria);
+    background: var(--cor-1);
     border-radius: 2px;
     box-shadow: 2px 9px 12px 4px rgba(12, 12, 12, 0.25);
     justify-self: center;

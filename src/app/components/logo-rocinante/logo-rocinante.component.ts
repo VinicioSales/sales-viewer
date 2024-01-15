@@ -3,14 +3,14 @@ import { TemaService } from '../../services/tema/tema.service';
 import { ImagemService } from '../../services/imagem/imagem.service';
 
 @Component({
-  selector: 'app-logo-parceiro',
-  templateUrl: './logo-parceiro.component.html',
-  styleUrls: ['./logo-parceiro.component.css']
+  selector: 'app-logo-rocinante',
+  templateUrl: './logo-rocinante.component.html',
+  styleUrls: ['./logo-rocinante.component.css']
 })
-export class LogoParceiroComponent {
+export class LogoRocinanteComponent {
   public imgSrc?: string;
-  private imgTemaClaro: string = 'assets/img/MARCA SEM BG_LOGOTIPO HORIZONTAL COLOR PRETO LIGHT MODE.png';
-  private imgTemaEscuro: string = 'assets/img/MARCA SEM BG_LOGOTIPO HORIZONTAL COLOR BRANCO DARK MODE.png';
+  private imgTemaClaro: string = 'assets/img/logo-rocinante.jpg';
+  private imgTemaEscuro: string = 'assets/img/logo-rocinante.jpg';
   
   constructor(private temaService: TemaService, private imagemService: ImagemService) {
     this.atualizarImg();
@@ -24,5 +24,4 @@ export class LogoParceiroComponent {
   atualizarImg() {
     this.imgSrc = this.imagemService.atualizarImg(this.imgTemaClaro, this.imgTemaEscuro);
   }
-
 }

@@ -4,13 +4,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--cor-secundaria);
+    color: var(--cor-2);
 }
 
 .container-esqueci-senha {
     width: 23%;
     height: 75%;
-    background: var(--cor-primaria);
+    background: var(--cor-1);
     border-radius: 2px;
     box-shadow: 2px 9px 12px 4px rgba(12, 12, 12, 0.25);
     justify-self: center;
