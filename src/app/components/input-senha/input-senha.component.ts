@@ -1,6 +1,5 @@
-import { TemaService } from '../../services/tema/tema.service';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-
+import { TemaService } from '../../services/tema/tema.service';
 
 @Component({
   selector: 'app-input-senha',
@@ -8,17 +7,16 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
   styleUrls: ['./input-senha.component.css']
 })
 export class InputSenhaComponent implements OnInit {
-  // NOTE - Inputs
   @Input() width: string = '100%';
   @Input() height: string = '50px';
   @Input() placeholder: string = 'senha';
-  @Input() mostrarSenha: boolean = false;
 
+  private _mostrarSenha: boolean = false;
+  
   @Output() valorChange = new EventEmitter<any>();
   @Output() botaoClicado = new EventEmitter<void>();
   @Output() mudarVizualizacaoSenha = new EventEmitter<void>();
 
-  // NOTE - Variáveis
   imgSrc?: string;
   valor: string = '';
   borderRadius: string = '10px';
@@ -29,42 +27,42 @@ export class InputSenhaComponent implements OnInit {
   private imgInvisivelTemaClaro: string = 'assets/img/botao-invisivel-light-mode.png';
   private imgInvisivelTemaEscuro: string = 'assets/img/botao-invisivel-dark-mode.png';
 
-  //NOTE - constructor
-  constructor(
-    private temaService: TemaService,
-    ) {
-    this.toggleImagem();
-
+  constructor(private temaService: TemaService) {
     this.temaService.temaEscuroLigado$.subscribe(() => {
       this.toggleImagem();
     });
   }
 
-  //NOTE - ngOnInit
   ngOnInit(): void {
-    // this.toggleImagem();
+    // Inicializa a imagem com base no estado atual
+    this.toggleImagem();
   }
 
-  //NOTE - onValorChange
+  get mostrarSenha(): boolean {
+    return this._mostrarSenha;
+  }
+
+  @Input()
+  set mostrarSenha(valor: boolean) {
+    this._mostrarSenha = valor;
+    this.toggleImagem();
+  }
+
   onValorChange(novoValor: string): void {
     this.valor = novoValor;
     this.valorChange.emit(this.valor);
   }
 
-  //NOTE - toggleImagem
   toggleImagem() {
-    if (this.mostrarSenha) {
+    if (this._mostrarSenha) {
       this.imgSrc = this.temaService.temaEscuroLigado ? this.imgVisivelTemaEscuro : this.imgVisivelTemaClaro;
     } else {
       this.imgSrc = this.temaService.temaEscuroLigado ? this.imgInvisivelTemaEscuro : this.imgInvisivelTemaClaro;
     }
   }
-  
-  //NOTE - onClickVizualizacao
+
   onClickVizualizacao() {
     this.mostrarSenha = !this.mostrarSenha;
-    this.toggleImagem();
     this.mudarVizualizacaoSenha.emit();
-  }
-
+    }
 }
