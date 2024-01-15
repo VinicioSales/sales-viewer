@@ -1,8 +1,5 @@
-import { Subscription } from 'rxjs';
 import { TemaService } from '../../services/tema/tema.service';
-import { ImagemService } from 'src/app/services/imagem/imagem.service';
-import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, OnInit, OnDestroy, SimpleChanges, } from '@angular/core';
-
+import { Component, Input, Output, EventEmitter, } from '@angular/core';
 
 
 @Component({
@@ -11,47 +8,57 @@ import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, OnInit, 
   styleUrls: ['./input-senha.component.css']
 })
 export class InputSenhaComponent {
-   // NOTE - Inputs
-    @Input() width: string = '100%';
-    @Input() height: string = '50px';
-    @Input() placeholder: string = 'senha';
-    @Input() mostrarSenha: boolean = false;
+  // NOTE - Inputs
+  @Input() width: string = '100%';
+  @Input() height: string = '50px';
+  @Input() placeholder: string = 'senha';
+  @Input() mostrarSenha: boolean = false;
 
-    @Output() botaoClicado = new EventEmitter<void>();
-  
-    // NOTE - Variáveis
-    imgSrc?: string;
-    valor: string = '';
-    borderRadius: string = '10px';
-    mostrarDropdown: boolean = false;
-  
-    private imgTemaClaro: string = 'assets/img/botao-invisivel-light-mode.png';
-    private imgTemaEscuro: string = 'assets/img/botao-invisivel-dark-mode.png';
-    
-    constructor(private temaService: TemaService, private imagemService: ImagemService) {
-      this.atualizarImg();
+  @Output() valorChange = new EventEmitter<any>();
+  @Output() botaoClicado = new EventEmitter<void>();
+  @Output() mudarVizualizacaoSenha = new EventEmitter<void>();
 
-      this.temaService.temaEscuroLigado$.subscribe(() => {
-        this.atualizarImg();
-      });
+  // NOTE - Variáveis
+  imgSrc?: string;
+  valor: string = '';
+  borderRadius: string = '10px';
+  mostrarDropdown: boolean = false;
+
+  private imgVisivelTemaClaro: string = 'assets/img/botao-visivel-light-mode.png';
+  private imgVisivelTemaEscuro: string = 'assets/img/botao-visivel-dark-mode.png';
+  private imgInvisivelTemaClaro: string = 'assets/img/botao-invisivel-light-mode.png';
+  private imgInvisivelTemaEscuro: string = 'assets/img/botao-invisivel-dark-mode.png';
+
+  //NOTE - constructor
+  constructor(
+    private temaService: TemaService,
+    ) {
+    this.toggleImagem();
+
+    this.temaService.temaEscuroLigado$.subscribe(() => {
+      this.toggleImagem();
+    });
+  }
+
+  //NOTE - onValorChange
+  onValorChange(novoValor: string): void {
+    this.valor = novoValor;
+    this.valorChange.emit(this.valor);
+  }
+
+  //NOTE - toggleImagem
+  toggleImagem() {
+    if (this.mostrarSenha) {
+      this.imgSrc = this.temaService.temaEscuroLigado ? this.imgVisivelTemaEscuro : this.imgVisivelTemaClaro;
+    } else {
+      this.imgSrc = this.temaService.temaEscuroLigado ? this.imgInvisivelTemaEscuro : this.imgInvisivelTemaClaro;
     }
-
-    atualizarImg() {
-      this.imgSrc = this.imagemService.atualizarImg(this.imgTemaClaro, this.imgTemaEscuro);
-    }
-
-    @Output() mudarVizualizacaoSenha = new EventEmitter<void>();
-    @Output() valorChange = new EventEmitter<any>();
-
-    onValorChange(novoValor: string): void {
-      this.valor = novoValor;
-      this.valorChange.emit(this.valor);
-    }
+  }
   
-    //NOTE - onClick
-    onClickVizualizacao() {
-      this.mudarVizualizacaoSenha.emit();
-    }
-  
-
+  //NOTE - onClickVizualizacao
+  onClickVizualizacao() {
+    this.mostrarSenha = !this.mostrarSenha;
+    this.toggleImagem();
+    this.mudarVizualizacaoSenha.emit();
+  }
 }
