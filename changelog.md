@@ -1,6 +1,18 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+[0.11.0] - 15/01/2024
+Added
+- Finalizado pendencias ao dar merge (vinicio)
+- Ajustes testes unitários dos componentes em geral (vinicio)
+- Ajustes variaveis css (vinicio)
+- Add Guard Auth nas rotas fronend (vinicio)
+- Ajuste serviço mensagem nos componentes de acesso (vinicio)
+- Add carregando nas telas de acesso (vinicio)
+- Add componente logo Rocinante (vinicio)
+- Criado componente input-senha (vinicio)
+- Criado componente input-senha (vinicio)
+
 [0.10.0] - 10/01/2024
 Fixed
 - Resolvido bug selecionar vendas filtradas (vinicio)
