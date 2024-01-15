@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 
 @Component({
   selector: 'app-redefinir-senha',
@@ -10,7 +11,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class RedefinirSenhaComponent {
   constructor(    
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    public mensagensService: MensagensService,
   ) {}
 
 

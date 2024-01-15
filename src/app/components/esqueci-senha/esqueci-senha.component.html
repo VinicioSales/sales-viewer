@@ -1,9 +1,9 @@
 <app-carregamento *ngIf="carregando"></app-carregamento>
-<!-- <app-modal-geral
-    *ngIf="modalService.mostrarModal$ | async"
-    (fecharModal)="modalService.fecharModal()"
-    [mensagem]="modalService.mensagemModal$ | async">
-</app-modal-geral> -->
+<app-modal-geral
+    *ngIf="mensagensService.mostrarModal$ | async"
+    (fecharModal)="mensagensService.fecharModal()"
+    [mensagem]="mensagensService.mensagemModal$ | async">
+</app-modal-geral>
 <div class="pagina-esqueci-senha">
     <div class="container-esqueci-senha">
         <div class="header">

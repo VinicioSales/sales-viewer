@@ -1,7 +1,7 @@
 <app-modal-geral
-    *ngIf="mostrarModal"
-    [mensagem]="mensagemModal"
-    (fecharModal)="handleFecharModal()">
+    *ngIf="mensagensService.mostrarModal$ | async"
+    (fecharModal)="mensagensService.fecharModal()"
+    [mensagem]="mensagensService.mensagemModal$ | async">
 </app-modal-geral>
 <div class="pagina-home">
     <div class="container-home">

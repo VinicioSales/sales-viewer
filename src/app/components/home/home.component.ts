@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service'
+import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 
 
 @Component({
@@ -12,6 +13,7 @@ export class HomeComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
+    public mensagensService: MensagensService,
   ) {}
 
   @Input() mensagemModal: string = '';

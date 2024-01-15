@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { TemaService } from '../../services/tema/tema.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Router } from '@angular/router';
+import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class RegistroComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private temaService: TemaService
+    private temaService: TemaService,
+    public mensagensService: MensagensService,
   ) {
     this.atualizarImg();
     
@@ -157,7 +159,7 @@ export class RegistroComponent {
           setTimeout(() => {
             this.router.navigate(['/login']);
           }, 3000);               
-     
+    
         },
         error: (error) => {
           if (error.status === 409) {
