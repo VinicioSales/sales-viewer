@@ -1,29 +1,31 @@
-import { ComponentFixture, TestBed, fakeAsync, tick  } from '@angular/core/testing'; 
-import {BotaoTemaComponent} from 'src/app/components/botao-tema/botao-tema.component';
+import { of, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { RegistroComponent } from './registro.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import {InputComponent} from 'src/app/components/input/input.component';
 import {BotaoComponent} from 'src/app/components/botao/botao.component';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { InputSenhaComponent } from '../input-senha/input-senha.component';
 import { LogoParceiroComponent } from '../logo-parceiro/logo-parceiro.component';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
-import { urlBackend, rotaRegistrarUsuarios } from 'src/app/services/statics';
-
+import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
+import { ComponentFixture, TestBed, fakeAsync, tick  } from '@angular/core/testing'; 
+import {BotaoTemaComponent} from 'src/app/components/botao-tema/botao-tema.component';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 
 describe('RegistroComponent', () => {
   let component: RegistroComponent;
-  let fixture: ComponentFixture<RegistroComponent>;
-  let authService: jasmine.SpyObj<AuthService>;
   let router: jasmine.SpyObj<Router>;
+  let mensagensService: any;
+  let authService: jasmine.SpyObj<AuthService>;
   let httpTestingController: HttpTestingController;
+  let fixture: ComponentFixture<RegistroComponent>;
 
   beforeEach(async () => {
 
     const authServiceSpy = jasmine.createSpyObj('AuthService', ['redefinirSenha', 'registrarUsuario']);
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    const mensagensServiceSpy = jasmine.createSpyObj('MensagensService', ['exibirMensagemModal']);
     authServiceSpy.registrarUsuario.and.returnValue(of({ success: true }));
     await TestBed.configureTestingModule({
       imports: [FormsModule, HttpClientTestingModule],
@@ -33,17 +35,21 @@ describe('RegistroComponent', () => {
         InputComponent,
         BotaoComponent,
         LogoParceiroComponent,
+        InputSenhaComponent,
         
       ],
       providers: [
+        { provide: Router, useValue: routerSpy },
         {provide: AuthService, useValue: authServiceSpy },
-        { provide: Router, useValue: routerSpy }
+        { provide: MensagensService, useValue: mensagensServiceSpy }
       ]
     }).compileComponents();
     fixture = TestBed.createComponent(RegistroComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    mensagensService = TestBed.inject(MensagensService) as jasmine.SpyObj<MensagensService>;
+    
     authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -159,17 +165,13 @@ describe('RegistroComponent', () => {
         component.senhaValue = '12345678';
         component.confirmarSenhaValue = '12345678';
         
-        // Espione a função exibirMensagemModal para verificar se ela é chamada
-        spyOn(component, 'exibirMensagemModal');
-
-        // Executa a função validarCredenciais
         const resultado = component.validarCredenciais();
 
         // Verifique se a função retorna false
         expect(resultado).toBeFalse();
 
         // Verifique se a mensagem modal correta é exibida
-        expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_CAMPOS_VAZIO);
+        expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_CAMPOS_VAZIO);
       });
 
       //NOTE - Deve retornar false e exibir mensagem modal quando o campo emailValue estiver vazio
@@ -180,8 +182,6 @@ describe('RegistroComponent', () => {
         component.confirmarSenhaValue = '12345678';
 
         // Espione a função exibirMensagemModal para verificar se ela é chamada
-        spyOn(component, 'exibirMensagemModal');
-
         // Executa a função validarCredenciais
         const resultado = component.validarCredenciais();
 
@@ -189,7 +189,7 @@ describe('RegistroComponent', () => {
         expect(resultado).toBeFalse();
 
         // Verifique se a mensagem modal correta é exibida
-        expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_CAMPOS_VAZIO);
+        expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_CAMPOS_VAZIO);
       });
       
       //NOTE - Deve retornar false e exibir mensagem modal quando o campo senhaValue estiver vazio
@@ -200,8 +200,6 @@ describe('RegistroComponent', () => {
         component.confirmarSenhaValue = '12345678';
 
         // Espione a função exibirMensagemModal para verificar se ela é chamada
-        spyOn(component, 'exibirMensagemModal');
-
         // Executa a função validarCredenciais
         const resultado = component.validarCredenciais();
 
@@ -209,7 +207,7 @@ describe('RegistroComponent', () => {
         expect(resultado).toBeFalse();
 
         // Verifique se a mensagem modal correta é exibida
-        expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_CAMPOS_VAZIO);
+        expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_CAMPOS_VAZIO);
       });
 
       //NOTE - Deve retornar false e exibir mensagem modal quando o campo confirmarSenhaValue estiver vazio
@@ -220,8 +218,6 @@ describe('RegistroComponent', () => {
         component.confirmarSenhaValue = '';
 
         // Espione a função exibirMensagemModal para verificar se ela é chamada
-        spyOn(component, 'exibirMensagemModal');
-
         // Executa a função validarCredenciais
         const resultado = component.validarCredenciais();
 
@@ -229,7 +225,7 @@ describe('RegistroComponent', () => {
         expect(resultado).toBeFalse();
 
         // Verifique se a mensagem modal correta é exibida
-        expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_CAMPOS_VAZIO);
+        expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_CAMPOS_VAZIO);
       }); 
       
       //NOTE - Deve retornar false caso cotenha numero no nome
@@ -239,8 +235,6 @@ describe('RegistroComponent', () => {
         component.senhaValue = '123456789';
         component.confirmarSenhaValue = '123456789';
         // Espione a função exibirMensagemModal para verificar se ela é chamada
-        spyOn(component, 'exibirMensagemModal');
-
         // Executa a função validarCredenciais
         const resultado = component.validarCredenciais();
 
@@ -248,7 +242,7 @@ describe('RegistroComponent', () => {
         expect(resultado).toBeFalse();
         
         // Verifique se a mensagem modal correta é exibida
-        expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_FORMATO_NOME_INCORRETO);
+        expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_FORMATO_NOME_INCORRETO);
       });
 
       //NOTE - Deve retornar falso caso o email esteja no formado incorreto
@@ -259,8 +253,6 @@ describe('RegistroComponent', () => {
         component.confirmarSenhaValue = '123456789';
 
         // Espione a função exibirMensagemModal para verificar se ela é chamada
-        spyOn(component, 'exibirMensagemModal');
-
         // Executa a função validarCredenciais
         const resultado = component.validarCredenciais();
 
@@ -268,7 +260,7 @@ describe('RegistroComponent', () => {
         expect(resultado).toBeFalse();
         
         // Verifique se a mensagem modal correta é exibida
-        expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_EMAIL_INVALIDO);
+        expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_EMAIL_INVALIDO);
         });
 
       //NOTE - Deve retornar falso caso as senhas sejam diferentes
@@ -279,8 +271,6 @@ describe('RegistroComponent', () => {
         component.confirmarSenhaValue = '123456789';
 
         // Espione a função exibirMensagemModal para verificar se ela é chamada
-        spyOn(component, 'exibirMensagemModal');
-
         // Executa a função validarCredenciais
         const resultado = component.validarCredenciais();
 
@@ -288,7 +278,7 @@ describe('RegistroComponent', () => {
         expect(resultado).toBeFalse();
         
         // Verifique se a mensagem modal correta é exibida
-        expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_SENHAS_DIFERENTES);
+        expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_SENHAS_DIFERENTES);
       });
 
       //NOTE - Deve retornar falso caso a senha tenha menos de 8 caracteres
@@ -299,8 +289,6 @@ describe('RegistroComponent', () => {
         component.confirmarSenhaValue = '1234567';
 
          // Espione a função exibirMensagemModal para verificar se ela é chamada
-         spyOn(component, 'exibirMensagemModal');
-
          // Executa a função validarCredenciais
          const resultado = component.validarCredenciais();
  
@@ -308,7 +296,7 @@ describe('RegistroComponent', () => {
          expect(resultado).toBeFalse();
          
          // Verifique se a mensagem modal correta é exibida
-         expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_SENHA_CURTA);
+         expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_SENHA_CURTA);
       });
 
       //NOTE - Deve retornar true e fechar a mensagem modal quando todos os campos são válidos
@@ -320,37 +308,14 @@ describe('RegistroComponent', () => {
 
         // Espionando as funções
         spyOn(component, 'fecharMensagemModal');
-        spyOn(component, 'exibirMensagemModal');
-
         // Executando a função
         const resultado = component.validarCredenciais();
 
         // Verificações
         expect(resultado).toBeTrue();
         expect(component.fecharMensagemModal).toHaveBeenCalled();
-        expect(component.exibirMensagemModal).not.toHaveBeenCalled();
+        expect(mensagensService.exibirMensagemModal).not.toHaveBeenCalled();
       });
-  });
-
-  //SECTION - exibirMensagemModal
-  describe('exibirMensagemModal', () =>{
-    //NOTE - Deve exibir o modal com a mensagem fornecida
-    it('deve exibir o modal com a mensagem fornecida', () =>{
-      // Definindo uma mensagem de teste
-        const mensagemTeste  = 'Mensagem de teste';
-
-      // Garantindo que o modal inicialmente não está visível
-      expect(component.mostrarModal).toBeFalse();
-      
-      // Executando a função com a mensagem de teste
-      component.exibirMensagemModal(mensagemTeste);
-
-      // Verifica se o modal está agora visível
-      expect(component.mostrarModal).toBeTrue();
-
-      // Verifica se a mensagem no modal é a mensagem de teste
-      expect(component.mensagemModal).toEqual(mensagemTeste);
-    });
   });
 
   //SECTION - exibirMensagemModal
@@ -399,21 +364,17 @@ describe('RegistroComponent', () => {
     //NOTE - deve exibir modal se as credenciais forem válidas
     it('deve exibir modal se as credenciais forem válidas', fakeAsync(() =>{
       spyOn(component, 'validarCredenciais').and.returnValue(true);
-      spyOn(component, 'exibirMensagemModal');
-
       component.onRegistro();
       tick(3000);
 
       expect(component.validarCredenciais).toHaveBeenCalled();
       expect(authService.registrarUsuario).toHaveBeenCalled();
-      expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_REGISTRO_CONCLUIDO);
+      expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_REGISTRO_CONCLUIDO);
     }));
 
     //NOTE - deve navegar para a página de login após o registro bem-sucedido
     it('deve navegar para a página de login após o registro bem-sucedido', fakeAsync(() => {
       spyOn(component, 'validarCredenciais').and.returnValue(true);
-      spyOn(component, 'exibirMensagemModal');
-      
     
       component.onRegistro();
       tick(3000); 
@@ -427,14 +388,12 @@ describe('RegistroComponent', () => {
       spyOn(component, 'validarCredenciais').and.returnValue(true);
       const errorResponse = { status: 409 };
       authService.registrarUsuario.and.returnValue(throwError(() => errorResponse)); // Reconfigura o spy já existente
-      spyOn(component, 'exibirMensagemModal');
-    
       component.onRegistro();
       tick();
     
       expect(component.validarCredenciais).toHaveBeenCalled();
       expect(authService.registrarUsuario).toHaveBeenCalled();
-      expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_EMAIL_JA_REGISTRADO);
+      expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_EMAIL_JA_REGISTRADO);
     }));
 
     //NOTE - deve exibir mensagem de erro quando o houver um erro inesperado
@@ -442,14 +401,12 @@ describe('RegistroComponent', () => {
       spyOn(component, 'validarCredenciais').and.returnValue(true);
       const errorResponse = { status: 403 };
       authService.registrarUsuario.and.returnValue(throwError(() => errorResponse)); // Reconfigura o spy já existente
-      spyOn(component, 'exibirMensagemModal');
-
       component.onRegistro();
       tick();
 
       expect(component.validarCredenciais).toHaveBeenCalled();
       expect(authService.registrarUsuario).toHaveBeenCalled();
-      expect(component.exibirMensagemModal).toHaveBeenCalledWith(RegistroComponent.MENSAGEM_INTERNAL_SERVER_ERROR);
+      expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_INTERNAL_SERVER_ERROR);
     }));
 
     //NOTE - deve exibir mensagem de erro quando o houver um erro desconhecido
@@ -457,15 +414,13 @@ describe('RegistroComponent', () => {
       spyOn(component, 'validarCredenciais').and.returnValue(true);
       const errorResponse = new Error('Erro inesperado');
       authService.registrarUsuario.and.returnValue(throwError(() => errorResponse)); 
-      spyOn(component, 'exibirMensagemModal');
-    
       component.onRegistro();
       tick();
     
       expect(component.validarCredenciais).toHaveBeenCalled();
       expect(authService.registrarUsuario).toHaveBeenCalled();
       
-      expect(component.exibirMensagemModal).toHaveBeenCalledWith(`Erro desconhecido: ${errorResponse}`);
+      expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(`Erro desconhecido: ${errorResponse}`);
     }));
   });
   
