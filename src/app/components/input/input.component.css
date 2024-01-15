@@ -18,7 +18,6 @@
 .componente-input:focus {
     outline: none;
     box-shadow: var(--box-shadow); 
-
 }
 
 input[type="date"] {
