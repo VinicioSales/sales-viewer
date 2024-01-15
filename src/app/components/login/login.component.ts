@@ -102,8 +102,8 @@ export class LoginComponent {
       },
       error: (error: HttpErrorResponse) => {
         debugger;
-        console.log(error)
-        console.log(error.error);
+        console.error(error)
+        console.error(error.error);
         this.mensagensService.exibirMensagemModal(error.error);
         this.carregando = false;
       }
