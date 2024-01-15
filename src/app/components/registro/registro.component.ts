@@ -84,7 +84,7 @@ export class RegistroComponent {
 
   verificarNumeroNoNome(nome: string): boolean {
     for (const caractere of nome) {
-      if (!isNaN(Number(caractere))) {
+      if (/\d/.test(caractere)) {
         return true;
       }
     }

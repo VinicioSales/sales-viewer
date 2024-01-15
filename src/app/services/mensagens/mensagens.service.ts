@@ -15,10 +15,10 @@ export class MensagensService {
   static readonly MENSAGEM_CAMPOS_VAZIO = 'Todos os campos são obrigatórios!';
   static readonly MENSAGEM_SENHA_REDEFINIDA = 'Senha redefinida com sucesso!';
   static readonly MENSAGEM_EMAIL_INVALIDO = 'Email está com formato inválido!';
+  static readonly MENSAGEM_FORMATO_NOME_INCORRETO = 'Formato do nome incorreto';
   static readonly MENSAGEM_ITENS_NAO_SELECIONADOS = 'Selecione ao menos um ítem';
   static readonly MENSAGEM_REGISTRO_CONCLUIDO = 'Usuário cadastrado com sucesso!';
   static readonly MENSAGEM_SENHA_CURTA = 'A senha deve ter no mínimo 8 caracteres!';
-  static readonly MENSAGEM_FORMATO_NOME_INCORRETO = 'O nome não deve conter números';
   static readonly MENSAGEM_CODIGO_VERIFICACAO_INVALIDO = 'Código de verificação inválido!';
   static readonly MENSAGEM_CODIGO_VERIFICACAO_VAZIO = 'Campo código de verificação vazio!';
   static readonly MENSAGEM_CONFIRMAR_NOVA_SENHA_VAZIO = 'Campo confirmar nova senha vazio!';
