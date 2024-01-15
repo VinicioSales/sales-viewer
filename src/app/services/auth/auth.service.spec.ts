@@ -62,10 +62,10 @@ describe('AuthService', () => {
     //NOTE - deve verificar o corpo da requisição HTTP
     it('deve verificar o corpo da requisição HTTP', () =>{
        // Definindo os dados de teste
-       const testData = { nome: 'Teste', email: 'teste@teste.com', senha: '123456' };
+       const testData = { username: 'Teste', email: 'teste@teste.com', password: '123456' };
 
        // Chamando o método registrarUsuario
-       service.registrarUsuario(testData.nome, testData.email, testData.senha).subscribe();
+       service.registrarUsuario(testData.username, testData.email, testData.password).subscribe();
 
        // Verificando o corpo da requisição HTTP
        const req = httpMock.expectOne(`${urlBackend}/${rotaRegistrarUsuarios}`);
