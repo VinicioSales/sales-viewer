@@ -1,0 +1,16 @@
+<div
+    [style.width]="width"
+    [style.height]="height">
+    <div class="container-relativo">
+        <input
+            [type]="mostrarSenha ? 'text' : 'password'"
+            [placeholder]="placeholder">
+        <button
+            class="botao"
+            (click)="onClickVizualizacao()">
+            <img
+                [src]="imgSrc" 
+                alt="Visibilidade">
+        </button>
+    </div>
+</div>

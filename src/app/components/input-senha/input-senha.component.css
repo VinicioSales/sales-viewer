@@ -1,0 +1,44 @@
+
+input[type="date"] {
+    cursor: pointer;
+}
+
+img {
+    transform: scale(0.35);
+}
+
+.container-relativo {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: var(--box-shadow); 
+
+}
+
+input {
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    background: var(--cor-3);
+    color: var(--cor-2);
+    padding: 0 20px 0 10px;
+    border: none;
+}
+
+.botao {
+    border: none;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 40px;
+    height: 100%;
+    background: var(--cor-3);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}

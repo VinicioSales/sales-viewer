@@ -23,21 +23,15 @@ export class RegistroComponent {
     this.atualizarImg();
     
      // Escute as mudanças do tema
-     this.temaService.temaEscuroLigado$.subscribe(estaEscuro => {
-      this.atualizarImg();
-     });
-   }
+      this.temaService.temaEscuroLigado$.subscribe(estaEscuro => {
+        this.atualizarImg();
+      });
+    }
 
   //NOTE - atualizarImg
   atualizarImg() {
     this.imgSrc = this.temaService.temaEscuroLigado ? this.imgTemaEscuro : this.imgTemaClaro;
   }
-
-
-
-
-  
-  
   
   nomeValue: string = ''; 
   emailValue: string = '';  
@@ -97,7 +91,6 @@ export class RegistroComponent {
       this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_CAMPOS_VAZIO);
       return false;
     }
-
 
     else if (this.verificarNumeroNoNome(this.nomeValue)) {      
       this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_FORMATO_NOME_INCORRETO);
@@ -171,6 +164,4 @@ export class RegistroComponent {
       
     }
   }
-
-
 }

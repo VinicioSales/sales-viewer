@@ -28,6 +28,7 @@ import { InputPesquisarComponent } from './components/input-pesquisar/input-pesq
 import { PaginaAntecipacaoComponent } from './components/pagina-antecipacao/pagina-antecipacao.component';
 import { InputPesquisarFiltroComponent } from './components/input-pesquisar-filtro/input-pesquisar-filtro.component';
 import { ModalConfirmacaoAdiantamentoComponent } from './components/modal-confirmacao-adiantamento/modal-confirmacao-adiantamento.component';
+import { InputSenhaComponent } from './components/input-senha/input-senha.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ModalConfirmacaoAdiantamentoComponent } from './components/modal-confir
     InputPesquisarFiltroComponent,
     ModalConfirmacaoAdiantamentoComponent,
     LogoRocinanteComponent,
+    InputSenhaComponent,
   ],
   imports: [
     FormsModule,
