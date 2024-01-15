@@ -14,37 +14,38 @@ export class InputSenhaComponent {
    // NOTE - Inputs
     @Input() width: string = '100%';
     @Input() height: string = '50px';
-    @Input() itens: string[] = [];
-    @Input() valor: string = 'input';
-    @Input() placeholder: string = 'input';
+    @Input() placeholder: string = 'senha';
     @Input() mostrarSenha: boolean = false;
+
+    @Output() botaoClicado = new EventEmitter<void>();
   
-    // Variáveis
+    // NOTE - Variáveis
     imgSrc?: string;
-    itemSelecionado: string = '';
-    _textoPesquisado: string = '';
+    valor: string = '';
     borderRadius: string = '10px';
     mostrarDropdown: boolean = false;
-    itensFiltrados?: string[];
   
-    // Imagens para os temas claro e escuro
-    private imgTemaClaro: string = 'assets/img/botao-visivel-dark-mode.png';
-    private imgTemaEscuro: string = 'assets/img/botao-visivel-light-mode.png';
-  
-    //NOTE -  Outputs
-    @Output() botaoClicado = new EventEmitter<void>();
-    @Output() mudarVizualizacaoSenha = new EventEmitter<void>();
-  
-    // Viewchild
-    @ViewChild('containerRef') containerRef!: ElementRef;
+    private imgTemaClaro: string = 'assets/img/botao-invisivel-light-mode.png';
+    private imgTemaEscuro: string = 'assets/img/botao-invisivel-dark-mode.png';
     
     constructor(private temaService: TemaService, private imagemService: ImagemService) {
-      this.atualizarImg(); // Atualizar a imagem quando o componente é criado
+      this.atualizarImg();
+
+      this.temaService.temaEscuroLigado$.subscribe(() => {
+        this.atualizarImg();
+      });
     }
-  
-    //NOTE - atualizarImg
+
     atualizarImg() {
       this.imgSrc = this.imagemService.atualizarImg(this.imgTemaClaro, this.imgTemaEscuro);
+    }
+
+    @Output() mudarVizualizacaoSenha = new EventEmitter<void>();
+    @Output() valorChange = new EventEmitter<any>();
+
+    onValorChange(novoValor: string): void {
+      this.valor = novoValor;
+      this.valorChange.emit(this.valor);
     }
   
     //NOTE - onClick
