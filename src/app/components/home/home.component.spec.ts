@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { BotaoComponent } from 'src/app/components/botao/botao.component'
 import { LogoParceiroComponent } from '../logo-parceiro/logo-parceiro.component'; 
+import { LogoRocinanteComponent } from '../logo-rocinante/logo-rocinante.component';
 import { BotaoTemaComponent } from 'src/app/components/botao-tema/botao-tema.component'
 import { BotaoSairComponent } from 'src/app/components/botao-sair/botao-sair.component'
 
@@ -18,9 +19,10 @@ describe('HomeComponent', () => {
       declarations: [
         HomeComponent,
         BotaoComponent,
-        LogoParceiroComponent,
         BotaoSairComponent,
         BotaoTemaComponent,
+        LogoParceiroComponent,
+        LogoRocinanteComponent,
       ],
       providers: [
         { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } },
