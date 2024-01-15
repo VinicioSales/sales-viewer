@@ -33,14 +33,7 @@ export class RegistroComponent {
     this.imgSrc = this.temaService.temaEscuroLigado ? this.imgTemaEscuro : this.imgTemaClaro;
   }
 
-  static readonly MENSAGEM_EMAIL_INVALIDO = 'Email está com formato inválido!';
-  static readonly MENSAGEM_SENHAS_DIFERENTES = 'As senhas não conferem!';
-  static readonly MENSAGEM_SENHA_CURTA = 'A senha deve ter no mínimo 8 caracteres!';
-  static readonly MENSAGEM_FORMATO_NOME_INCORRETO = 'O nome não deve conter números';
-  static readonly MENSAGEM_CAMPOS_VAZIO = 'Todos os campos são obrigatórios!';
-  static readonly MENSAGEM_REGISTRO_CONCLUIDO = 'Usuário cadastrado com sucesso!';
-  static readonly MENSAGEM_EMAIL_JA_REGISTRADO = 'Email já registrado';
-  static readonly MENSAGEM_INTERNAL_SERVER_ERROR = 'Ocorreu um erro inesperado, tente de novo em alguns instantes. Se o erro persistir, entre em contato com o suporte.'
+
 
 
   
@@ -97,35 +90,32 @@ export class RegistroComponent {
     }
     return false;
   }
-
-
   
   //NOTE - validarCredenciais
   validarCredenciais(): boolean{
     if(!this.nomeValue.trim()|| !this.emailValue.trim()|| !this.senhaValue.trim() || !this.confirmarSenhaValue.trim()) {
-      this.exibirMensagemModal(RegistroComponent.MENSAGEM_CAMPOS_VAZIO);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_CAMPOS_VAZIO);
       return false;
     }
 
 
     else if (this.verificarNumeroNoNome(this.nomeValue)) {      
-      this.exibirMensagemModal(RegistroComponent.MENSAGEM_FORMATO_NOME_INCORRETO);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_FORMATO_NOME_INCORRETO);
       return false;
-     }
-
+    }
 
     else if (!this.validarEmail(this.emailValue)){
-      this.exibirMensagemModal(RegistroComponent.MENSAGEM_EMAIL_INVALIDO);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_EMAIL_INVALIDO);
       return false;
     }
 
     else if (this.senhaValue != this.confirmarSenhaValue){
-      this.exibirMensagemModal(RegistroComponent.MENSAGEM_SENHAS_DIFERENTES);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_SENHAS_DIFERENTES);
       return false;
     }
 
     else if (!this.validarSenha(this.senhaValue)){
-      this.exibirMensagemModal(RegistroComponent.MENSAGEM_SENHA_CURTA);
+      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_SENHA_CURTA);
       return false;
     }
 
@@ -133,14 +123,6 @@ export class RegistroComponent {
     return true;
   }
 
-
-  //NOTE - exibirMensagemModal
-  exibirMensagemModal(mensagem: string): void {
-    this.mostrarModal = true;
-    this.mensagemModal = mensagem;
-
-  }
-  
   //NOTE - fecharMensagemModal
   fecharMensagemModal() {
     this.mostrarModal = false;
@@ -157,18 +139,17 @@ export class RegistroComponent {
     this.carregando = false;
   }
 
-
   //NOTE - OnRegistro 
   onRegistro(){
-    this.mostrarCarregando();
     const credenciaisValidadas = this.validarCredenciais();
     if (credenciaisValidadas){
+      this.mostrarCarregando();
       
       this.authService.registrarUsuario(this.nomeValue, this.emailValue, this.senhaValue).subscribe({
         next: (response) => {
           
           this.esconderCarregando();
-          this.exibirMensagemModal(RegistroComponent.MENSAGEM_REGISTRO_CONCLUIDO);            
+            this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_REGISTRO_CONCLUIDO);
           setTimeout(() => {
             this.router.navigate(['/login']);
           }, 3000);               
@@ -177,12 +158,12 @@ export class RegistroComponent {
         error: (error) => {
           this.esconderCarregando();
           if (error.status === 409) {
-            this.exibirMensagemModal(RegistroComponent.MENSAGEM_EMAIL_JA_REGISTRADO);
+            this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_EMAIL_JA_REGISTRADO);
           } else if (error.status === 403) {
-            this.exibirMensagemModal(RegistroComponent.MENSAGEM_INTERNAL_SERVER_ERROR);
+            this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_INTERNAL_SERVER_ERROR);
           }      
           else {
-            this.exibirMensagemModal(`Erro desconhecido: ${error}`);
+            this.mensagensService.exibirMensagemModal(`Erro desconhecido: ${error}`);
           }
 
         }
