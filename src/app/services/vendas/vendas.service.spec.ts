@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { VendasService } from './vendas.service';
-import { urlBackend, rotaGetVendas, rotaAdiantamento } from 'src/app/services/statics';
 import { Venda } from 'src/app/interfaces/venda';
+import { urlBackend, rotaGetVendas, rotaAdiantamento } from 'src/app/services/statics';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('VendasService', () => {
   let service: VendasService;
@@ -44,6 +44,4 @@ describe('VendasService', () => {
     expect(req.request.body).toEqual(mockVendas);
     req.flush({}); // Simula uma resposta vazia para o POST
   });
-
-  // Adicione mais testes conforme necessário
 });

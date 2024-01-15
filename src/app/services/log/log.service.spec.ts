@@ -24,8 +24,7 @@ describe('LogService', () => {
     const testMessage = 'test info message';
     service.log(testMessage);
   
-    // A URL completa é http://192.168.15.118:8000/log
-    const req = httpTestingController.expectOne('http://192.168.15.118:8000/log');
+    const req = httpTestingController.expectOne(`${urlBackend}${rotaLog}`);
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({ level: 'info', message: testMessage });
     req.flush({});
@@ -35,12 +34,10 @@ describe('LogService', () => {
     const testMessage = 'test error message';
     service.error(testMessage);
   
-    // A URL completa é http://192.168.15.118:8000/log
-    const req = httpTestingController.expectOne('http://192.168.15.118:8000/log');
+    const req = httpTestingController.expectOne(`${urlBackend}${rotaLog}`);
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({ level: 'error', message: testMessage });
     req.flush({});
   });
-  
   
 });

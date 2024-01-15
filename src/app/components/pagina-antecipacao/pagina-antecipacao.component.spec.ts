@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Venda } from 'src/app/interfaces/venda';
 import { ChangeDetectorRef } from '@angular/core';
 import { MockService } from 'src/app/mock/mock.service';
-import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { InputComponent } from '../input/input.component';
 import { BotaoComponent } from '../botao/botao.component';
 import { LogService } from 'src/app/services/log/log.service';
