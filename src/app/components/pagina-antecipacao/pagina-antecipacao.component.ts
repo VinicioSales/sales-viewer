@@ -403,7 +403,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - onConfirmarAdiantamento
   onConfirmarAdiantamento() {
     if (this.listaVendasSelecionadas) {
-      this.vendasService.postVendasParaAdiantamento(this.listaVendasSelecionadas).subscribe({
+      const listaNumeroVendas = this.getListaNumeroVendas();
+      this.vendasService.postVendasParaAdiantamento(listaNumeroVendas).subscribe({
         next: (response) => {
           this.mensagensService.exibirMensagemModal(response.message);
         },
@@ -435,6 +436,11 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - getQuantidadeVendasFiltradas
   getQuantidadeVendasFiltradas() {
     return this.listaVendasFiltrada.length;
+  }
+
+  //NOTE - getListaNumeroVendas
+  getListaNumeroVendas() {
+    return this.listaVendasSelecionadas.map(venda => venda.numeroPedido);
   }
 
 }
