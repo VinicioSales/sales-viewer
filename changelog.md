@@ -1,6 +1,11 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+
+[0.12.0] - 16/01/2024
+Change
+- Enviando apenas o numero do pedido para o backend (vinicio)
+
 [0.11.0] - 15/01/2024
 Added
 - Finalizado pendencias ao dar merge (vinicio)
