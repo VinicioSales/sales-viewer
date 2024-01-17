@@ -172,6 +172,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.produtoDescricaoPesquisado = '';
     this.numeroPedidoPesquisado = '';
     this.valorVendaPesquisado = 0;
+    this.dataInclusaoPesquisado = '';
   
     if (this.inputProduto && this.inputNumeroPedido && this.inputValor) {
       this.inputProduto.limparTextoPesquisado();

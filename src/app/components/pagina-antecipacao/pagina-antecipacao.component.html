@@ -22,7 +22,7 @@
             <app-input-pesquisar-filtro #inputNumeroPedido height="19px" placeholder="numero pedido" [itens]="listaNumeroPedido" (pesquisar)="handleNumeroPedidoPesquisado($event)" (itemSelecionadoChange)="numeroPedidoPesquisado"></app-input-pesquisar-filtro>
         </div>
         <div class="pesquisa-data-inclusao">
-            <app-input type="date" height="2px" (valorChange)="handdleDataInclusaoPesquisado($event)"></app-input>
+            <app-input type="date" height="2px" (valorChange)="handdleDataInclusaoPesquisado($event)" [(valor)]="dataInclusaoPesquisado"></app-input>
         </div>
         <div class="pesquisa-valor">
             <app-input-pesquisar-filtro #inputValor type="number" height="19px" placeholder="valor" [itens]="listaValorVenda" (pesquisar)="handleValorVendaPesquisado($event)"></app-input-pesquisar-filtro>
