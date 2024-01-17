@@ -30,10 +30,9 @@ export class HomeComponent {
     this.authService.logout();
   }
 
- 
   //NOTE - navegarRotaDevolverProdutos
   navegarRotaAnteciparParcelas() {
-    this.router.navigate(['/antecipacao']);
+    this.router.navigate(['/adiantamento']);
   }
   
 }
