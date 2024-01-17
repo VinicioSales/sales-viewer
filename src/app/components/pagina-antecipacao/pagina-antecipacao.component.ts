@@ -59,6 +59,11 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
   //NOTE - ngOnInit
   ngOnInit(): void {
+    this.carregarVendas();
+  }
+
+  //NOTE - carregarVendas
+  carregarVendas() {
     this.mostrarCarregando();
     this.vendasService.getVendas().pipe(
       catchError((error) => {
@@ -69,27 +74,41 @@ export class PaginaAntecipacaoComponent implements OnInit {
         return of([]);
       })
     ).subscribe((data: Venda[]) => {
-      const chavesParaAlterar = {
-        valor: 'valorProduto',
-        codigo: 'codigoProduto',
-        data_emissao: 'dataInclusao',
-        descricao: 'descricaoProduto',
-        valor_total_pedido: 'valorVenda',
-      }
-      data = data.map(venda => this.alterarChavesService.mapKeys(venda, chavesParaAlterar));
-      const camelCaseData = data.map(venda => this.snakeToCamelService.transformKeysToCamelCase(venda));
-      this.listaVendas = camelCaseData;
-      this.listaVendasFiltrada = camelCaseData;
-      this.resetarFiltros();
-      this.checkedStatus = {};
-      this.listaVendasFiltrada.forEach(venda => {
-        this.checkedStatus[venda.numeroPedido] = false;
-      });
-      this.checkedStatusFiltrado = { ...this.checkedStatus };
+      this.tratarChaves(data);
+      this.atualizarCheckedStatus();
       this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
 
       this.esconderCarregando();
     });
+  }
+
+  //NOTE - atualizarCheckedStatus
+  atualizarCheckedStatus() {
+    this.checkedStatus = {};
+    this.listaVendasFiltrada.forEach(venda => {
+      this.checkedStatus[venda.numeroPedido] = false;
+    });
+    this.checkedStatusFiltrado = { ...this.checkedStatus };
+  }
+
+  //NOTE - tratarChaves
+  tratarChaves(data: Venda[]) {
+    const chavesParaAlterar = {
+      valor: 'valorProduto',
+      codigo: 'codigoProduto',
+      data_emissao: 'dataInclusao',
+      descricao: 'descricaoProduto',
+      valor_total_pedido: 'valorVenda',
+    }
+    data = data.map(venda => this.alterarChavesService.mapKeys(venda, chavesParaAlterar));
+    const camelCaseData = data.map(venda => this.snakeToCamelService.transformKeysToCamelCase(venda));
+    this.listaVendas = camelCaseData;
+    this.listaVendasFiltrada = camelCaseData;
+  }
+
+  //NOTE - atualizarListasVenddas
+  atualizarListasVenddas() {
+    
   }
 
   //NOTE - mostrarDropdownProdutos
