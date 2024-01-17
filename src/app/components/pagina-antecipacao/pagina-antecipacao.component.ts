@@ -77,6 +77,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.tratarChaves(data);
       this.atualizarCheckedStatus();
       this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
+      this.listaVendasSelecionadas = [];
 
       this.esconderCarregando();
     });
