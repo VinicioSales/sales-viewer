@@ -1,7 +1,7 @@
 <app-carregamento *ngIf="carregando"></app-carregamento>
 <app-modal-geral
     *ngIf="mensagensService.mostrarModal$ | async"
-    (fecharModal)="mensagensService.fecharModal()"
+    (fecharModal)="mensagensService.fecharModal(); recarregarPagina()"
     [mensagem]="mensagensService.mensagemModal$ | async">
 </app-modal-geral>
 <app-modal-confirmacao-adiantamento *ngIf="mostrarModalConfirmacao" [quantidadeVendasSelecionadas]="quantidadeVendasSelecionadas" (cancelar)="onFecharModalConfirmacaoAdiantamento()" (confirmar)="onConfirmarAdiantamento()"></app-modal-confirmacao-adiantamento>

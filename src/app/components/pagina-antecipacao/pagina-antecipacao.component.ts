@@ -403,12 +403,15 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - onConfirmarAdiantamento
   onConfirmarAdiantamento() {
     if (this.listaVendasSelecionadas) {
+      this.mostrarCarregando();
       const listaNumeroVendas = this.getListaNumeroVendas();
       this.vendasService.postVendasParaAdiantamento(listaNumeroVendas).subscribe({
         next: (response) => {
+          this.esconderCarregando();
           this.mensagensService.exibirMensagemModal(response.message);
         },
         error: (erro) => {
+          this.esconderCarregando();
           console.error(erro);
           this.mensagensService.exibirMensagemModal(erro.error);
         }
@@ -443,4 +446,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
     return this.listaVendasSelecionadas.map(venda => venda.numeroPedido);
   }
 
+  //NOTE - recarregarPagina
+  recarregarPagina() {
+    location.reload();
+  }
 }
