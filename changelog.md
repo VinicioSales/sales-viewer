@@ -1,6 +1,11 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+[0.13.0] - 17/01/2024
+Added
+- Limpando input data (Vinicio)
+- Att forma de puxar e preencher as vendas (Vinicio)
+- Atualizando pagina ao fazer adiantamento (Vinicio)
 
 [0.12.0] - 16/01/2024
 Change
