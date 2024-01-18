@@ -77,7 +77,7 @@ export class RegistroComponent {
   }
 
    //NOTE - validarSenha
-   validarSenha(senha: any): boolean {
+    validarSenha(senha: any): boolean {
     return senha.length >= 8;
   }
 
@@ -155,15 +155,7 @@ export class RegistroComponent {
         },
         error: (error) => {
           this.esconderCarregando();
-          if (error.status === 409) {
-            this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_EMAIL_JA_REGISTRADO);
-          } else if (error.status === 403) {
-            this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_INTERNAL_SERVER_ERROR);
-          }      
-          else {
-            this.mensagensService.exibirMensagemModal(`Erro desconhecido: ${error}`);
-          }
-
+          this.mensagensService.exibirMensagemModal(error.error);
         }
       });
       
