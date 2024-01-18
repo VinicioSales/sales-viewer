@@ -1,6 +1,11 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+[0.14.0] - 18/01/2024
+Added
+- Revisado testes (Vinicio)
+- Resolvido bug do componente Input senha (Vinicio)
+
 [0.13.0] - 17/01/2024
 Added
 - Limpando input data (Vinicio)
