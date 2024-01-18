@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { EsqueciSenhaComponent } from './esqueci-senha.component';
 import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 import { LogoParceiroComponent } from '../logo-parceiro/logo-parceiro.component';
+import { InputSenhaComponent } from '../input-senha/input-senha.component';
+
 
 describe('EsqueciSenhaComponent', () => {
   let component: EsqueciSenhaComponent;
@@ -29,6 +31,7 @@ describe('EsqueciSenhaComponent', () => {
         InputComponent,
         BotaoComponent,
         BotaoTemaComponent,
+        InputSenhaComponent,
         EsqueciSenhaComponent,
         LogoParceiroComponent,
       ],

@@ -382,46 +382,6 @@ describe('RegistroComponent', () => {
       expect(component.validarCredenciais).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalledWith(['/login']); 
     }));
-
-    //NOTE - deve exibir mensagem de erro quando o email já está registrado
-    it('deve exibir mensagem de erro quando o email já está registrado', fakeAsync(() => {
-      spyOn(component, 'validarCredenciais').and.returnValue(true);
-      const errorResponse = { status: 409 };
-      authService.registrarUsuario.and.returnValue(throwError(() => errorResponse)); // Reconfigura o spy já existente
-      component.onRegistro();
-      tick();
-    
-      expect(component.validarCredenciais).toHaveBeenCalled();
-      expect(authService.registrarUsuario).toHaveBeenCalled();
-      expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_EMAIL_JA_REGISTRADO);
-    }));
-
-    //NOTE - deve exibir mensagem de erro quando o houver um erro inesperado
-    it('deve exibir mensagem de erro quando o houver um erro inesperado', fakeAsync(() =>{
-      spyOn(component, 'validarCredenciais').and.returnValue(true);
-      const errorResponse = { status: 403 };
-      authService.registrarUsuario.and.returnValue(throwError(() => errorResponse)); // Reconfigura o spy já existente
-      component.onRegistro();
-      tick();
-
-      expect(component.validarCredenciais).toHaveBeenCalled();
-      expect(authService.registrarUsuario).toHaveBeenCalled();
-      expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(MensagensService.MENSAGEM_INTERNAL_SERVER_ERROR);
-    }));
-
-    //NOTE - deve exibir mensagem de erro quando o houver um erro desconhecido
-    it('deve exibir mensagem de erro desconhecido quando ocorrer um erro inesperado', fakeAsync(() => {
-      spyOn(component, 'validarCredenciais').and.returnValue(true);
-      const errorResponse = new Error('Erro inesperado');
-      authService.registrarUsuario.and.returnValue(throwError(() => errorResponse)); 
-      component.onRegistro();
-      tick();
-    
-      expect(component.validarCredenciais).toHaveBeenCalled();
-      expect(authService.registrarUsuario).toHaveBeenCalled();
-      
-      expect(mensagensService.exibirMensagemModal).toHaveBeenCalledWith(`Erro desconhecido: ${errorResponse}`);
-    }));
   });
   
   

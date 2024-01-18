@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BotaoComponent } from '../botao/botao.component';
 import { InputComponent } from '../input/input.component';
-import { LogoParceiroComponent } from '../logo-parceiro/logo-parceiro.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RedefinirSenhaComponent } from './redefinir-senha.component';
 import { BotaoTemaComponent } from '../botao-tema/botao-tema.component';
+import { InputSenhaComponent } from '../input-senha/input-senha.component';
+import { LogoParceiroComponent } from '../logo-parceiro/logo-parceiro.component';
 
 
 describe('RedefinirSenhaComponent', () => {
@@ -27,6 +28,7 @@ describe('RedefinirSenhaComponent', () => {
       declarations: [
         BotaoComponent,
         InputComponent,
+        InputSenhaComponent,
         LogoParceiroComponent,
         BotaoTemaComponent,
         RedefinirSenhaComponent,

@@ -15,6 +15,7 @@ import { BotaoTemaComponent } from '../botao-tema/botao-tema.component';
 import { BotaoHomeComponent } from '../botao-home/botao-home.component';
 import { PaginaAntecipacaoComponent } from './pagina-antecipacao.component';
 import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
+import { LogoRocinanteComponent } from '../logo-rocinante/logo-rocinante.component';
 import { BotaoDropdownComponent } from '../botao-dropdown/botao-dropdown.component';
 import { InputPesquisarFiltroComponent } from '../input-pesquisar-filtro/input-pesquisar-filtro.component';
 
@@ -99,6 +100,7 @@ describe('PaginaAntecipacaoComponent', () => {
         BotaoTemaComponent,
         BotaoHomeComponent,
         BotaoDropdownComponent,
+        LogoRocinanteComponent,
         PaginaAntecipacaoComponent,
         InputPesquisarFiltroComponent,
       ],

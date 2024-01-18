@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { InputSenhaComponent } from './input-senha.component';
 import { TemaService } from '../../services/tema/tema.service';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 
 describe('InputSenhaComponent', () => {
   let component: InputSenhaComponent;
@@ -8,6 +10,9 @@ describe('InputSenhaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+      ],
       declarations: [InputSenhaComponent],
       providers: [TemaService]
     })

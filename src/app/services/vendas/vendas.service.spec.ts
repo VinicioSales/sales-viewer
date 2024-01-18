@@ -33,7 +33,7 @@ describe('VendasService', () => {
   });
 
   it('should post vendas para adiantamento', () => {
-    const mockVendas: Venda[] = [];
+    const mockVendas: number[] = [];
     service.postVendasParaAdiantamento(mockVendas).subscribe(response => {
       expect(response).toBeTruthy();
       // Aqui você pode adicionar mais expectativas relacionadas à resposta do POST

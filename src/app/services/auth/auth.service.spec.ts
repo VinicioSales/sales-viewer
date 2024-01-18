@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { rotaRegistrarUsuarios,urlBackend } from '../static';
+import { rotaRegistrarUsuarios,urlBackend } from '../statics';
 import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 describe('AuthService', () => {

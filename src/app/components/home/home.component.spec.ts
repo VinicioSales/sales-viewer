@@ -78,13 +78,8 @@ describe('HomeComponent', () => {
     // NOTE - deve navegar para a rota de devolver produtos
     it('deve navegar para a rota de Antecipar parcelas', () => {
       component.navegarRotaAnteciparParcelas();
-      expect(router.navigate).toHaveBeenCalledWith(['/antecipacao']);
+      expect(router.navigate).toHaveBeenCalledWith(['/adiantamento']);
     });
 
   });
-
-
-
-
-  
 });

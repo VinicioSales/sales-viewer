@@ -8,10 +8,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { InputComponent } from '../input/input.component';
 import { BotaoComponent } from '../botao/botao.component';
-import { LogoParceiroComponent } from '../logo-parceiro/logo-parceiro.component'; 
 import { AuthService } from '../../services/auth/auth.service';
 import { BotaoTemaComponent } from '../botao-tema/botao-tema.component';
 import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
+import { LogoParceiroComponent } from '../logo-parceiro/logo-parceiro.component'; 
+import { InputSenhaComponent } from '../input-senha/input-senha.component';
+
 
 describe('LoginComponent', () => {
   let router: Router;
@@ -38,8 +40,9 @@ describe('LoginComponent', () => {
         LoginComponent,
         BotaoComponent,
         InputComponent,
-        LogoParceiroComponent,
         BotaoTemaComponent,
+        InputSenhaComponent,
+        LogoParceiroComponent,
       ],
       providers: [
         { provide: AuthService, useValue: authServiceMock },
