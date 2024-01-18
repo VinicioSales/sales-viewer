@@ -1,0 +1,23 @@
+<app-carregamento *ngIf="carregando"></app-carregamento>
+<app-modal-geral
+    *ngIf="mensagensService.mostrarModal$ | async"
+    (fecharModal)="mensagensService.fecharModal()"
+    [mensagem]="mensagensService.mensagemModal$ | async">
+</app-modal-geral>
+<div class="page">
+    <div class="container"> 
+        <div class="header">
+            <app-botao-tema class="botao_change_mode"></app-botao-tema>
+            <h2>Registrar</h2>
+        </div>
+        <app-input placeholder="nome" class="name" (valorChange)="onNomeValueChanged($event)"></app-input>      
+        <app-input width="100%" placeholder="email" class="email" (valorChange)="onEmailValueChanged($event)" ></app-input>
+        <app-input-senha class="password" (mudarVizualizacaoSenha)="handleVizualizacaoSenha()" [mostrarSenha]="mostrarSenha" (valorChange)="onSenhaValueChanged($event)"></app-input-senha>
+        <app-input-senha placeholder="confirmar senha" (mudarVizualizacaoSenha)="handleVizualizacaoSenha()" [mostrarSenha]="mostrarSenha" class="confirm_password" (valorChange)="onConfirmarSenhaValueChanged($event)"></app-input-senha>
+        <app-botao class="botao" texto="Registrar" width="100%" (click) = "onRegistro()" ></app-botao>
+        <div class="footer">    
+            <a href="https://site.parceirosolucoes.com.br" target="_blank">
+            <app-logo-parceiro class="logo-parceiro"></app-logo-parceiro>          
+            </a></div>
+    </div>
+</div>

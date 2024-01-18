@@ -1,0 +1,84 @@
+<app-carregamento *ngIf="carregando"></app-carregamento>
+<app-modal-geral
+    *ngIf="mensagensService.mostrarModal$ | async"
+    (fecharModal)="mensagensService.fecharModal(); carregarVendas()"
+    [mensagem]="mensagensService.mensagemModal$ | async">
+</app-modal-geral>
+<app-modal-confirmacao-adiantamento *ngIf="mostrarModalConfirmacao" [quantidadeVendasSelecionadas]="quantidadeVendasSelecionadas" (cancelar)="onFecharModalConfirmacaoAdiantamento()" (confirmar)="onConfirmarAdiantamento()"></app-modal-confirmacao-adiantamento>
+<div class="header">
+    <app-logo-rocinante></app-logo-rocinante>
+    <div class="titulo">Adiantamento De Vendas</div>
+    <nav class="menu-header">
+        <app-botao-tema></app-botao-tema>
+        <app-botao-home (click)="home()"></app-botao-home>
+    </nav>
+</div>
+<div class="pagina">
+    <div class="contianer-pesquisa">
+        <div class="pesquisa-produto">
+            <app-input-pesquisar-filtro #inputProduto height="19px" placeholder="produtos" [itens]="listaProdutosDescricao" (pesquisar)="handleProdutoDescricaoPesquisado($event)" (itemSelecionadoChange)="produtoDescricaoPesquisado"></app-input-pesquisar-filtro>
+        </div>
+        <div class="pesquisa-numero-pedido">
+            <app-input-pesquisar-filtro #inputNumeroPedido height="19px" placeholder="numero pedido" [itens]="listaNumeroPedido" (pesquisar)="handleNumeroPedidoPesquisado($event)" (itemSelecionadoChange)="numeroPedidoPesquisado"></app-input-pesquisar-filtro>
+        </div>
+        <div class="pesquisa-data-inclusao">
+            <app-input type="date" height="2px" (valorChange)="handdleDataInclusaoPesquisado($event)" [(valor)]="dataInclusaoPesquisado"></app-input>
+        </div>
+        <div class="pesquisa-valor">
+            <app-input-pesquisar-filtro #inputValor type="number" height="19px" placeholder="valor" [itens]="listaValorVenda" (pesquisar)="handleValorVendaPesquisado($event)"></app-input-pesquisar-filtro>
+        </div>
+        <div class="menu-pesquisa">
+            <div class="botoes-pesquisa">
+                <app-botao texto="Limpar filtros" height="16px" [botaoAtivo]="statusBotaoLimparFiltros" (click)="onLimparFiltros()"></app-botao>
+            </div>
+        </div>
+    </div>
+    <div class="header-tabela">
+        <div class="menu-header-tabela">
+            <div class="blank"></div>
+            <mat-checkbox class="checkbox" (click)="onSelecionarTodasVendas()" [(ngModel)]="todoSelecionados"></mat-checkbox>
+        </div>
+        <div class="numero-pedido">NUMERO PEDIDO</div>
+        <div class="data-inclusao">DATA INCLUSÃO</div>
+        <div class="previsao-faturamento">PREVISÃO FATURAMENTO</div>
+        <div class="valor-venda">VALOR</div>
+    </div>
+    <div class="tabela">
+        <ng-container *ngFor="let venda of listaVendasFiltrada">
+            <div class="linha-tabela">
+                <div class="menu-linha">
+                    <app-botao-dropdown (click)="mostrarDropdownProdutos(venda)" [dropdownAtivo]="dropdownAtivoVenda === venda.numeroPedido"></app-botao-dropdown>
+                    <mat-checkbox class="checkbox" [(ngModel)]="checkedStatusFiltrado[venda.numeroPedido]" (change)="onSelecionarVenda(venda)"></mat-checkbox>
+                </div>
+                <div class="numero-pedido">{{ venda.numeroPedido }}</div>
+                <div class="data-inclusao">{{ venda.dataInclusao }}</div>
+                <div class="previsao-faturamento">{{ venda.previsaoFaturamento }}</div>
+                <div class="valor-venda">{{ venda.valorVenda }}</div>
+            </div>
+            <ng-container *ngIf="mostrarDropdownProdutosVenda === venda">
+                <div class="container-header-dropdown-protudos">
+                    <div class="header-dropdown-produtos">
+                        <div class="codigo-produto">CÓDIGO DO PRODUTO</div>
+                        <div class="descricao-produto">DESCRIÇÃO PRODUTOS</div>
+                        <div class="valor-produto">VALOR</div>
+                    </div>
+                </div>
+                <div class="dropdown-produtos" *ngFor="let produto of venda.produtos">
+                    <div class="linha-dropdown-produtos">
+                        <div class="codigo-produto">{{ produto.codigoProduto }}</div>
+                        <div class="descricao-produto">{{ produto.descricaoProduto }}</div>
+                        <div class="valor-produto">{{ produto.valorProduto }}</div>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+    <div class="footer">
+        <div class="quantidade-itens">
+            {{quantidadeVendasFiltradas }} ítens exibidos
+        </div>
+        <div class="botao-adiantar">
+            <app-botao [background]="corBotaoAdicionar" [backgroundHover]="corBotaoAdicionarHover" texto="Adiantar" (click)="onAdiantar()"></app-botao>
+        </div>
+    </div>
+</div>

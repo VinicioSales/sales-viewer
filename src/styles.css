@@ -1,1 +1,88 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+@font-face {
+    font-family: 'Blinker-Black';
+    src: url('assets/fonts/Blinker-Black.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Blinker-Bold';
+    src: url('/assets/fonts/Blinker-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Blinker';
+    src: url('assets/fonts/Blinker-ExtraBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Blinker';
+    src: url('assets/fonts/Blinker-ExtraLight.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Blinker-Light';
+    src: url('assets/fonts/Blinker-ExtraLight.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Blinker-Regular';
+    src: url('assets/fonts/Blinker-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Blinker-SemiBold';
+    src: url('assets/fonts/Blinker-SemiBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Blinker-Thin';
+    src: url('assets/fonts/Blinker-Thin.ttf') format('truetype');
+
+}
+
+
+
+
+
+body{
+    margin: 0;
+    height: 100%;
+    --cor-cinza: #878787;
+    --cor-cinza: #878787;
+    --cor-botao: #141414;
+    --cor-texto-botao: #FFF;
+    --botao-verde: #366731;
+    --botao-vermelho: #DB4242;
+    --cor-botao-hover: #561111;
+    --botao-verde-hover: #21512d;
+    --font-light: 'Blinker-Light;'
+    font-family: "Blinker-Regular";
+    --botao-vermelho-hover: #c73131;
+    --font-semiBold: 'Blinker-Semibold';
+}
+
+button{
+    background: none;
+    cursor: pointer;
+}
+:root{
+    --cor-3: #FFF;
+    --cor-1: #F9F9F9;
+    --cor-2: #141414;
+    --background: #F0F0F0;
+}
+
+:root .dark-theme{
+    --cor-2: #FFF;
+    --cor-1: #262626;
+    --cor-3: #141414;
+    --background: #141414;
+}
+
+html, body { height: 100%; font-size: 14px;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 1px;
+}

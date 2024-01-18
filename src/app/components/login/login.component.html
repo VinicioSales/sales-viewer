@@ -1,0 +1,52 @@
+<app-carregamento *ngIf="carregando"></app-carregamento>
+<app-modal-geral
+    *ngIf="mensagensService.mostrarModal$ | async"
+    (fecharModal)="mensagensService.fecharModal()"
+    [mensagem]="mensagensService.mensagemModal$ | async">
+</app-modal-geral>
+<div class="pagina-login">
+    <div class="container-login">
+        <div class="header">
+            <app-botao-tema></app-botao-tema>
+        </div>
+        <div class="titulo">Login</div>
+        <app-input
+            class="input-email"
+            placeholder="email"
+            (valorChange)="onValorInputChange($event, 'inputEmail')">
+        </app-input>
+        <app-input-senha
+            type="password"
+            class="input-nova-senha"
+            placeholder="nova senha"
+            [mostrarSenha]="mostrarSenha"
+            (mudarVizualizacaoSenha)="handleVizualizacaoSenha()"
+            (valorChange)="onValorInputChange($event, 'inputSenha')">
+        </app-input-senha>
+        <button
+            class="esqueci-senha"
+            (click)="navegarRotaEsqueciSenha()">
+            Esqueci senha
+        </button>
+        <app-botao
+            width="100%"
+            texto="Login"
+            (click)="onLogin()"
+            class="botao-login">
+        </app-botao>
+        <div class="registre">
+            <div class="linha"></div>
+            <button
+                class="botao-registre"
+                (click)="navegarRotaRegistro()">
+                Registre-se
+            </button>
+            <div class="linha"></div>
+        </div>
+        <div class="footer">
+            <a href="https://site.parceirosolucoes.com.br" target="_blank">
+                <app-logo-parceiro></app-logo-parceiro>
+            </a>
+        </div>
+    </div>
+</div>
