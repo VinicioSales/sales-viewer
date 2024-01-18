@@ -5,7 +5,9 @@
     <div class="container-relativo">
         <input
             [type]="mostrarSenha ? 'text' : 'password'"
-            [placeholder]="placeholder">
+            [placeholder]="placeholder"
+            [(ngModel)]="valor"
+            (ngModelChange)="onValorChange($event)">
         <button
             class="botao"
             (click)="onClickVizualizacao()">

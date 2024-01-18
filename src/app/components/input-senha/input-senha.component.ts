@@ -34,7 +34,6 @@ export class InputSenhaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Inicializa a imagem com base no estado atual
     this.toggleImagem();
   }
 
