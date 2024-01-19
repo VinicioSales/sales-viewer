@@ -1,6 +1,11 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+[0.15.0] - 19/01/2024
+Added
+- Add input numero pedido cliente (Vinicio)
+- Add handler numero pedido cliente (Vinicio)
+
 [0.14.0] - 18/01/2024
 Added
 - Revisado testes (Vinicio)
