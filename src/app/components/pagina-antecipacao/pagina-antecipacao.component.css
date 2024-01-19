@@ -41,10 +41,17 @@
 
 .contianer-pesquisa {
     margin-top: 12px;
-    padding: 36px 17px 36px 17px;
+    padding: 30px 17px 30px 17px;
     display: flex;
+    gap: 15px;
+    flex-direction: column;
     background: var(--cor-1);
+}
+
+.pesquisa-linha-1 {
+    display: flex;
     gap: 26px;
+
 }
 
 .pesquisa-produto {

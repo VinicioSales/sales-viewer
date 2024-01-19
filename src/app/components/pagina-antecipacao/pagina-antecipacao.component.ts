@@ -32,10 +32,12 @@ export class PaginaAntecipacaoComponent implements OnInit {
   listaVendasSelecionadas: Venda[] = [];
   listaProdutosDescricao: string[] = [];
   dropdownProdutosAtivo: boolean = false;
+  listaNumeroPedidoCliente: string[] = [];
   produtoDescricaoPesquisado: string = '';
   quantidadeVendasSelecionadas: number = 0;
   mostrarModalConfirmacao: boolean = false;
   statusBotaoLimparFiltros: boolean = false;
+  numeroPedidoClientePesquisado: string = '';
   corBotaoAdicionar: string = "var(--botao-verde)"
   checkedStatus: { [numeroPedido: number]: boolean } = {};
   corBotaoAdicionarHover: string = "var(--botao-verde-hover)"
@@ -65,7 +67,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - carregarVendas
   carregarVendas() {
     this.mostrarCarregando();
-    this.vendasService.getVendas().pipe(
+    //FIXME - REMOVER MOCK
+    this.mockService.getVendas().pipe(
       catchError((error) => {
         console.error(`Erro ao buscar vendas: ${error}`)
         this.logService.error(`PaginaAntecipacaoComponent - ngOnInit: ${error}`)
@@ -264,6 +267,20 @@ export class PaginaAntecipacaoComponent implements OnInit {
   handleValorVendaPesquisado(valorVendaPesquisado: number) {
     this.ativarBotaoLimparFiltros();
     this.valorVendaPesquisado = Number(valorVendaPesquisado);
+    this.filtrarTabela();
+    this.filtrarCheckedStatus();
+    this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
+  }
+
+  //NOTE - handleNumeroPedidoClientePesquisado
+  handleNumeroPedidoClientePesquisado(numeroPedidoClientePesquisado: string) {
+    if (!numeroPedidoClientePesquisado) {
+      return
+    }
+
+    this.numeroPedidoClientePesquisado = numeroPedidoClientePesquisado;
+
+    this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
     this.filtrarCheckedStatus();
     this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
