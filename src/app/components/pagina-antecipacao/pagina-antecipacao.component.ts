@@ -347,7 +347,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
     });
   }
   
-  
   //NOTE - filtrarTabela
   filtrarTabela() {
     this.mostrarCarregando();
