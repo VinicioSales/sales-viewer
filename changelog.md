@@ -1,6 +1,12 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+[0.16.0] - 22/01/2024
+Added
+- Add filtro numero pedido cliente (Vinicio)
+- Add coluna numero pedido cliente (Vinicio)
+- Filtrando em tmepo real (Vinicio)
+
 [0.15.0] - 19/01/2024
 Added
 - Add input numero pedido cliente (Vinicio)
