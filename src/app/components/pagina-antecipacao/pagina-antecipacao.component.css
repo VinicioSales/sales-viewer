@@ -118,7 +118,7 @@
 
 .numero-pedido,
 .data-inclusao,
-.previsao-faturamento,
+.numero-pedido-cliente,
 .valor-venda {
     display: flex;
     justify-content: center;

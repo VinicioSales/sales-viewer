@@ -6,4 +6,5 @@ export interface Venda {
     previsaoFaturamento: string,
     valorVenda: number,
     produtos: Produto[],
+    numeroPedidoCliente: string,
 }

@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="pesquisa-linha-2">
-            <app-input-pesquisar-filtro #inputNumeroPedidoCliente height="19px" placeholder="numero pedido cliente" [itens]="listaNumeroPedidoCliente" (pesquisar)="handleNumeroPedidoClientePesquisado($event)" (itemSelecionadoChange)="numeroPedidoClientePesquisado"></app-input-pesquisar-filtro>
+            <app-input-pesquisar-filtro #inputNumeroPedidoCliente height="19px" placeholder="numero pedido cliente" [itens]="listaNumeroPedidoCliente" (pesquisar)="handleNumerosPedidoClientePesquisado($event)" (itemSelecionadoChange)="numerosPedidoClientePesquisado"></app-input-pesquisar-filtro>
         </div>
     </div>
     <div class="header-tabela">
@@ -45,7 +45,7 @@
         </div>
         <div class="numero-pedido">NUMERO PEDIDO</div>
         <div class="data-inclusao">DATA INCLUSÃO</div>
-        <div class="previsao-faturamento">PREVISÃO FATURAMENTO</div>
+        <div class="numero-pedido-cliente">NUMERO PEDIDO CLIENTE</div>
         <div class="valor-venda">VALOR</div>
     </div>
     <div class="tabela">
@@ -57,7 +57,7 @@
                 </div>
                 <div class="numero-pedido">{{ venda.numeroPedido }}</div>
                 <div class="data-inclusao">{{ venda.dataInclusao }}</div>
-                <div class="previsao-faturamento">{{ venda.previsaoFaturamento }}</div>
+                <div class="numero-pedido-cliente">{{ venda.numeroPedidoCliente }}</div>
                 <div class="valor-venda">{{ venda.valorVenda }}</div>
             </div>
             <ng-container *ngIf="mostrarDropdownProdutosVenda === venda">

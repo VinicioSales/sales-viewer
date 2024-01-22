@@ -37,7 +37,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   quantidadeVendasSelecionadas: number = 0;
   mostrarModalConfirmacao: boolean = false;
   statusBotaoLimparFiltros: boolean = false;
-  numeroPedidoClientePesquisado: string = '';
+  numerosPedidoClientePesquisado: string[] = [];
   corBotaoAdicionar: string = "var(--botao-verde)"
   checkedStatus: { [numeroPedido: number]: boolean } = {};
   corBotaoAdicionarHover: string = "var(--botao-verde-hover)"
@@ -272,13 +272,13 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
   }
 
-  //NOTE - handleNumeroPedidoClientePesquisado
-  handleNumeroPedidoClientePesquisado(numeroPedidoClientePesquisado: string) {
-    if (!numeroPedidoClientePesquisado) {
-      return
+  //NOTE - handleNumerosPedidoClientePesquisado
+  handleNumerosPedidoClientePesquisado(numerosPedidoClientePesquisado: string) {
+    this.numerosPedidoClientePesquisado = numerosPedidoClientePesquisado.split(' '); 
+    
+    if (numerosPedidoClientePesquisado) {
+      this.numerosPedidoClientePesquisado = this.numerosPedidoClientePesquisado.filter(numeroPedidoCliente => numeroPedidoCliente !== '');
     }
-
-    this.numeroPedidoClientePesquisado = numeroPedidoClientePesquisado;
 
     this.ativarBotaoLimparFiltros();
     this.filtrarTabela();
@@ -336,6 +336,17 @@ export class PaginaAntecipacaoComponent implements OnInit {
       venda => venda.valorVenda.toString().startsWith(valorVendaPesquisadoString)
     );
   }
+
+  //NOTE - filtrarVendaPorNumeroPedidoCliente
+  filtrarVendaPorNumeroPedidoCliente() {
+    this.listaVendasFiltrada = this.listaVendasFiltrada.filter(venda => {
+      if (venda.numeroPedidoCliente) {
+        return this.numerosPedidoClientePesquisado.some(numeroPedidoClientePesquisado => venda.numeroPedidoCliente.includes(numeroPedidoClientePesquisado));
+      }
+      return false;
+    });
+  }
+  
   
   //NOTE - filtrarTabela
   filtrarTabela() {
@@ -363,6 +374,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
     if (this.valorVendaPesquisado && this.valorVendaPesquisado > 0) {
       this.filtrarVendaPorValor();
+    }
+
+    if (this.numerosPedidoClientePesquisado) {
+      this.filtrarVendaPorNumeroPedidoCliente();
     }
     
     this.atualizarListasFiltrada();
