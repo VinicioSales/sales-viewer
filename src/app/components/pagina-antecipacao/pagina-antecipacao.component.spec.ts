@@ -158,26 +158,6 @@ describe('PaginaAntecipacaoComponent', () => {
     });
   })
   
-  // SECTION - ngOnInit
-  // describe('ngOnInit', () => {
-    
-  //   NOTE - Deve chamar getVendas do serviço vendasService
-  //   it('deve chamar getVendas do serviço vendasService', () => {
-  //     vendasServiceMock.getVendas.and.returnValue(of([])); // Mock da resposta
-  //     fixture.detectChanges(); // Inicializa ngOnInit
-  //     expect(vendasServiceMock.getVendas).toHaveBeenCalled();
-  //   // });
-
-  //   // NOTE - Deve lidar com erros ao buscar vendas
-  //   it('deve lidar com erros ao buscar vendas', () => {
-  //     const errorResponse = new Error('Erro ao buscar');
-  //     vendasServiceMock.getVendas.and.returnValue(throwError(errorResponse));
-  //     fixture.detectChanges(); // Inicializa ngOnInit
-  //     expect(logServiceMock.error).toHaveBeenCalledWith(`PaginaAntecipacaoComponent - ngOnInit: ${errorResponse}`);
-  //   });
-  // });
-  //!SECTION
-
   // SECTION: mostrarDropdownProdutos
   describe('mostrarDropdownProdutos', () => {
     
@@ -626,12 +606,12 @@ describe('PaginaAntecipacaoComponent', () => {
     });
   
     // NOTE: Teste para verificar se o filtro por descrição do produto funciona corretamente
-    // it('deve filtrar vendas com base na descrição do produto', () => {
-    //   component.produtoDescricaoPesquisado = 'Produto 1';
-    //   component.filtrarVendaPorProduto();
-    //   expect(component.listaVendasFiltrada.length).toBe(1);
-    //   expect(component.listaVendasFiltrada[0].numeroPedido).toEqual(1);
-    // });
+    it('deve filtrar vendas com base na descrição do produto', () => {
+      component.produtoDescricaoPesquisado = 'Produto 1';
+      component.filtrarVendaPorProduto();
+      expect(component.listaVendasFiltrada.length).toBe(1);
+      expect(component.listaVendasFiltrada[0].numeroPedido).toEqual(1);
+    });
   
     // NOTE: Teste para verificar se o método atualiza listaVendasFiltrada adequadamente
     it('deve atualizar listaVendasFiltrada ao chamar filtrarVendaPorProduto', () => {
@@ -977,21 +957,39 @@ describe('PaginaAntecipacaoComponent', () => {
   });
   //!SECTION
 
-  // //SECTION - onConfirmarAdiantamento
-  // describe('onConfirmarAdiantamento', () => {
-  //   it('deve chamar postVendasParaAdiantamento e exibir mensagem em caso de sucesso', () => {
-  //     let responseMock = { message: 'Sucesso' };
-  //     vendasServiceMock.postVendasParaAdiantamento.and.returnValue(of(responseMock));
-    
-  //     component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
-  //     component.onConfirmarAdiantamento();
-    
-  //     expect(vendasServiceMock.postVendasParaAdiantamento).toHaveBeenCalled();
-  //     expect(mensagensServiceMock.exibirMensagemModal).toHaveBeenCalledWith('Sucesso');
-  //     expect(component.mostrarModalConfirmacao).toBe(false);
-  //   });
-    
-  // })
+  describe('onConfirmarAdiantamento', () => {
+    beforeEach(() => {
+      vendasServiceMock.postVendasParaAdiantamento.and.returnValue(of({ message: 'Sucesso' }));
+      spyOn(console, 'error');
+      spyOn(component, 'mostrarCarregando').and.callThrough();
+      spyOn(component, 'esconderCarregando').and.callThrough();
+      spyOn(component, 'onFecharModalConfirmacaoAdiantamento').and.callThrough();
+    });
+  
+    it('deve chamar as funções apropriadas em caso de sucesso', () => {
+      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
+      component.onConfirmarAdiantamento('2021-12-31');
+      expect(component.mostrarCarregando).toHaveBeenCalled();
+      expect(vendasServiceMock.postVendasParaAdiantamento).toHaveBeenCalled();
+      expect(component.esconderCarregando).toHaveBeenCalled();
+      expect(component.mensagensService.exibirMensagemModal).toHaveBeenCalledWith('Sucesso');
+      expect(component.onFecharModalConfirmacaoAdiantamento).toHaveBeenCalled();
+    });
+  
+    it('deve chamar as funções apropriadas em caso de erro', () => {
+      const errorMock = new Error('Erro');
+      vendasServiceMock.postVendasParaAdiantamento.and.returnValue(throwError(() => errorMock));
+      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
+      component.onConfirmarAdiantamento('2021-12-31');
+      expect(component.mostrarCarregando).toHaveBeenCalled();
+      expect(vendasServiceMock.postVendasParaAdiantamento).toHaveBeenCalled();
+      expect(component.esconderCarregando).toHaveBeenCalled();
+      expect(console.error).toHaveBeenCalledWith(errorMock); 
+      expect(component.onFecharModalConfirmacaoAdiantamento).toHaveBeenCalled();
+    });
+  });
+  
+  
 
   //SECTION - getQuantidadeVendasSelecionadas
   describe('getQuantidadeVendasSelecionadas', () => {
@@ -1281,8 +1279,4 @@ describe('PaginaAntecipacaoComponent', () => {
       expect(component.statusBotaoContinuar).toBeTrue();
     });
   });
-
-  
-
-  
 });
