@@ -1173,7 +1173,116 @@ describe('PaginaAntecipacaoComponent', () => {
     });
   });
   
+  describe('onContinuar', () => {
+    beforeEach(() => {
+      spyOn(component, 'getQuantidadeVendasSelecionadas').and.returnValue(0);
+    });
+  
+    it('deve mostrar modal de confirmação se há vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [{
+        numeroPedido: 1,
+        dataInclusao: '2021-01-01',
+        numeroPedidoCliente:  '456',
+        previsaoFaturamento: '2021-02-01',
+        valorVenda: 100.00,
+        produtos: [
+          {
+            descricaoProduto: 'Produto 1',
+            valorProduto: 50.00,
+            codigoProduto: 123
+          }
+        ]
+      }];
+      component.onContinuar();
+      expect(component.getQuantidadeVendasSelecionadas).toHaveBeenCalled();
+      expect(component.quantidadeVendasSelecionadas).toBe(component.getQuantidadeVendasSelecionadas());
+      expect(component.mostrarModalConfirmacao).toBeTrue();
+    });
+  
+    it('não deve fazer nada se não houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [];
+      component.onContinuar();
+      expect(component.getQuantidadeVendasSelecionadas).not.toHaveBeenCalled();
+      expect(component.mostrarModalConfirmacao).toBeFalse();
+    });
+  });
+  
+  describe('getQuantidadeVendasSelecionadas', () => {
+    it('deve retornar zero se não houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [];
+      expect(component.getQuantidadeVendasSelecionadas()).toBe(0);
+    });
+  
+    it('deve retornar a quantidade correta de vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
+      expect(component.getQuantidadeVendasSelecionadas()).toBe(component.listaVendasSelecionadas.length);
+    });
+  });
+
+  describe('mostrarCarregando e esconderCarregando', () => {
+    it('deve alternar corretamente o estado de carregamento', () => {
+      component.mostrarCarregando();
+      expect(component.carregando).toBeTrue();
+  
+      component.esconderCarregando();
+      expect(component.carregando).toBeFalse();
+    });
+  });
+  
+  describe('getQuantidadeVendasFiltradas', () => {
+    it('deve retornar zero se não houver vendas filtradas', () => {
+      component.listaVendasFiltrada = [];
+      expect(component.getQuantidadeVendasFiltradas()).toBe(0);
+    });
+  
+    it('deve retornar a quantidade correta de vendas filtradas', () => {
+      component.listaVendasFiltrada = [/* simulação de vendas filtradas */];
+      expect(component.getQuantidadeVendasFiltradas()).toBe(component.listaVendasFiltrada.length);
+    });
+  });
 
   
+  describe('getListaNumeroVendas', () => {
+    it('deve retornar uma lista vazia se não houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [];
+      expect(component.getListaNumeroVendas()).toEqual([]);
+    });
+  
+    it('deve retornar uma lista correta dos números de pedidos', () => {
+      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
+      const numerosEsperados = component.listaVendasSelecionadas.map(venda => venda.numeroPedido);
+      expect(component.getListaNumeroVendas()).toEqual(numerosEsperados);
+    });
+  });
+
+  describe('atualizarStatusBotaoContinuar', () => {
+    it('deve definir statusBotaoContinuar como falso se não houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [];
+      component.atualizarStatusBotaoContinuar();
+      expect(component.statusBotaoContinuar).toBeFalse();
+    });
+  
+    it('deve definir statusBotaoContinuar como verdadeiro se houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [{
+        numeroPedido: 1,
+        dataInclusao: '2021-01-01',
+        numeroPedidoCliente:  '456',
+        previsaoFaturamento: '2021-02-01',
+        valorVenda: 100.00,
+        produtos: [
+          {
+            descricaoProduto: 'Produto 1',
+            valorProduto: 50.00,
+            codigoProduto: 123
+          }
+        ]
+      }];
+      component.atualizarStatusBotaoContinuar();
+      expect(component.statusBotaoContinuar).toBeTrue();
+    });
+  });
+
+  
+
   
 });
