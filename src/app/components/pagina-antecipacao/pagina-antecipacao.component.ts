@@ -111,10 +111,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.listaVendasFiltrada = camelCaseData;
   }
 
-  //NOTE - atualizarListasVenddas
-  atualizarListasVenddas() {
-    
-  }
 
   //NOTE - mostrarDropdownProdutos
   mostrarDropdownProdutos(vendaSelecionada: Venda) {

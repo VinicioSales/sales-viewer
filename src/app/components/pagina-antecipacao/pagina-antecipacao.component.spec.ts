@@ -1037,5 +1037,143 @@ describe('PaginaAntecipacaoComponent', () => {
     });
 
   });
+
+  describe('atualizarCheckedStatus', () => {
+    it('deve inicializar checkedStatus e checkedStatusFiltrado como vazios se listaVendasFiltrada estiver vazia', () => {
+      component.listaVendasFiltrada = [];
+      component.atualizarCheckedStatus();
+      expect(component.checkedStatus).toEqual({});
+      expect(component.checkedStatusFiltrado).toEqual({});
+    });
+  
+    it('deve inicializar checkedStatus e checkedStatusFiltrado com base em listaVendasFiltrada', () => {
+      component.listaVendasFiltrada = vendasMock
+      component.atualizarCheckedStatus();
+      expect(component.checkedStatus).toEqual({ 1: false, 2: false });
+      expect(component.checkedStatusFiltrado).toEqual({ 1: false, 2: false });
+    });
+  });
+  
+  describe('tratarChaves', () => {
+    beforeEach(() => {
+      spyOn(component.alterarChavesService, 'mapKeys').and.callThrough();
+      spyOn(component.snakeToCamelService, 'transformKeysToCamelCase').and.callThrough();
+    });
+  
+    it('não deve alterar listaVendas se data estiver vazia', () => {
+      component.tratarChaves([]);
+      expect(component.listaVendas).toEqual([]);
+      expect(component.listaVendasFiltrada).toEqual([]);
+    });
+  
+    it('deve transformar chaves e aplicar camel case nas vendas', () => {
+      const vendasMock = [
+        // Dados transformados de acordo com as regras de transformação de chaves
+        {
+          numeroPedido: 1,
+          dataInclusao: '2021-01-01',
+          previsaoFaturamento: '2021-02-01',
+          valorVenda: 100.00,
+          numeroPedidoCliente:  '456',
+          produtos: [
+            {
+              descricaoProduto: 'Produto 1',
+              valorProduto: 50.00,
+              codigoProduto: 123
+            }
+          ]
+        },
+      ];
+      const vendasTransformadasMock = [
+        // Dados transformados de acordo com as regras de transformação de chaves
+        {
+          numeroPedido: 1,
+          dataInclusao: '2021-01-01',
+          previsaoFaturamento: '2021-02-01',
+          valorVenda: 100.00,
+          numeroPedidoCliente:  '456',
+          produtos: [
+            {
+              descricaoProduto: 'Produto 1',
+              valorProduto: 50.00,
+              codigoProduto: 123
+            }
+          ]
+        },
+      ];
+  
+      component.tratarChaves(vendasMock);
+      expect(component.listaVendas).toEqual(vendasTransformadasMock);
+      expect(component.listaVendasFiltrada).toEqual(vendasTransformadasMock);
+      expect(component.alterarChavesService.mapKeys).toHaveBeenCalled();
+      expect(component.snakeToCamelService.transformKeysToCamelCase).toHaveBeenCalled();
+    });
+  });
+  
+  describe('mostrarDropdownProdutos', () => {
+    beforeEach(() => {
+      component.listaVendasFiltrada = vendasMock;
+    });
+    it('deve desativar o dropdown se a mesma venda já está ativa', () => {
+      component.mostrarDropdownProdutosVenda = vendasMock[0];
+      component.dropdownAtivoVenda = vendasMock[0].numeroPedido;
+      component.mostrarDropdownProdutos(vendasMock[0]);
+      expect(component.mostrarDropdownProdutosVenda).toBeUndefined();
+      expect(component.dropdownAtivoVenda).toBeUndefined();
+    });
+  
+    it('deve ativar o dropdown para a nova venda selecionada', () => {
+      component.mostrarDropdownProdutos(vendasMock[0]);
+      expect(component.mostrarDropdownProdutosVenda).toEqual(vendasMock[0]);
+      expect(component.dropdownAtivoVenda).toEqual(vendasMock[0].numeroPedido);
+  
+      component.mostrarDropdownProdutos(vendasMock[1]);
+      expect(component.mostrarDropdownProdutosVenda).toEqual(vendasMock[1]);
+      expect(component.dropdownAtivoVenda).toEqual(vendasMock[1].numeroPedido);
+    });
+  });
+  
+  describe('formatarData', () => {
+    it('deve formatar a data de yyyy-mm-dd para dd/mm/yyyy', () => {
+      const dataOriginal = '2021-12-31';
+      expect(component.formatarData(dataOriginal)).toEqual('31/12/2021');
+    });
+  
+    it('deve retornar uma data invalida se a data de entrada for inválida ou vazia', () => {
+      expect(component.formatarData('')).toEqual('undefined/undefined/');
+      expect(component.formatarData('data invalida')).toEqual('undefined/undefined/data invalida');
+    });
+  });
+  
+
+  describe('handleNumerosPedidoClientePesquisado', () => {
+    beforeEach(() => {
+      spyOn(component, 'ativarBotaoLimparFiltros');
+      spyOn(component, 'filtrarTabela');
+      spyOn(component, 'filtrarCheckedStatus');
+      spyOn(component, 'getQuantidadeVendasFiltradas').and.returnValue(0);
+    });
+  
+    it('deve processar e armazenar números de pedido do cliente', () => {
+      component.handleNumerosPedidoClientePesquisado('123 456');
+      expect(component.numerosPedidoClientePesquisado).toEqual(['123', '456']);
+    });
+  
+    it('deve filtrar números de pedido vazios', () => {
+      component.handleNumerosPedidoClientePesquisado('123  ');
+      expect(component.numerosPedidoClientePesquisado).toEqual(['123']);
+    });
+  
+    it('deve chamar os métodos apropriados', () => {
+      component.handleNumerosPedidoClientePesquisado('123');
+      expect(component.ativarBotaoLimparFiltros).toHaveBeenCalled();
+      expect(component.filtrarTabela).toHaveBeenCalled();
+      expect(component.filtrarCheckedStatus).toHaveBeenCalled();
+      expect(component.getQuantidadeVendasFiltradas).toHaveBeenCalled();
+    });
+  });
+  
+
+  
   
 });
