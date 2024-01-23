@@ -29,6 +29,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   dataInclusaoPesquisado: string = '';
   mostrarDropdownProdutosVenda?: Venda;
   quantidadeVendasFiltradas: number = 0;
+  statusBotaoContinuar: boolean = false;
   listaVendasSelecionadas: Venda[] = [];
   listaProdutosDescricao: string[] = [];
   dropdownProdutosAtivo: boolean = false;
@@ -411,6 +412,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
     });
 
     this.listaVendasSelecionadas = todosMarcados ? [] : [...this.listaVendasFiltrada];
+
+    this.atualizarStatusBotaoContinuar();
   }
 
   //NOTE - addListaVendaSelecionada
@@ -433,18 +436,18 @@ export class PaginaAntecipacaoComponent implements OnInit {
     } else {
       this.removerVenda(vendaSelecionada);
     }
+
+    this.atualizarStatusBotaoContinuar();
+
   }
 
-  //NOTE - onAdiantar
-  onAdiantar() {
-    if (!this.listaVendasSelecionadas.length) {
-      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_ITENS_NAO_SELECIONADOS);
-      return
+  //NOTE - onContinuar
+  onContinuar() {
+    if (this.listaVendasSelecionadas.length) {
+      this.quantidadeVendasSelecionadas = this.getQuantidadeVendasSelecionadas();
+  
+      this.mostrarModalConfirmacao = true;
     }
-
-    this.quantidadeVendasSelecionadas = this.getQuantidadeVendasSelecionadas();
-
-    this.mostrarModalConfirmacao = true;
   }
 
   //NOTE - onFecharModalConfirmacaoAdiantamento
@@ -502,4 +505,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
   recarregarPagina() {
     location.reload();
   }
+
+  //NOTE - atualizarStatusBotaoContinuar
+  atualizarStatusBotaoContinuar() {
+    this.statusBotaoContinuar = this.listaVendasSelecionadas.length > 0;
+  }
+
 }
