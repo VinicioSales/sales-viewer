@@ -68,7 +68,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - carregarVendas
   carregarVendas() {
     this.mostrarCarregando();
-    //FIXME - REMOVER MOCK
     this.vendasService.getVendas().pipe(
       catchError((error) => {
         console.error(`Erro ao buscar vendas: ${error}`)
