@@ -219,33 +219,42 @@ describe('PaginaAntecipacaoComponent', () => {
   describe('filtrarCheckedStatus', () => {
 
     beforeEach(() => {
-      component.listaVendasFiltrada = vendasMock;
+      // ... (setup do beforeEach)
       component.checkedStatus = {
-        1: true,
-        2: false,
-        3: true // chave extra que não existe em listaVendasFiltrada
+          1: true,
+          2: false,
+          3: true // Este não deve aparecer no resultado final
       };
-      component.checkedStatusFiltrado = { ...component.checkedStatus };
     });
 
-    // NOTE: Deve manter status para vendas existentes em listaVendasFiltrada
-    it('deve manter status para vendas existentes em listaVendasFiltrada', () => {
-      component.filtrarCheckedStatus();
-      expect(component.checkedStatusFiltrado[1]).toBeTrue();
-      expect(component.checkedStatusFiltrado[2]).toBeFalse();
+    it('deve iniciar com checkedStatusFiltrado vazio', () => {
+        expect(component.checkedStatusFiltrado).toEqual({});
     });
 
-    // NOTE: Deve remover chaves que não correspondem a vendas em listaVendasFiltrada
-    it('deve remover chaves que não correspondem a vendas em listaVendasFiltrada', () => {
-      component.filtrarCheckedStatus();
-      expect(component.checkedStatusFiltrado[3]).toBeUndefined();
+    it('não deve alterar checkedStatusFiltrado se listaVendasFiltrada estiver vazia', () => {
+        component.listaVendasFiltrada = [];
+        component.filtrarCheckedStatus();
+        expect(component.checkedStatusFiltrado).toEqual({});
     });
 
-    // NOTE: Deve manter checkedStatusFiltrado vazio se listaVendasFiltrada for vazia
-    it('deve manter checkedStatusFiltrado vazio se listaVendasFiltrada for vazia', () => {
-      component.listaVendasFiltrada = [];
-      component.filtrarCheckedStatus();
-      expect(Object.keys(component.checkedStatusFiltrado).length).toBe(0);
+    it('deve preencher checkedStatusFiltrado corretamente com dados correspondentes', () => {
+        component.listaVendasFiltrada = vendasMock;
+        component.filtrarCheckedStatus();
+        expect(component.checkedStatusFiltrado).toEqual({ 1: true, 2: false });
+    });
+
+    it('deve manter checkedStatusFiltrado vazio se não houver correspondências', () => {
+        component.checkedStatus = { 4: true, 5: false };
+        component.listaVendasFiltrada = vendasMock;
+        component.filtrarCheckedStatus();
+        expect(component.checkedStatusFiltrado).toEqual({});
+    });
+
+    it('deve preencher checkedStatusFiltrado parcialmente com dados parcialmente correspondentes', () => {
+        component.checkedStatus = { 1: true, 3: false, 4: true };
+        component.listaVendasFiltrada = vendasMock;
+        component.filtrarCheckedStatus();
+        expect(component.checkedStatusFiltrado).toEqual({ 1: true });
     });
 
   });
