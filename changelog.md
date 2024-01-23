@@ -1,6 +1,14 @@
 ChangeLog
 Todas as mudanças do projeto serão documentados neste arquivo.
 
+[0.17.0] - 23/01/2024
+Added
+- Add input data vencimento (Vinicio)
+- Add testes unitarios (Vinicio)
+
+Change
+- Atualização testes unitarios (Vinicio)
+
 [0.16.0] - 22/01/2024
 Added
 - Add filtro numero pedido cliente (Vinicio)
