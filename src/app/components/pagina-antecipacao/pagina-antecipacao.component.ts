@@ -456,11 +456,15 @@ export class PaginaAntecipacaoComponent implements OnInit {
   }
 
   //NOTE - onConfirmarAdiantamento
-  onConfirmarAdiantamento() {
+  onConfirmarAdiantamento(dataVencimento: string) {
     if (this.listaVendasSelecionadas) {
       this.mostrarCarregando();
       const listaNumeroVendas = this.getListaNumeroVendas();
-      this.vendasService.postVendasParaAdiantamento(listaNumeroVendas).subscribe({
+      const data = {
+        dataVencimento: dataVencimento,
+        numerosVendas: listaNumeroVendas
+      }
+      this.vendasService.postVendasParaAdiantamento(data).subscribe({
         next: (response) => {
           this.esconderCarregando();
           this.mensagensService.exibirMensagemModal(response.message);
