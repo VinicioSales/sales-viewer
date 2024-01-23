@@ -69,7 +69,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   carregarVendas() {
     this.mostrarCarregando();
     //FIXME - REMOVER MOCK
-    this.mockService.getVendas().pipe(
+    this.vendasService.getVendas().pipe(
       catchError((error) => {
         console.error(`Erro ao buscar vendas: ${error}`)
         this.logService.error(`PaginaAntecipacaoComponent - ngOnInit: ${error}`)
