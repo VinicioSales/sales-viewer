@@ -1,0 +1,1 @@
+Fontes percentes à Parceiro Soluções

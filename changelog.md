@@ -43,7 +43,7 @@ Added
 - Add Guard Auth nas rotas fronend (vinicio)
 - Ajuste serviço mensagem nos componentes de acesso (vinicio)
 - Add carregando nas telas de acesso (vinicio)
-- Add componente logo Rocinante (vinicio)
+- Add componente logo sales-viewer (vinicio)
 - Criado componente input-senha (vinicio)
 - Criado componente input-senha (vinicio)
 
