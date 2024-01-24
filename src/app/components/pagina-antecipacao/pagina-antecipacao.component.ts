@@ -29,13 +29,16 @@ export class PaginaAntecipacaoComponent implements OnInit {
   dataInclusaoPesquisado: string = '';
   mostrarDropdownProdutosVenda?: Venda;
   quantidadeVendasFiltradas: number = 0;
+  statusBotaoContinuar: boolean = false;
   listaVendasSelecionadas: Venda[] = [];
   listaProdutosDescricao: string[] = [];
   dropdownProdutosAtivo: boolean = false;
+  listaNumeroPedidoCliente: string[] = [];
   produtoDescricaoPesquisado: string = '';
   quantidadeVendasSelecionadas: number = 0;
   mostrarModalConfirmacao: boolean = false;
   statusBotaoLimparFiltros: boolean = false;
+  numerosPedidoClientePesquisado: string[] = [];
   corBotaoAdicionar: string = "var(--botao-verde)"
   checkedStatus: { [numeroPedido: number]: boolean } = {};
   corBotaoAdicionarHover: string = "var(--botao-verde-hover)"
@@ -107,10 +110,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.listaVendasFiltrada = camelCaseData;
   }
 
-  //NOTE - atualizarListasVenddas
-  atualizarListasVenddas() {
-    
-  }
 
   //NOTE - mostrarDropdownProdutos
   mostrarDropdownProdutos(vendaSelecionada: Venda) {
@@ -268,6 +267,20 @@ export class PaginaAntecipacaoComponent implements OnInit {
     this.filtrarCheckedStatus();
     this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
   }
+
+  //NOTE - handleNumerosPedidoClientePesquisado
+  handleNumerosPedidoClientePesquisado(numerosPedidoClientePesquisado: string) {
+    this.numerosPedidoClientePesquisado = numerosPedidoClientePesquisado.split(' '); 
+    
+    if (numerosPedidoClientePesquisado) {
+      this.numerosPedidoClientePesquisado = this.numerosPedidoClientePesquisado.filter(numeroPedidoCliente => numeroPedidoCliente !== '');
+    }
+
+    this.ativarBotaoLimparFiltros();
+    this.filtrarTabela();
+    this.filtrarCheckedStatus();
+    this.quantidadeVendasFiltradas = this.getQuantidadeVendasFiltradas();
+  }
   //!SECTION
 
   //NOTE - verificarEResetarFiltros
@@ -319,6 +332,16 @@ export class PaginaAntecipacaoComponent implements OnInit {
       venda => venda.valorVenda.toString().startsWith(valorVendaPesquisadoString)
     );
   }
+
+  //NOTE - filtrarVendaPorNumeroPedidoCliente
+  filtrarVendaPorNumeroPedidoCliente() {
+    this.listaVendasFiltrada = this.listaVendasFiltrada.filter(venda => {
+      if (venda.numeroPedidoCliente) {
+        return this.numerosPedidoClientePesquisado.some(numeroPedidoClientePesquisado => venda.numeroPedidoCliente.includes(numeroPedidoClientePesquisado));
+      }
+      return false;
+    });
+  }
   
   //NOTE - filtrarTabela
   filtrarTabela() {
@@ -346,6 +369,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
 
     if (this.valorVendaPesquisado && this.valorVendaPesquisado > 0) {
       this.filtrarVendaPorValor();
+    }
+
+    if (this.numerosPedidoClientePesquisado) {
+      this.filtrarVendaPorNumeroPedidoCliente();
     }
     
     this.atualizarListasFiltrada();
@@ -380,6 +407,8 @@ export class PaginaAntecipacaoComponent implements OnInit {
     });
 
     this.listaVendasSelecionadas = todosMarcados ? [] : [...this.listaVendasFiltrada];
+
+    this.atualizarStatusBotaoContinuar();
   }
 
   //NOTE - addListaVendaSelecionada
@@ -402,18 +431,18 @@ export class PaginaAntecipacaoComponent implements OnInit {
     } else {
       this.removerVenda(vendaSelecionada);
     }
+
+    this.atualizarStatusBotaoContinuar();
+
   }
 
-  //NOTE - onAdiantar
-  onAdiantar() {
-    if (!this.listaVendasSelecionadas.length) {
-      this.mensagensService.exibirMensagemModal(MensagensService.MENSAGEM_ITENS_NAO_SELECIONADOS);
-      return
+  //NOTE - onContinuar
+  onContinuar() {
+    if (this.listaVendasSelecionadas.length) {
+      this.quantidadeVendasSelecionadas = this.getQuantidadeVendasSelecionadas();
+  
+      this.mostrarModalConfirmacao = true;
     }
-
-    this.quantidadeVendasSelecionadas = this.getQuantidadeVendasSelecionadas();
-
-    this.mostrarModalConfirmacao = true;
   }
 
   //NOTE - onFecharModalConfirmacaoAdiantamento
@@ -422,11 +451,15 @@ export class PaginaAntecipacaoComponent implements OnInit {
   }
 
   //NOTE - onConfirmarAdiantamento
-  onConfirmarAdiantamento() {
+  onConfirmarAdiantamento(dataVencimento: string) {
     if (this.listaVendasSelecionadas) {
       this.mostrarCarregando();
       const listaNumeroVendas = this.getListaNumeroVendas();
-      this.vendasService.postVendasParaAdiantamento(listaNumeroVendas).subscribe({
+      const data = {
+        dataVencimento: dataVencimento,
+        numerosVendas: listaNumeroVendas
+      }
+      this.vendasService.postVendasParaAdiantamento(data).subscribe({
         next: (response) => {
           this.esconderCarregando();
           this.mensagensService.exibirMensagemModal(response.message);
@@ -471,4 +504,10 @@ export class PaginaAntecipacaoComponent implements OnInit {
   recarregarPagina() {
     location.reload();
   }
+
+  //NOTE - atualizarStatusBotaoContinuar
+  atualizarStatusBotaoContinuar() {
+    this.statusBotaoContinuar = this.listaVendasSelecionadas.length > 0;
+  }
+
 }
