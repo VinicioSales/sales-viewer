@@ -19,7 +19,7 @@ export class VendasService {
   }
 
   //NOTE - postVendasParaAdiantamento
-  postVendasParaAdiantamento(listaVendasSelecionadas: number[]) {
-    return this.http.post<any>(`${urlBackend}${rotaAdiantamento}`, listaVendasSelecionadas);
+  postVendasParaAdiantamento(data: any) {
+    return this.http.post<any>(`${urlBackend}${rotaAdiantamento}`, data);
   }
 }

@@ -9,10 +9,11 @@ export class ModalConfirmacaoAdiantamentoComponent implements OnInit {
   @Input() quantidadeVendasSelecionadas: number = 0;
   
   @Output() cancelar = new EventEmitter<void>();
-  @Output() confirmar = new EventEmitter<void>();
+  @Output() confirmar = new EventEmitter<string>();
   
   mensagem: string = '';
   height: string = '30px'
+  dataVencimento: string = '';
   corBotaoConfirmar: string = 'var(--botao-verde)'
   corBotaoHover: string = 'var(--botao-verde-hover)'
   corBotaoCancelar: string = 'var(--botao-vermelho)'
@@ -26,7 +27,7 @@ export class ModalConfirmacaoAdiantamentoComponent implements OnInit {
 
   //NOTE - onConfirmar
   onConfirmar() {
-    this.confirmar.emit();
+    this.confirmar.emit(this.dataVencimento);
   }
   
   //NOTE - onCancelar

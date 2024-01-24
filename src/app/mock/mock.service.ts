@@ -18,6 +18,7 @@ export class MockService {
         dataInclusao: "06/12/2023",
         previsaoFaturamento: "06/12/2023",
         valorVenda: 111.00,
+        numeroPedidoCliente: "789",
         produtos: [
           {
             descricaoProduto: "1Lorem ipsum dolor sit amet",
@@ -41,6 +42,7 @@ export class MockService {
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 600.00,
+        numeroPedidoCliente: "789",
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -64,6 +66,7 @@ export class MockService {
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
+        numeroPedidoCliente: "789",
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -87,6 +90,7 @@ export class MockService {
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
+        numeroPedidoCliente: "789",
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -110,6 +114,7 @@ export class MockService {
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
+        numeroPedidoCliente: "789",
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -133,6 +138,7 @@ export class MockService {
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
+        numeroPedidoCliente: "456",
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -156,6 +162,7 @@ export class MockService {
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
+        numeroPedidoCliente: "456",
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",
@@ -179,6 +186,7 @@ export class MockService {
         dataInclusao: "04/12/2023",
         previsaoFaturamento: "04/12/2023",
         valorVenda: 500.00,
+        numeroPedidoCliente: "123",
         produtos: [
           {
             descricaoProduto: "Lorem ipsum dolor sit amet",

@@ -26,6 +26,7 @@ const vendasMock: Venda[] = [
     dataInclusao: '2021-01-01',
     previsaoFaturamento: '2021-02-01',
     valorVenda: 100.00,
+    numeroPedidoCliente:  '456',
     produtos: [
       {
         descricaoProduto: 'Produto 1',
@@ -38,6 +39,7 @@ const vendasMock: Venda[] = [
     numeroPedido: 2,
     dataInclusao: '2021-03-01',
     previsaoFaturamento: '2021-04-01',
+    numeroPedidoCliente:  '456',
     valorVenda: 200.00,
     produtos: [
       {
@@ -53,6 +55,7 @@ const vendaMock2: Venda =
   {
     numeroPedido: 1,
     dataInclusao: '2021-01-01',
+    numeroPedidoCliente:  '456',
     previsaoFaturamento: '2021-02-01',
     valorVenda: 100.00,
     produtos: [
@@ -155,26 +158,6 @@ describe('PaginaAntecipacaoComponent', () => {
     });
   })
   
-  // SECTION - ngOnInit
-  describe('ngOnInit', () => {
-    
-    // NOTE - Deve chamar getVendas do serviço vendasService
-    it('deve chamar getVendas do serviço vendasService', () => {
-      vendasServiceMock.getVendas.and.returnValue(of([])); // Mock da resposta
-      fixture.detectChanges(); // Inicializa ngOnInit
-      expect(vendasServiceMock.getVendas).toHaveBeenCalled();
-    });
-
-    // NOTE - Deve lidar com erros ao buscar vendas
-    it('deve lidar com erros ao buscar vendas', () => {
-      const errorResponse = new Error('Erro ao buscar');
-      vendasServiceMock.getVendas.and.returnValue(throwError(errorResponse));
-      fixture.detectChanges(); // Inicializa ngOnInit
-      expect(logServiceMock.error).toHaveBeenCalledWith(`PaginaAntecipacaoComponent - ngOnInit: ${errorResponse}`);
-    });
-  });
-  //!SECTION
-
   // SECTION: mostrarDropdownProdutos
   describe('mostrarDropdownProdutos', () => {
     
@@ -182,14 +165,16 @@ describe('PaginaAntecipacaoComponent', () => {
     const vendaMock1: Venda = {
       numeroPedido: 1,
       dataInclusao: '2021-01-01',
-      previsaoFaturamento: '2021-02-01',
+    numeroPedidoCliente:  '456',
+    previsaoFaturamento: '2021-02-01',
       valorVenda: 100.00,
       produtos: [/* ...produtos... */]
     };
 
     const vendaMock2: Venda = {
       numeroPedido: 2,
-      dataInclusao: '2021-03-01',
+    numeroPedidoCliente:  '456',
+    dataInclusao: '2021-03-01',
       previsaoFaturamento: '2021-04-01',
       valorVenda: 200.00,
       produtos: [/* ...produtos... */]
@@ -200,6 +185,7 @@ describe('PaginaAntecipacaoComponent', () => {
       const vendaSelecionada: Venda = { 
         numeroPedido: 999, 
         dataInclusao: '',
+        numeroPedidoCliente:  '456',
         previsaoFaturamento: '',
         valorVenda: 0,
         produtos: [] 
@@ -233,33 +219,42 @@ describe('PaginaAntecipacaoComponent', () => {
   describe('filtrarCheckedStatus', () => {
 
     beforeEach(() => {
-      component.listaVendasFiltrada = vendasMock;
+      // ... (setup do beforeEach)
       component.checkedStatus = {
-        1: true,
-        2: false,
-        3: true // chave extra que não existe em listaVendasFiltrada
+          1: true,
+          2: false,
+          3: true // Este não deve aparecer no resultado final
       };
-      component.checkedStatusFiltrado = { ...component.checkedStatus };
     });
 
-    // NOTE: Deve manter status para vendas existentes em listaVendasFiltrada
-    it('deve manter status para vendas existentes em listaVendasFiltrada', () => {
-      component.filtrarCheckedStatus();
-      expect(component.checkedStatusFiltrado[1]).toBeTrue();
-      expect(component.checkedStatusFiltrado[2]).toBeFalse();
+    it('deve iniciar com checkedStatusFiltrado vazio', () => {
+        expect(component.checkedStatusFiltrado).toEqual({});
     });
 
-    // NOTE: Deve remover chaves que não correspondem a vendas em listaVendasFiltrada
-    it('deve remover chaves que não correspondem a vendas em listaVendasFiltrada', () => {
-      component.filtrarCheckedStatus();
-      expect(component.checkedStatusFiltrado[3]).toBeUndefined();
+    it('não deve alterar checkedStatusFiltrado se listaVendasFiltrada estiver vazia', () => {
+        component.listaVendasFiltrada = [];
+        component.filtrarCheckedStatus();
+        expect(component.checkedStatusFiltrado).toEqual({});
     });
 
-    // NOTE: Deve manter checkedStatusFiltrado vazio se listaVendasFiltrada for vazia
-    it('deve manter checkedStatusFiltrado vazio se listaVendasFiltrada for vazia', () => {
-      component.listaVendasFiltrada = [];
-      component.filtrarCheckedStatus();
-      expect(Object.keys(component.checkedStatusFiltrado).length).toBe(0);
+    it('deve preencher checkedStatusFiltrado corretamente com dados correspondentes', () => {
+        component.listaVendasFiltrada = vendasMock;
+        component.filtrarCheckedStatus();
+        expect(component.checkedStatusFiltrado).toEqual({ 1: true, 2: false });
+    });
+
+    it('deve manter checkedStatusFiltrado vazio se não houver correspondências', () => {
+        component.checkedStatus = { 4: true, 5: false };
+        component.listaVendasFiltrada = vendasMock;
+        component.filtrarCheckedStatus();
+        expect(component.checkedStatusFiltrado).toEqual({});
+    });
+
+    it('deve preencher checkedStatusFiltrado parcialmente com dados parcialmente correspondentes', () => {
+        component.checkedStatus = { 1: true, 3: false, 4: true };
+        component.listaVendasFiltrada = vendasMock;
+        component.filtrarCheckedStatus();
+        expect(component.checkedStatusFiltrado).toEqual({ 1: true });
     });
 
   });
@@ -743,6 +738,7 @@ describe('PaginaAntecipacaoComponent', () => {
           numeroPedido: 1,
           dataInclusao: '2021-01-01',
           previsaoFaturamento: '2021-02-01',
+          numeroPedidoCliente:  '456',
           valorVenda: 100.00,
           produtos: [
             {
@@ -761,6 +757,7 @@ describe('PaginaAntecipacaoComponent', () => {
         {
           numeroPedido: 2,
           dataInclusao: '2021-01-01',
+          numeroPedidoCliente:  '456',
           previsaoFaturamento: '2021-02-01',
           valorVenda: 100.00,
           produtos: [
@@ -779,6 +776,7 @@ describe('PaginaAntecipacaoComponent', () => {
         {
           numeroPedido: 3,
           dataInclusao: '2021-01-01',
+          numeroPedidoCliente:  '456',
           previsaoFaturamento: '2021-02-01',
           valorVenda: 100.00,
           produtos: [
@@ -927,14 +925,14 @@ describe('PaginaAntecipacaoComponent', () => {
   
     it('deve abrir o modal de confirmação se houver vendas selecionadas', () => {
       component.listaVendasSelecionadas = vendasMock;
-      component.onAdiantar();
+      component.onContinuar();
       expect(component.mostrarModalConfirmacao).toBeTrue();
     });
     
     it('deve chamar getQuantidadeVendasSelecionadas', () => {
       spyOn(component, 'getQuantidadeVendasSelecionadas')
       component.listaVendasSelecionadas = vendasMock;
-      component.onAdiantar();
+      component.onContinuar();
 
       expect(component.getQuantidadeVendasSelecionadas).toHaveBeenCalled();
     });
@@ -968,21 +966,39 @@ describe('PaginaAntecipacaoComponent', () => {
   });
   //!SECTION
 
-  //SECTION - onConfirmarAdiantamento
   describe('onConfirmarAdiantamento', () => {
-    it('deve chamar postVendasParaAdiantamento e exibir mensagem em caso de sucesso', () => {
-      let responseMock = { message: 'Sucesso' };
-      vendasServiceMock.postVendasParaAdiantamento.and.returnValue(of(responseMock));
-    
-      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
-      component.onConfirmarAdiantamento();
-    
-      expect(vendasServiceMock.postVendasParaAdiantamento).toHaveBeenCalled();
-      expect(mensagensServiceMock.exibirMensagemModal).toHaveBeenCalledWith('Sucesso');
-      expect(component.mostrarModalConfirmacao).toBe(false);
+    beforeEach(() => {
+      vendasServiceMock.postVendasParaAdiantamento.and.returnValue(of({ message: 'Sucesso' }));
+      spyOn(console, 'error');
+      spyOn(component, 'mostrarCarregando').and.callThrough();
+      spyOn(component, 'esconderCarregando').and.callThrough();
+      spyOn(component, 'onFecharModalConfirmacaoAdiantamento').and.callThrough();
     });
-    
-  })
+  
+    it('deve chamar as funções apropriadas em caso de sucesso', () => {
+      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
+      component.onConfirmarAdiantamento('2021-12-31');
+      expect(component.mostrarCarregando).toHaveBeenCalled();
+      expect(vendasServiceMock.postVendasParaAdiantamento).toHaveBeenCalled();
+      expect(component.esconderCarregando).toHaveBeenCalled();
+      expect(component.mensagensService.exibirMensagemModal).toHaveBeenCalledWith('Sucesso');
+      expect(component.onFecharModalConfirmacaoAdiantamento).toHaveBeenCalled();
+    });
+  
+    it('deve chamar as funções apropriadas em caso de erro', () => {
+      const errorMock = new Error('Erro');
+      vendasServiceMock.postVendasParaAdiantamento.and.returnValue(throwError(() => errorMock));
+      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
+      component.onConfirmarAdiantamento('2021-12-31');
+      expect(component.mostrarCarregando).toHaveBeenCalled();
+      expect(vendasServiceMock.postVendasParaAdiantamento).toHaveBeenCalled();
+      expect(component.esconderCarregando).toHaveBeenCalled();
+      expect(console.error).toHaveBeenCalledWith(errorMock); 
+      expect(component.onFecharModalConfirmacaoAdiantamento).toHaveBeenCalled();
+    });
+  });
+  
+  
 
   //SECTION - getQuantidadeVendasSelecionadas
   describe('getQuantidadeVendasSelecionadas', () => {
@@ -993,4 +1009,283 @@ describe('PaginaAntecipacaoComponent', () => {
     });
   });
   //!SECTION
+
+  //SECTION - carregarVendas
+  
+  describe('carregarVendas', () => {
+    // ...
+
+    it('deve tratar o sucesso de getVendas', () => {
+      // Configuração para cenário de sucesso
+      vendasServiceMock.getVendas.and.returnValue(of(vendasMock));
+      spyOn(component, 'mostrarCarregando').and.callThrough();
+      spyOn(component, 'esconderCarregando').and.callThrough();
+
+      component.carregarVendas();
+      expect(component.mostrarCarregando).toHaveBeenCalled();
+      expect(vendasServiceMock.getVendas).toHaveBeenCalled();
+      expect(component.listaVendas).toEqual(vendasMock);
+      expect(component.esconderCarregando).toHaveBeenCalled();
+    });
+
+    it('deve tratar erro de getVendas', () => {
+      // Configuração para cenário de erro
+      const errorMessage = 'Erro de teste';
+      vendasServiceMock.getVendas.and.returnValue(throwError(() => new Error(errorMessage)));
+      spyOn(component, 'mostrarCarregando').and.callThrough();
+      spyOn(component, 'esconderCarregando').and.callThrough();
+      spyOn(console, 'error');
+
+      component.carregarVendas();
+      expect(component.mostrarCarregando).toHaveBeenCalled();
+      expect(vendasServiceMock.getVendas).toHaveBeenCalled();
+      expect(console.error).toHaveBeenCalledWith(`Erro ao buscar vendas: Error: ${errorMessage}`);
+      expect(component.esconderCarregando).toHaveBeenCalled();
+    });
+
+  });
+
+  describe('atualizarCheckedStatus', () => {
+    it('deve inicializar checkedStatus e checkedStatusFiltrado como vazios se listaVendasFiltrada estiver vazia', () => {
+      component.listaVendasFiltrada = [];
+      component.atualizarCheckedStatus();
+      expect(component.checkedStatus).toEqual({});
+      expect(component.checkedStatusFiltrado).toEqual({});
+    });
+  
+    it('deve inicializar checkedStatus e checkedStatusFiltrado com base em listaVendasFiltrada', () => {
+      component.listaVendasFiltrada = vendasMock
+      component.atualizarCheckedStatus();
+      expect(component.checkedStatus).toEqual({ 1: false, 2: false });
+      expect(component.checkedStatusFiltrado).toEqual({ 1: false, 2: false });
+    });
+  });
+  
+  describe('tratarChaves', () => {
+    beforeEach(() => {
+      spyOn(component.alterarChavesService, 'mapKeys').and.callThrough();
+      spyOn(component.snakeToCamelService, 'transformKeysToCamelCase').and.callThrough();
+    });
+  
+    it('não deve alterar listaVendas se data estiver vazia', () => {
+      component.tratarChaves([]);
+      expect(component.listaVendas).toEqual([]);
+      expect(component.listaVendasFiltrada).toEqual([]);
+    });
+  
+    it('deve transformar chaves e aplicar camel case nas vendas', () => {
+      const vendasMock = [
+        // Dados transformados de acordo com as regras de transformação de chaves
+        {
+          numeroPedido: 1,
+          dataInclusao: '2021-01-01',
+          previsaoFaturamento: '2021-02-01',
+          valorVenda: 100.00,
+          numeroPedidoCliente:  '456',
+          produtos: [
+            {
+              descricaoProduto: 'Produto 1',
+              valorProduto: 50.00,
+              codigoProduto: 123
+            }
+          ]
+        },
+      ];
+      const vendasTransformadasMock = [
+        // Dados transformados de acordo com as regras de transformação de chaves
+        {
+          numeroPedido: 1,
+          dataInclusao: '2021-01-01',
+          previsaoFaturamento: '2021-02-01',
+          valorVenda: 100.00,
+          numeroPedidoCliente:  '456',
+          produtos: [
+            {
+              descricaoProduto: 'Produto 1',
+              valorProduto: 50.00,
+              codigoProduto: 123
+            }
+          ]
+        },
+      ];
+  
+      component.tratarChaves(vendasMock);
+      expect(component.listaVendas).toEqual(vendasTransformadasMock);
+      expect(component.listaVendasFiltrada).toEqual(vendasTransformadasMock);
+      expect(component.alterarChavesService.mapKeys).toHaveBeenCalled();
+      expect(component.snakeToCamelService.transformKeysToCamelCase).toHaveBeenCalled();
+    });
+  });
+  
+  describe('mostrarDropdownProdutos', () => {
+    beforeEach(() => {
+      component.listaVendasFiltrada = vendasMock;
+    });
+    it('deve desativar o dropdown se a mesma venda já está ativa', () => {
+      component.mostrarDropdownProdutosVenda = vendasMock[0];
+      component.dropdownAtivoVenda = vendasMock[0].numeroPedido;
+      component.mostrarDropdownProdutos(vendasMock[0]);
+      expect(component.mostrarDropdownProdutosVenda).toBeUndefined();
+      expect(component.dropdownAtivoVenda).toBeUndefined();
+    });
+  
+    it('deve ativar o dropdown para a nova venda selecionada', () => {
+      component.mostrarDropdownProdutos(vendasMock[0]);
+      expect(component.mostrarDropdownProdutosVenda).toEqual(vendasMock[0]);
+      expect(component.dropdownAtivoVenda).toEqual(vendasMock[0].numeroPedido);
+  
+      component.mostrarDropdownProdutos(vendasMock[1]);
+      expect(component.mostrarDropdownProdutosVenda).toEqual(vendasMock[1]);
+      expect(component.dropdownAtivoVenda).toEqual(vendasMock[1].numeroPedido);
+    });
+  });
+  
+  describe('formatarData', () => {
+    it('deve formatar a data de yyyy-mm-dd para dd/mm/yyyy', () => {
+      const dataOriginal = '2021-12-31';
+      expect(component.formatarData(dataOriginal)).toEqual('31/12/2021');
+    });
+  
+    it('deve retornar uma data invalida se a data de entrada for inválida ou vazia', () => {
+      expect(component.formatarData('')).toEqual('undefined/undefined/');
+      expect(component.formatarData('data invalida')).toEqual('undefined/undefined/data invalida');
+    });
+  });
+  
+
+  describe('handleNumerosPedidoClientePesquisado', () => {
+    beforeEach(() => {
+      spyOn(component, 'ativarBotaoLimparFiltros');
+      spyOn(component, 'filtrarTabela');
+      spyOn(component, 'filtrarCheckedStatus');
+      spyOn(component, 'getQuantidadeVendasFiltradas').and.returnValue(0);
+    });
+  
+    it('deve processar e armazenar números de pedido do cliente', () => {
+      component.handleNumerosPedidoClientePesquisado('123 456');
+      expect(component.numerosPedidoClientePesquisado).toEqual(['123', '456']);
+    });
+  
+    it('deve filtrar números de pedido vazios', () => {
+      component.handleNumerosPedidoClientePesquisado('123  ');
+      expect(component.numerosPedidoClientePesquisado).toEqual(['123']);
+    });
+  
+    it('deve chamar os métodos apropriados', () => {
+      component.handleNumerosPedidoClientePesquisado('123');
+      expect(component.ativarBotaoLimparFiltros).toHaveBeenCalled();
+      expect(component.filtrarTabela).toHaveBeenCalled();
+      expect(component.filtrarCheckedStatus).toHaveBeenCalled();
+      expect(component.getQuantidadeVendasFiltradas).toHaveBeenCalled();
+    });
+  });
+  
+  describe('onContinuar', () => {
+    beforeEach(() => {
+      spyOn(component, 'getQuantidadeVendasSelecionadas').and.returnValue(0);
+    });
+  
+    it('deve mostrar modal de confirmação se há vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [{
+        numeroPedido: 1,
+        dataInclusao: '2021-01-01',
+        numeroPedidoCliente:  '456',
+        previsaoFaturamento: '2021-02-01',
+        valorVenda: 100.00,
+        produtos: [
+          {
+            descricaoProduto: 'Produto 1',
+            valorProduto: 50.00,
+            codigoProduto: 123
+          }
+        ]
+      }];
+      component.onContinuar();
+      expect(component.getQuantidadeVendasSelecionadas).toHaveBeenCalled();
+      expect(component.quantidadeVendasSelecionadas).toBe(component.getQuantidadeVendasSelecionadas());
+      expect(component.mostrarModalConfirmacao).toBeTrue();
+    });
+  
+    it('não deve fazer nada se não houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [];
+      component.onContinuar();
+      expect(component.getQuantidadeVendasSelecionadas).not.toHaveBeenCalled();
+      expect(component.mostrarModalConfirmacao).toBeFalse();
+    });
+  });
+  
+  describe('getQuantidadeVendasSelecionadas', () => {
+    it('deve retornar zero se não houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [];
+      expect(component.getQuantidadeVendasSelecionadas()).toBe(0);
+    });
+  
+    it('deve retornar a quantidade correta de vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
+      expect(component.getQuantidadeVendasSelecionadas()).toBe(component.listaVendasSelecionadas.length);
+    });
+  });
+
+  describe('mostrarCarregando e esconderCarregando', () => {
+    it('deve alternar corretamente o estado de carregamento', () => {
+      component.mostrarCarregando();
+      expect(component.carregando).toBeTrue();
+  
+      component.esconderCarregando();
+      expect(component.carregando).toBeFalse();
+    });
+  });
+  
+  describe('getQuantidadeVendasFiltradas', () => {
+    it('deve retornar zero se não houver vendas filtradas', () => {
+      component.listaVendasFiltrada = [];
+      expect(component.getQuantidadeVendasFiltradas()).toBe(0);
+    });
+  
+    it('deve retornar a quantidade correta de vendas filtradas', () => {
+      component.listaVendasFiltrada = [/* simulação de vendas filtradas */];
+      expect(component.getQuantidadeVendasFiltradas()).toBe(component.listaVendasFiltrada.length);
+    });
+  });
+
+  
+  describe('getListaNumeroVendas', () => {
+    it('deve retornar uma lista vazia se não houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [];
+      expect(component.getListaNumeroVendas()).toEqual([]);
+    });
+  
+    it('deve retornar uma lista correta dos números de pedidos', () => {
+      component.listaVendasSelecionadas = [/* simulação de vendas selecionadas */];
+      const numerosEsperados = component.listaVendasSelecionadas.map(venda => venda.numeroPedido);
+      expect(component.getListaNumeroVendas()).toEqual(numerosEsperados);
+    });
+  });
+
+  describe('atualizarStatusBotaoContinuar', () => {
+    it('deve definir statusBotaoContinuar como falso se não houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [];
+      component.atualizarStatusBotaoContinuar();
+      expect(component.statusBotaoContinuar).toBeFalse();
+    });
+  
+    it('deve definir statusBotaoContinuar como verdadeiro se houver vendas selecionadas', () => {
+      component.listaVendasSelecionadas = [{
+        numeroPedido: 1,
+        dataInclusao: '2021-01-01',
+        numeroPedidoCliente:  '456',
+        previsaoFaturamento: '2021-02-01',
+        valorVenda: 100.00,
+        produtos: [
+          {
+            descricaoProduto: 'Produto 1',
+            valorProduto: 50.00,
+            codigoProduto: 123
+          }
+        ]
+      }];
+      component.atualizarStatusBotaoContinuar();
+      expect(component.statusBotaoContinuar).toBeTrue();
+    });
+  });
 });
