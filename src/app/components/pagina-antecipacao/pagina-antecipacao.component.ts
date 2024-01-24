@@ -65,7 +65,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   //NOTE - carregarVendas
   carregarVendas() {
     this.mostrarCarregando();
-    this.vendasService.getVendas().pipe(
+    this.mockService.getVendas().pipe(
       catchError((error) => {
         console.error(`Erro ao buscar vendas: ${error}`)
         this.logService.error(`PaginaAntecipacaoComponent - ngOnInit: ${error}`)

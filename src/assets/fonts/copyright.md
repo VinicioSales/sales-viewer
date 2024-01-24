@@ -1,0 +1,1 @@
+Fontes pertencentes a Parceiro Soluções

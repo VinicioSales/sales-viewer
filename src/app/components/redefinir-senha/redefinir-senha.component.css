@@ -100,10 +100,3 @@ a:hover{
 a:active{
     color: var(--cor-2);
 }
-
-.logo-parceiro{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-}

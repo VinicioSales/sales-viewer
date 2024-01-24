@@ -19,9 +19,7 @@ import { BotaoHomeComponent } from './components/botao-home/botao-home.component
 import { ModalGeralComponent } from './components/modal-geral/modal-geral.component';
 import { CarregamentoComponent } from './components/carregamento/carregamento.component';
 import { EsqueciSenhaComponent } from './components/esqueci-senha/esqueci-senha.component';
-import { LogoParceiroComponent } from './components/logo-parceiro/logo-parceiro.component';
 import { BotaoDropdownComponent } from './components/botao-dropdown/botao-dropdown.component';
-import { LogoRocinanteComponent } from './components/logo-rocinante/logo-rocinante.component';
 import { InputDropdownComponent } from './components/input-dropdown/input-dropdown.component';
 import { RedefinirSenhaComponent } from './components/redefinir-senha/redefinir-senha.component';
 import { InputPesquisarComponent } from './components/input-pesquisar/input-pesquisar.component';
@@ -42,7 +40,6 @@ import { InputSenhaComponent } from './components/input-senha/input-senha.compon
     BotaoTemaComponent,
     BotaoHomeComponent,
     ModalGeralComponent,
-    LogoParceiroComponent,
     CarregamentoComponent,
     EsqueciSenhaComponent,
     InputDropdownComponent,
@@ -52,7 +49,6 @@ import { InputSenhaComponent } from './components/input-senha/input-senha.compon
     PaginaAntecipacaoComponent,
     InputPesquisarFiltroComponent,
     ModalConfirmacaoAdiantamentoComponent,
-    LogoRocinanteComponent,
     InputSenhaComponent,
   ],
   imports: [

@@ -14,9 +14,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'frontend-ROCINANTE'`, () => {
+  it(`should have as title 'frontend-sales-viewer'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend-ROCINANTE');
+    expect(app.title).toEqual('frontend-sales-viewer');
   });
 });

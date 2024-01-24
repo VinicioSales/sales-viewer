@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import {InputComponent} from 'src/app/components/input/input.component';
 import {BotaoComponent} from 'src/app/components/botao/botao.component';
 import { InputSenhaComponent } from '../input-senha/input-senha.component';
-import { LogoParceiroComponent } from '../logo-parceiro/logo-parceiro.component';
 import { MensagensService } from 'src/app/services/mensagens/mensagens.service';
 import { ComponentFixture, TestBed, fakeAsync, tick  } from '@angular/core/testing'; 
 import {BotaoTemaComponent} from 'src/app/components/botao-tema/botao-tema.component';
@@ -34,7 +33,6 @@ describe('RegistroComponent', () => {
         BotaoTemaComponent,
         InputComponent,
         BotaoComponent,
-        LogoParceiroComponent,
         InputSenhaComponent,
         
       ],
