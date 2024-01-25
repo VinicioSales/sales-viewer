@@ -345,6 +345,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
   
   //NOTE - filtrarTabela
   filtrarTabela() {
+    debugger
     this.mostrarCarregando();
 
     this.limparFiltros();
@@ -359,10 +360,6 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.filtrarVendaPorNumeroPedido();
     }
 
-    if (this.numeroPedidoPesquisado && this.numeroPedidoPesquisado != '') {
-      this.filtrarVendaPorNumeroPedido();
-    }
-
     if (this.dataInclusaoPesquisado && this.dataInclusaoPesquisado != '') {
       this.filtrarVendaPorData();
     }
@@ -371,7 +368,7 @@ export class PaginaAntecipacaoComponent implements OnInit {
       this.filtrarVendaPorValor();
     }
 
-    if (this.numerosPedidoClientePesquisado) {
+    if (this.numerosPedidoClientePesquisado.length > 0) {
       this.filtrarVendaPorNumeroPedidoCliente();
     }
     
